@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="layicr,lyc,lyc.la,演唱会,五月天,陈奕迅,任贤齐,孙燕姿,邓紫棋,周传雄,李荣浩,伍佰,Concert,Mayday,EasonChan,RichieJen,StefanieSun,G.E.M.,SteveChou,LiRonghao,WuBai">
+    <meta name="Description" content="layicr,lyc,lyc.la,演唱会,五月天,陈奕迅,任贤齐,孙燕姿,邓紫棋,周传雄,李荣浩,伍佰,Concert,Mayday,EasonChan,RichieJen,StefanieSun,G.E.M.,SteveChou,LiRonghao,WuBai">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>演唱会</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+<body>
+    <div class="main-container">
+        <!-- 左侧足迹地点列表 -->
+        <div class="location-sidebar">
+            <h3 class="sidebar-title">layicr 演唱会列表</h3>
+            <div class="location-list" id="locationListContainer"></div>
+       
+        <!-- 新增友情链接模块 -->
+        <div class="friend-links">
+            <h4 class="links-title">友情链接</h4>
+            <div class="links-list">
+                <a href="http://www.lyc.la" class="link-item" target="_blank">
+                    <span class="link-icon icon-website">layicr</span>
+                    <span>lyc.la</span>
+                </a>
+                <a href="http://github.com/layicr" class="link-item" target="_blank">
+                    <span class="link-icon icon-facebook">Github</span>
+                    <span>Github</span>
+                </a>
+                <a href="http://weibo.com/layicr" class="link-item" target="_blank">
+                    <span class="link-icon icon-weibo">Weibo</span>
+                    <span>微博Weibo</span>
+                </a>
+                <a href="https://mp.weixin.qq.com/s/S1sq45LC_iQuCLYxzoaRkw" class="link-item" target="_blank">
+                    <span class="link-icon icon-wechat">公众</span>
+                    <span>公众号</span>
+                </a>
+                <a href="https://v.douyin.com/5nAiAZQoUXw/" class="link-item" target="_blank">
+                    <span class="link-icon icon-douyin">douyin</span>
+                    <span>抖音douyin</span>
+                </a>
+                <a href="http://ilayicr.lofter.com" class="link-item" target="_blank">
+                    <span class="link-icon icon-lofter">Lofter</span>
+                    <span>Lofter</span>
+                </a>
+                <a href="https://b23.tv/zNBEiaa" class="link-item" target="_blank">
+                    <span class="link-icon icon-bilibili">bili</span>
+                    <span>bilibili</span>
+                </a>
+                
+                <a href="http://twitter.com/layicr" class="link-item" target="_blank">
+                    <span class="link-icon icon-twitter">X</span>
+                    <span>Twitter</span>
+                </a>
+               
+                <a href="http://www.instagram.com/ilayicr" class="link-item" target="_blank">
+                    <span class="link-icon icon-ins">Ins</span>
+                    <span>Instagram</span>
+                </a>
+                <a href="http://www.facebook.com/layicr" class="link-item" target="_blank">
+                    <span class="link-icon icon-facebook">FB</span>
+                    <span>Facebook</span>
+                </a>
+                <a href="http://www.vk.com/layicr" class="link-item" target="_blank">
+                    <span class="link-icon icon-douyin">VK</span>
+                    <span>VK</span>
+                </a>
+            </div>
+        </div>
+    </div>
+        <!-- 右侧内容区域 -->
+        <div class="content-container">
+            <h2 class="timeline-title"><span>演唱会足迹</span></h2>
+            
+            <!-- 时间轴主体 -->
+            <div class="timeline" id="timelineContainer"></div>
+        </div>
+    </div>
+
+    <!-- 图片预览弹窗 -->
+    <div class="img-modal" id="imgModal">
+        <button class="modal-nav modal-prev">&lt;</button>
+        <span class="close-modal" id="closeModal">&times;</span>
+        <img src="" alt="大图预览" class="modal-img" id="modalImg">
+        <button class="modal-nav modal-next">&gt;</button>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>
