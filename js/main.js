@@ -49,7 +49,7 @@ function renderTimeline() {
                 <div class="timeline-content">
                     <div class="timeline-date">${location.date}</div>
                     <div class="timeline-desc">${location.description}</div>
-                    <button class="view-img-btn" data-id="${location.id}">查看照片</button>
+                    <button class="view-img-btn" data-id="${location.id}">View photos</button>
                     <div class="timeline-img-container" id="imgContainer-${location.id}">
                         <div class="img-slider" id="imgSlider-${location.id}">
                             ${location.images.map((img, index) => `
