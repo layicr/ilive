@@ -19,7 +19,7 @@
 
 **🚀 Next stop, where will it be?**
 >
-> To be honest, 
+> To be honest,  
 > An elusive kind of candor pushes us to grow.  
 > A streak of blue,  
 > Footprints on the road will never cease.  
