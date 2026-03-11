@@ -3,7 +3,7 @@
 
 
 # 🌍 Concert Trail
-### ✨「Concert Trail」: https://layicr.github.io/ilive/
+### ✨「Concert Trail」: https://layicr.github.io/ilive/en/
 
 | 🎉 Artist | 📌 Venue | 📅 Date |
 | :--- | :--- | :--- |
