@@ -281,30 +281,6 @@ body {
 
 }
 
-.profile-description {
-    font-size: 20px;
-    color: #666;
-    line-height: 1.6;
-    margin-top: 20px;
-    animation: fadeInUp 0.8s ease-out 0.3s both;
-}
-
-@media (min-width: 768px) {
-    .profile-description {
-        font-size: 24px;
-    }
-}
-
-.profile-description a {
-    color: #ff6b35;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.profile-description a:hover {
-    text-decoration: underline;
-}
-
 .profile-subtitle {
     font-size: 18px;
     color: #5f5e5e;
@@ -460,27 +436,6 @@ body {
     position: relative;
     z-index: 5;
     background: transparent;
-}
-
-.section-title {
-    text-align: center;
-    font-size: 36px;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 60px;
-    position: relative;
-}
-
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(90deg, #ff6b35, #ff8c42);
-    border-radius: 2px;
 }
 
 .stats-grid {
@@ -730,10 +685,6 @@ body {
     }
 }
 
-.animated {
-    animation: fadeIn 0.8s ease-out;
-}
-
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -787,7 +738,7 @@ body {
 
 .timeline-content {
     padding: 25px;
-    background: rgb(253, 248, 248,0.9);
+    background: rgb(253, 248, 248, 0.9);
     backdrop-filter: blur(10px);
     border-radius: 15px;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -1213,6 +1164,7 @@ body {
 }
 
 @media (max-width: 768px) {
+
     /* 大写字母L - 移动端缩小 */
     .logo-letter {
         font-size: 180px;
@@ -1346,5 +1298,46 @@ body {
         bottom: 20px;
         right: 20px;
         font-size: 18px;
+    }
+}
+
+/* 间距控制 */
+.section-spacing {
+    padding: 60px 0 80px;
+}
+
+/* 背景填充动画 */
+.highlight-fill {
+    position: relative;
+    color: #fff;
+    font-weight: 600;
+    padding: 2px 4px;
+    border-radius: 4px;
+    background: linear-gradient(90deg,
+            #fbbf24 0%,
+            #fbbf24 0%);
+    background-size: 0% 100%;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+.highlight-fill.animate {
+    animation: fillBackground 15s ease-in-out forwards;
+}
+
+@keyframes fillBackground {
+    0% {
+        background-size: 0% 100%;
+        color: #fff;
+    }
+
+    12.5% {
+        background-size: 100% 100%;
+        color: #000;
+    }
+
+    100% {
+        background-size: 100% 100%;
+        color: #000;
     }
 }

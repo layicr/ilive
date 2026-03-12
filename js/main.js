@@ -193,12 +193,12 @@ function openImageModal(src, alt, imageList = null, startIndex = 0) {
     modalImage.src = src;
     modalImage.alt = alt;
     modalCaption.textContent = alt;
-    
+
     if (imageList && imageList.length > 0) {
         currentImageList = imageList;
         currentImageIndex = startIndex;
     }
-    
+
     updateModalNavButtons();
     modal.classList.add('show');
 }
@@ -211,29 +211,29 @@ function closeImageModal() {
 
 function navigateImage(direction) {
     if (currentImageList.length === 0) return;
-    
+
     currentImageIndex += direction;
-    
+
     if (currentImageIndex < 0) {
         currentImageIndex = currentImageList.length - 1;
     } else if (currentImageIndex >= currentImageList.length) {
         currentImageIndex = 0;
     }
-    
+
     const currentImage = currentImageList[currentImageIndex];
-    
+
     modalImage.classList.add('switching');
-    
+
     setTimeout(() => {
         modalImage.src = currentImage.src;
         modalImage.alt = currentImage.alt;
         modalCaption.textContent = currentImage.alt;
-        
+
         setTimeout(() => {
             modalImage.classList.remove('switching');
         }, 30);
     }, 200);
-    
+
     updateModalNavButtons();
 }
 
@@ -314,3 +314,98 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 window.openImageModal = openImageModal;
+
+
+
+
+let currentIndex1 = 0;
+let currentIndex2 = 0;
+let currentIndex3 = 0;
+
+const dynamicText1 = document.getElementById('dynamic-text-1');
+const dynamicText2 = document.getElementById('dynamic-text-2');
+const dynamicText3 = document.getElementById('dynamic-text');
+
+// 第一行动态文本
+function updateText1() {
+    const storiesTextData = currentLanguage === 'zh' ? storiesTextDataZH : storiesTextDataEN;
+    const textArray = storiesTextData.text1;
+
+    dynamicText1.style.opacity = '0';
+    dynamicText1.style.transition = 'opacity 0.3s ease';
+
+    setTimeout(() => {
+        currentIndex1 = (currentIndex1 + 1) % textArray.length;
+        dynamicText1.textContent = textArray[currentIndex1];
+        dynamicText1.style.opacity = '1';
+    }, 300);
+}
+
+// 第二行动态文本
+function updateText2() {
+    const storiesTextData = currentLanguage === 'zh' ? storiesTextDataZH : storiesTextDataEN;
+    const textArray = storiesTextData.text2;
+
+    dynamicText2.style.opacity = '0';
+    dynamicText2.style.transition = 'opacity 0.3s ease';
+
+    setTimeout(() => {
+        currentIndex2 = (currentIndex2 + 1) % textArray.length;
+        dynamicText2.textContent = textArray[currentIndex2];
+        dynamicText2.style.opacity = '1';
+    }, 300);
+}
+
+// 第三行动态文本（带高亮动画）
+function playHighlightAnimation() {
+    dynamicText3.classList.remove('animate');
+    void dynamicText3.offsetWidth;
+    dynamicText3.classList.add('animate');
+}
+
+function updateText3() {
+    const storiesTextData = currentLanguage === 'zh' ? storiesTextDataZH : storiesTextDataEN;
+    const textArray = storiesTextData.text3;
+
+    dynamicText3.style.opacity = '0';
+    dynamicText3.style.transition = 'opacity 0.3s ease';
+
+    setTimeout(() => {
+        currentIndex3 = (currentIndex3 + 1) % textArray.length;
+        dynamicText3.textContent = textArray[currentIndex3];
+        dynamicText3.style.opacity = '1';
+
+        setTimeout(() => {
+            playHighlightAnimation();
+        }, 100);
+    }, 300);
+}
+
+// 初始化文本
+function initStoriesText() {
+    const storiesTextData = currentLanguage === 'zh' ? storiesTextDataZH : storiesTextDataEN;
+    dynamicText1.textContent = storiesTextData.text1[0];
+    dynamicText2.textContent = storiesTextData.text2[0];
+    dynamicText3.textContent = storiesTextData.text3[0];
+
+    setTimeout(() => {
+        playHighlightAnimation();
+    }, 500);
+}
+
+// 监听语言切换
+document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+        setTimeout(() => {
+            initStoriesText();
+        }, 100);
+    });
+});
+
+// 页面加载初始化
+initStoriesText();
+
+// 定时更新
+setInterval(updateText1, 4000);
+setInterval(updateText2, 4000);
+setInterval(updateText3, 4000);
