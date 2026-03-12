@@ -1,79 +1,160 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="keywords" content="layicr,lyc,lyc.la,演唱会,五月天,陈奕迅,任贤齐,孙燕姿,邓紫棋,周传雄,李荣浩,伍佰,Concert,Mayday,EasonChan,RichieJen,StefanieSun,G.E.M.,SteveChou,LiRonghao,WuBai">
     <meta name="Description" content="layicr,lyc,lyc.la,演唱会,五月天,陈奕迅,任贤齐,孙燕姿,邓紫棋,周传雄,李荣浩,伍佰,Concert,Mayday,EasonChan,RichieJen,StefanieSun,G.E.M.,SteveChou,LiRonghao,WuBai">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>演唱会</title>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>layicr</title>
     <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
-    <div class="main-container">
-        <!-- 左侧足迹地点列表 -->
-        <div class="location-sidebar">
-            <h3 class="sidebar-title">layicr 演唱会列表</h3>
-            <div class="location-list" id="locationListContainer"></div>
-       
-        <!-- 新增友情链接模块 -->
-        <div class="friend-links">
-            <h4 class="links-title">友情链接</h4>
-            <div class="links-list">
-                <a href="http://www.lyc.la" class="link-item" target="_blank">
-                    <span class="link-icon icon-website">layicr</span>
-                    <span>lyc.la</span>
-                </a>
-                <a href="http://github.com/layicr" class="link-item" target="_blank">
-                    <span class="link-icon icon-facebook">Github</span>
-                    <span>Github</span>
-                </a>
-                <a href="http://weibo.com/layicr" class="link-item" target="_blank">
-                    <span class="link-icon icon-weibo">Weibo</span>
-                    <span>Weibo</span>
-                </a>
-                <a href="https://mp.weixin.qq.com/s/S1sq45LC_iQuCLYxzoaRkw" class="link-item" target="_blank">
-                    <span class="link-icon icon-wechat">公众</span>
-                    <span>公众号</span>
-                </a>
-                <a href="https://v.douyin.com/5nAiAZQoUXw/" class="link-item" target="_blank">
-                    <span class="link-icon icon-douyin">douyin</span>
-                    <span>抖音douyin</span>
-                </a>
-                <a href="http://twitter.com/layicr" class="link-item" target="_blank">
-                    <span class="link-icon icon-twitter">X</span>
-                    <span>Twitter</span>
-                </a>
-                <a href="http://www.instagram.com/ilayicr" class="link-item" target="_blank">
-                    <span class="link-icon icon-ins">Ins</span>
-                    <span>Instagram</span>
-                </a>
-                <a href="http://www.facebook.com/layicr" class="link-item" target="_blank">
-                    <span class="link-icon icon-facebook">FB</span>
-                    <span>Facebook</span>
-                </a>
+    <div class="language-switcher">
+        <button class="lang-btn active" data-lang="zh">中文</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+
+    <div class="background-circles">
+        <div class="logo-letter">L</div>
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+    </div>
+
+    <section class="hero-section">
+        <div class="profile-wrapper">
+            <div class="orbit-container">
+                <div class="avatar-section">
+                    <div class="avatar-container">
+                        <img src="img/logo.jpg" alt="layicr" class="avatar-image" onerror="this.src='img/logo.jpg'">
+                        <div class="status-dot"></div>
+                    </div>
+                    <div class="avatar-border"></div>
+                </div>
+            </div>
+
+            <div class="profile-card">
+                <div class="profile-label" id="profile-label">My name is:</div>
+                <h1 class="profile-name">layicr</h1>
+              
+                <div class="profile-subtitle" id="profile-subtitle">XXX:</div>
+                <ul class="roles-list" id="roles-list">
+                    <li class="role-item">XX 演唱会</li>
+                    <li class="role-item">XX 城市</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Stats Section -->
+    <section class="social-stats" id="influencer">
+
+        <div class="stats-grid">
+            <div class="stat-card cities" id="city-card">
+                <div class="stat-number" id="total-cities">X</div>
+                <div class="stat-label" id="cities-label">城市</div>
+            </div>
+
+            <div class="stat-card artists">
+                <div class="stat-number" id="total-artists">X</div>
+                <div class="stat-label" id="artists-label">艺人</div>
+            </div>
+
+            <div class="stat-card total">
+                <div class="stat-number" id="total-concerts">X</div>
+                <div class="stat-label" id="total-label">场次</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 时间轴 -->
+    <div class="timeline" id="timeline">
+    </div>
+
+    <!-- 加载动画 -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <p id="loading-text">加载中...</p>
+    </div>
+
+    <!-- 城市列表模态框 -->
+    <div class="city-modal" id="cityModal">
+        <div class="city-modal-content">
+            <div class="city-modal-header">
+                <button class="city-modal-close" id="closeCityModal">&times;</button>
+                <h2 class="city-modal-title" id="city-modal-title">巡演城市</h2>
+            </div>
+            <div class="city-list" id="cityList">
             </div>
         </div>
     </div>
-        <!-- 右侧内容区域 -->
-        <div class="content-container">
-            <h2 class="timeline-title"><span>演唱会足迹</span></h2>
-            
-            <!-- 时间轴主体 -->
-            <div class="timeline" id="timelineContainer"></div>
-        </div>
+
+    <!-- 图片查看器模态框 -->
+    <div class="modal" id="imageModal">
+        <span class="close" id="closeModal">&times;</span>
+        <button class="modal-nav modal-prev" id="prevImage">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="modal-nav modal-next" id="nextImage">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <img class="modal-content" id="modalImage" alt="演唱会图片">
+        <div class="modal-caption" id="modalCaption"></div>
     </div>
 
-    <!-- 图片预览弹窗 -->
-    <div class="img-modal" id="imgModal">
-        <button class="modal-nav modal-prev">&lt;</button>
-        <span class="close-modal" id="closeModal">&times;</span>
-        <img src="" alt="大图预览" class="modal-img" id="modalImg">
-        <button class="modal-nav modal-next">&gt;</button>
-    </div>
-    <script src="db/datas.js"></script>
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo"></span>
+                <span class="footer-divider"></span>
+                <span class="footer-tagline" id="footer-text"></span>
+            </div>
+            <div class="footer-social">
+                <a href="http://www.lyc.la" target="_blank" class="social-link" title="lyc.la">
+                    <i class="fas fa-globe"></i>
+                </a>
+                  <a href="http://github.com/layicr" target="_blank" class="social-link" title="Github">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="http://weibo.com/layicr" target="_blank" class="social-link" title="Weibo">
+                    <i class="fab fa-weibo"></i>
+                </a>
+                <a href="https://mp.weixin.qq.com/s/S1sq45LC_iQuCLYxzoaRkw" target="_blank" class="social-link" title="WeChat">
+                    <i class="fab fa-weixin"></i>
+                </a>
+                <a href="https://v.douyin.com/5nAiAZQoUXw/" target="_blank" class="social-link" title="Douyin">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="http://twitter.com/layicr" target="_blank" class="social-link" title="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="http://www.instagram.com/ilayicr" target="_blank" class="social-link" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="http://www.facebook.com/layicr" target="_blank" class="social-link" title="Facebook">
+                    <i class="fab fa-facebook"></i>
+                </a>
+            </div>
+            <div class="footer-bottom">
+                <span> <span id="site-name"></span></span>
+                <span class="footer-separator">·</span>
+                <span><a href="https://www.busuanzi.cc/count.php?search=www.busuanzi.cc" title="" target="_blank">
+                    </a></span>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" title="Back">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="db/datas_cn.js"></script>
+    <script src="db/datas_en.js"></script>
     <script src="js/main.js"></script>
 </body>
+
 </html>

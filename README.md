@@ -1,4 +1,4 @@
-**[中文](https://github.com/layicr/ilive/)** | **[ENGLISH](https://github.com/layicr/ilive/tree/main/en/)**
+**[中文](https://github.com/layicr/ilive/)** | **[ENGLISH](https://github.com/layicr/ilive/blob/main/README_EN.md)**
 
 
 

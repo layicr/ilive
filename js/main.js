@@ -1,217 +1,316 @@
- // ========== 初始化页面 ==========
-  $(document).ready(function() {
-    // 设置页面标题
-    document.title = travelData.pageTitle;
-    $('.sidebar-title').text(travelData.sidebarTitle);
-    $('.timeline-title span').text(travelData.mainTitle);
 
-    // 渲染左侧地点列表
-    renderLocationList();
-    
-    // 渲染时间轴
+let currentLanguage = 'zh';
+let currentData = concertDataZH;
+let currentImageList = [];
+let currentImageIndex = 0;
+
+const langButtons = document.querySelectorAll('.lang-btn');
+const totalConcerts = document.getElementById('total-concerts');
+const totalArtists = document.getElementById('total-artists');
+const totalCities = document.getElementById('total-cities');
+const concertsLabel = document.getElementById('total-label');
+const artistsLabel = document.getElementById('artists-label');
+const citiesLabel = document.getElementById('cities-label');
+const footerText = document.getElementById('footer-text');
+const siteName = document.getElementById('site-name');
+const timeline = document.getElementById('timeline');
+const loader = document.getElementById('loader');
+const loadingText = document.getElementById('loading-text');
+const modal = document.getElementById('imageModal');
+const modalImage = document.getElementById('modalImage');
+const modalCaption = document.getElementById('modalCaption');
+const closeModal = document.getElementById('closeModal');
+const prevImageBtn = document.getElementById('prevImage');
+const nextImageBtn = document.getElementById('nextImage');
+const cityModal = document.getElementById('cityModal');
+const cityModalTitle = document.getElementById('city-modal-title');
+const cityList = document.getElementById('cityList');
+const closeCityModal = document.getElementById('closeCityModal');
+const cityCard = document.getElementById('city-card');
+
+function initPage() {
+    const savedLang = localStorage.getItem('concertJourneyLang');
+    if (savedLang && (savedLang === 'zh' || savedLang === 'en')) {
+        currentLanguage = savedLang;
+        currentData = currentLanguage === 'zh' ? concertDataZH : concertDataEN;
+    } else {
+        const browserLang = navigator.language.toLowerCase();
+        currentLanguage = browserLang.startsWith('zh') ? 'zh' : 'en';
+        currentData = currentLanguage === 'zh' ? concertDataZH : concertDataEN;
+    }
+
+    updateLanguageButtons();
+
+    updatePageContent();
     renderTimeline();
-    
-    // 绑定事件
-    bindEvents();
-    
-    // 默认激活第一个地点
-    $('.location-item').first().addClass('active');
-    showLocationDetail(1);
+}
+
+function updateLanguageButtons() {
+    langButtons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.lang === currentLanguage) {
+            btn.classList.add('active');
+        }
+    });
+}
+
+function updatePageContent() {
+    document.title = currentData.pageTitle;
+    document.documentElement.lang = currentLanguage;
+
+    document.getElementById('profile-label').textContent = currentData.profileLabel;
+    document.getElementById('profile-subtitle').textContent = currentData.profileSubtitle;
+
+    const rolesList = document.getElementById('roles-list');
+    rolesList.innerHTML = '';
+    currentData.roles.forEach(role => {
+        const li = document.createElement('li');
+        li.className = 'role-item';
+        li.textContent = role;
+        rolesList.appendChild(li);
+    });
+
+    totalConcerts.textContent = currentData.totalConcerts;
+    totalArtists.textContent = currentData.totalArtists;
+    totalCities.textContent = currentData.totalCities;
+
+    concertsLabel.textContent = currentData.concertsLabel;
+    artistsLabel.textContent = currentData.artistsLabel;
+    citiesLabel.textContent = currentData.citiesLabel;
+
+    footerText.textContent = currentData.footerText;
+    siteName.textContent = currentData.siteName;
+
+    cityModalTitle.textContent = currentData.modalTitle;
+
+    loadingText.textContent = currentLanguage === 'zh' ? '加载中...' : 'Loading...';
+
+    renderCityList();
+}
+
+function renderCityList() {
+    cityList.innerHTML = '';
+
+    currentData.cities.forEach(city => {
+        const cityItem = document.createElement('div');
+        cityItem.className = 'city-item';
+
+        cityItem.innerHTML = `
+            <div class="city-icon">${city.icon}</div>
+            <div class="city-info">
+                <div class="city-name">${city.name}</div>
+                <div class="city-concerts">${currentLanguage === 'zh' ? '举办演唱会：' : 'Concerts: '}${city.concerts}${currentLanguage === 'zh' ? '场' : ''}</div>
+            </div>
+        `;
+
+        cityList.appendChild(cityItem);
+    });
+}
+
+function renderTimeline() {
+    loader.style.display = 'block';
+    timeline.innerHTML = '';
+
+    setTimeout(() => {
+        const sortedConcerts = [...currentData.concerts].sort((a, b) => {
+            return new Date(b.date) - new Date(a.date);
+        });
+
+        sortedConcerts.forEach((concert, index) => {
+            const timelineItem = document.createElement('div');
+            timelineItem.className = 'timeline-item';
+            timelineItem.style.animationDelay = `${index * 0.1}s`;
+
+            let imagesHTML = '';
+            if (concert.images && concert.images.length > 0) {
+                imagesHTML = '<div class="gallery">';
+                concert.images.forEach((img, imgIndex) => {
+                    const imageData = JSON.stringify(concert.images).replace(/'/g, "\\'");
+                    imagesHTML += `
+                        <div class="gallery-item" onclick='openImageModal("${img.src}", "${img.alt}", ${imageData}, ${imgIndex})'>
+                            <img src="${img.src}" alt="${img.alt}" loading="lazy">
+                        </div>
+                    `;
+                });
+                imagesHTML += '</div>';
+            }
+
+            timelineItem.innerHTML = `
+                <div class="timeline-content">
+                    <div class="concert-date">${concert.date}</div>
+                    <h2 class="concert-artist">${concert.artist}</h2>
+                    <div class="concert-location">
+                        <i class="fas fa-map-marker-alt"></i> ${concert.location}
+                    </div>
+                    <div class="concert-description">${concert.description}</div>
+                    ${imagesHTML}
+                </div>
+            `;
+
+            timeline.appendChild(timelineItem);
+        });
+
+        loader.style.display = 'none';
+
+        observeTimelineItems();
+    }, 800);
+}
+
+function observeTimelineItems() {
+    const timelineItems = document.querySelectorAll('.timeline-item');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    timelineItems.forEach(item => {
+        observer.observe(item);
+    });
+}
+
+const backToTopBtn = document.getElementById('backToTop');
+
+window.addEventListener('scroll', function () {
+    if (window.scrollY > 300) {
+        backToTopBtn.classList.add('visible');
+    } else {
+        backToTopBtn.classList.remove('visible');
+    }
 });
 
-// ========== 渲染左侧地点列表 ==========
-function renderLocationList() {
-    const $container = $('#locationListContainer');
-    $container.empty();
+backToTopBtn.addEventListener('click', function () {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+function openImageModal(src, alt, imageList = null, startIndex = 0) {
+    modalImage.src = src;
+    modalImage.alt = alt;
+    modalCaption.textContent = alt;
     
-    travelData.locations.forEach(location => {
-        const $item = $(`
-            <div class="location-item" data-id="${location.id}">
-                <div class="location-name">
-                    <span>${location.name}</span>
-                    <span class="date-tag">${location.date}</span>
-                </div>
-            </div>
-        `);
-        $container.append($item);
-    });
-}
-
-// ========== 渲染时间轴 ==========
-function renderTimeline() {
-    const $container = $('#timelineContainer');
-    $container.empty();
+    if (imageList && imageList.length > 0) {
+        currentImageList = imageList;
+        currentImageIndex = startIndex;
+    }
     
-    travelData.locations.forEach(location => {
-        const $item = $(`
-            <div class="timeline-item" data-id="${location.id}">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <div class="timeline-date">${location.date}</div>
-                    <div class="timeline-desc">${location.description}</div>
-                    <button class="view-img-btn" data-id="${location.id}">View photos</button>
-                    <div class="timeline-img-container" id="imgContainer-${location.id}">
-                        <div class="img-slider" id="imgSlider-${location.id}">
-                            ${location.images.map((img, index) => `
-                                <img src="${img.src}" alt="${img.alt}" class="slider-img ${index === 0 ? 'active' : ''}" data-index="${index}">
-                            `).join('')}
-                        </div>
-                        <div class="thumbnail-container" id="thumbnailContainer-${location.id}">
-                            ${location.images.map((img, index) => `
-                                <img src="${img.thumbnail}" alt="${img.alt}" class="thumbnail ${index === 0 ? 'active' : ''}" data-index="${index}" data-id="${location.id}">
-                            `).join('')}
-                        </div>
-                        <div class="img-count" id="imgCount-${location.id}">
-                            1/${location.images.length}
-                        </div>
-                        <button class="slider-btn prev-btn" data-id="${location.id}">&lt;</button>
-                        <button class="slider-btn next-btn" data-id="${location.id}">&gt;</button>
-                    </div>
-                </div>
-            </div>
-        `);
-        $container.append($item);
-    });
+    updateModalNavButtons();
+    modal.classList.add('show');
 }
 
-// ========== 绑定事件 ==========
-function bindEvents() {
-    // 左侧地点点击事件
-    $('.location-item').on('click', function() {
-        const locationId = $(this).data('id');
-        $('.location-item').removeClass('active');
-        $(this).addClass('active');
-        showLocationDetail(locationId);
-    });
-
-    // 查看图片按钮点击事件
-    $('.view-img-btn').on('click', function() {
-        const locationId = $(this).data('id');
-        $(`#imgContainer-${locationId}`).slideToggle(300);
-    });
-
-    // 轮播图切换按钮事件
-    $('.slider-btn').on('click', function() {
-        const locationId = $(this).data('id');
-        const $slider = $(`#imgSlider-${locationId}`);
-        const $thumbnails = $(`#thumbnailContainer-${locationId} .thumbnail`);
-        const $count = $(`#imgCount-${locationId}`);
-        const isNext = $(this).hasClass('next-btn');
-        
-        let currentIndex = $slider.find('.slider-img.active').data('index');
-        const total = $slider.find('.slider-img').length;
-        
-        currentIndex = isNext 
-            ? (currentIndex + 1) % total 
-            : (currentIndex - 1 + total) % total;
-        
-        // 更新轮播图
-        $slider.find('.slider-img').removeClass('active');
-        $slider.find(`.slider-img[data-index="${currentIndex}"]`).addClass('active');
-        
-        // 更新缩略图
-        $thumbnails.removeClass('active');
-        $thumbnails.filter(`[data-index="${currentIndex}"]`).addClass('active');
-        
-        // 更新计数
-        $count.text(`${currentIndex + 1}/${total}`);
-    });
-
-    // 缩略图点击事件
-    $('.thumbnail').on('click', function() {
-        const locationId = $(this).data('id');
-        const index = $(this).data('index');
-        const $slider = $(`#imgSlider-${locationId}`);
-        const $thumbnails = $(`#thumbnailContainer-${locationId} .thumbnail`);
-        const $count = $(`#imgCount-${locationId}`);
-        
-        // 更新轮播图
-        $slider.find('.slider-img').removeClass('active');
-        $slider.find(`.slider-img[data-index="${index}"]`).addClass('active');
-        
-        // 更新缩略图
-        $thumbnails.removeClass('active');
-        $(this).addClass('active');
-        
-        // 更新计数
-        $count.text(`${index + 1}/${$slider.find('.slider-img').length}`);
-    });
-
-    // 图片预览弹窗相关事件
-    // 点击轮播图打开弹窗
-    $('.slider-img').on('click', function() {
-        const src = $(this).attr('src');
-        const locationId = $(this).closest('.timeline-item').data('id');
-        const index = $(this).data('index');
-        
-        $('#modalImg').attr('src', src);
-        $('#imgModal').fadeIn(300).css({
-            display: 'flex'
-        });
-        
-        // 存储当前弹窗的图片信息
-        $('#imgModal').data({
-            locationId: locationId,
-            currentIndex: index,
-            total: travelData.locations.find(loc => loc.id === locationId).images.length
-        });
-    });
-
-    // 关闭弹窗
-    $('#closeModal').on('click', function() {
-        $('#imgModal').fadeOut(300);
-    });
-
-    // 弹窗点击空白处关闭
-    $('#imgModal').on('click', function(e) {
-        if (e.target === this) {
-            $(this).fadeOut(300);
-        }
-    });
-
-    // 弹窗图片导航
-    $('.modal-nav').on('click', function() {
-        const $modal = $('#imgModal');
-        const locationId = $modal.data('locationId');
-        let currentIndex = $modal.data('currentIndex');
-        const total = $modal.data('total');
-        const isNext = $(this).hasClass('modal-next');
-        
-        // 计算新索引
-        currentIndex = isNext 
-            ? (currentIndex + 1) % total 
-            : (currentIndex - 1 + total) % total;
-        
-        // 获取新图片地址
-        const newImg = travelData.locations.find(loc => loc.id === locationId).images[currentIndex];
-        $('#modalImg').attr('src', newImg.src).attr('alt', newImg.alt);
-        
-        // 更新弹窗数据
-        $modal.data('currentIndex', currentIndex);
-    });
-
-    // 键盘导航（左右箭头）
-    $(document).on('keydown', function(e) {
-        const $modal = $('#imgModal');
-        if ($modal.is(':visible')) {
-            if (e.key === 'ArrowLeft') {
-                $('.modal-prev').click();
-            } else if (e.key === 'ArrowRight') {
-                $('.modal-next').click();
-            } else if (e.key === 'Escape') {
-                $('#closeModal').click();
-            }
-        }
-    });
+function closeImageModal() {
+    modal.classList.remove('show');
+    currentImageList = [];
+    currentImageIndex = 0;
 }
 
-// ========== 显示地点详情 ==========
-function showLocationDetail(locationId) {
-    // 滚动到对应的时间轴项目
-    const $timelineItem = $(`.timeline-item[data-id="${locationId}"]`);
-    if ($timelineItem.length) {
-        $('html, body').animate({
-            scrollTop: $timelineItem.offset().top - 100
-        }, 500);
+function navigateImage(direction) {
+    if (currentImageList.length === 0) return;
+    
+    currentImageIndex += direction;
+    
+    if (currentImageIndex < 0) {
+        currentImageIndex = currentImageList.length - 1;
+    } else if (currentImageIndex >= currentImageList.length) {
+        currentImageIndex = 0;
+    }
+    
+    const currentImage = currentImageList[currentImageIndex];
+    
+    modalImage.classList.add('switching');
+    
+    setTimeout(() => {
+        modalImage.src = currentImage.src;
+        modalImage.alt = currentImage.alt;
+        modalCaption.textContent = currentImage.alt;
+        
+        setTimeout(() => {
+            modalImage.classList.remove('switching');
+        }, 30);
+    }, 200);
+    
+    updateModalNavButtons();
+}
+
+function updateModalNavButtons() {
+    if (currentImageList.length <= 1) {
+        prevImageBtn.classList.add('disabled');
+        nextImageBtn.classList.add('disabled');
+    } else {
+        prevImageBtn.classList.remove('disabled');
+        nextImageBtn.classList.remove('disabled');
     }
 }
+
+function openCityModal() {
+    cityModal.classList.add('show');
+}
+
+function closeCityModalFunc() {
+    cityModal.classList.remove('show');
+}
+
+cityCard.addEventListener('click', openCityModal);
+
+closeModal.addEventListener('click', closeImageModal);
+prevImageBtn.addEventListener('click', () => navigateImage(-1));
+nextImageBtn.addEventListener('click', () => navigateImage(1));
+modal.addEventListener('click', function (e) {
+    if (e.target === modal) {
+        closeImageModal();
+    }
+});
+
+document.addEventListener('keydown', function (e) {
+    if (modal.classList.contains('show')) {
+        if (e.key === 'Escape') {
+            closeImageModal();
+        } else if (e.key === 'ArrowLeft' && currentImageList.length > 0) {
+            navigateImage(-1);
+        } else if (e.key === 'ArrowRight' && currentImageList.length > 0) {
+            navigateImage(1);
+        }
+    }
+});
+
+closeCityModal.addEventListener('click', closeCityModalFunc);
+cityModal.addEventListener('click', function (e) {
+    if (e.target === cityModal) {
+        closeCityModalFunc();
+    }
+});
+
+langButtons.forEach(btn => {
+    btn.addEventListener('click', function () {
+        const lang = this.dataset.lang;
+        if (lang !== currentLanguage) {
+            currentLanguage = lang;
+            currentData = currentLanguage === 'zh' ? concertDataZH : concertDataEN;
+
+            updateLanguageButtons();
+
+            localStorage.setItem('concertJourneyLang', currentLanguage);
+
+            updatePageContent();
+            renderTimeline();
+        }
+    });
+});
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+        closeImageModal();
+        closeCityModalFunc();
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    initPage();
+});
+
+window.openImageModal = openImageModal;
