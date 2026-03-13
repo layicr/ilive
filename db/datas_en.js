@@ -4,6 +4,7 @@ const concertDataEN = {
     profileLabel: "My name is:",
     profileSubtitle: "This is our concert, and it’s your story。",
     roles: [
+        showFirStr + "Declaration?",
         showFirStr + totalConcertsVal + "   （Concerts）",
         showFirStr + totalCitiesVal + "   （Cities）"
     ],

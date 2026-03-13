@@ -9,6 +9,7 @@ const concertDataZH = {
     profileLabel: "我的名字是:",
     profileSubtitle: "这是我们的演唱会，也是你的故事。",
     roles: [
+        showFirStr + "宣言？   xuān yán？",
         showFirStr + totalConcertsVal + "   （演唱会）",
         showFirStr + totalCitiesVal + "   （城市）"
     ],

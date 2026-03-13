@@ -39,6 +39,8 @@ function initPage() {
         currentData = currentLanguage === 'zh' ? concertDataZH : concertDataEN;
     }
 
+    initBgMusic();
+    
     updateLanguageButtons();
 
     updatePageContent();
@@ -63,10 +65,29 @@ function updatePageContent() {
 
     const rolesList = document.getElementById('roles-list');
     rolesList.innerHTML = '';
-    currentData.roles.forEach(role => {
+    currentData.roles.forEach((role, index) => {
         const li = document.createElement('li');
         li.className = 'role-item';
         li.textContent = role;
+        li.addEventListener('click', function() {
+            let targetElement;
+            switch(index) {
+                case 0:
+                    targetElement = document.querySelector('.section-spacing');
+                    break;
+                case 1:
+                    targetElement = document.getElementById('timeline');
+                    break;
+                case 2:
+                    targetElement = document.querySelector('.stats-grid');
+                    break;
+                default:
+                    targetElement = document.getElementById('timeline');
+            }
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
         rolesList.appendChild(li);
     });
 
@@ -323,6 +344,15 @@ document.addEventListener('DOMContentLoaded', function () {
     initPage();
 });
 
+function initBgMusic()
+{
+ // 设置初始音乐源
+    bgMusicSource.src = currentData.bgMusic || 'music/bgm_cn.mp3';
+    bgMusic.load();
+    
+    setTimeout(tryAutoPlay, 500);
+}
+
 window.openImageModal = openImageModal;
 
 
@@ -484,13 +514,4 @@ musicToggle.addEventListener('click', function() {
         musicIcon.className = 'fas fa-pause';
     }
     isPlaying = !isPlaying;
-});
-
-// 页面加载后尝试自动播放
-document.addEventListener('DOMContentLoaded', function() {
-    // 设置初始音乐源
-    bgMusicSource.src = currentData.bgMusic || 'music/bgm_cn.mp3';
-    bgMusic.load();
-    
-    setTimeout(tryAutoPlay, 500);
 });
