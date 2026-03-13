@@ -685,6 +685,127 @@ body {
     }
 }
 
+/* 音乐播放器 */
+.music-player {
+    position: fixed;
+    top: 110px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1000;
+}
+
+.music-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #555;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(72, 81, 173, 0.2);
+}
+
+.music-btn.playing {
+    background: linear-gradient(135deg, #4851adb8, #637ec5);
+    color: white;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(72, 81, 173, 0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(72, 81, 173, 0.5);
+    }
+}
+
+/* 音乐波形动画 */
+.music-wave {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.music-wave.active {
+    opacity: 1;
+}
+
+.music-wave span {
+    width: 3px;
+    background: linear-gradient(135deg, #4851adb8, #637ec5);
+    border-radius: 2px;
+    animation: wave 0.8s ease-in-out infinite;
+}
+
+.music-wave span:nth-child(1) {
+    animation-delay: 0s;
+    height: 8px;
+}
+
+.music-wave span:nth-child(2) {
+    animation-delay: 0.1s;
+    height: 14px;
+}
+
+.music-wave span:nth-child(3) {
+    animation-delay: 0.2s;
+    height: 10px;
+}
+
+.music-wave span:nth-child(4) {
+    animation-delay: 0.3s;
+    height: 16px;
+}
+
+@keyframes wave {
+    0%, 100% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(0.5);
+    }
+}
+
+@media (max-width: 768px) {
+    .music-player {
+        top: 60px;
+        right: 15px;
+    }
+
+    .music-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+
+    .music-wave {
+        height: 16px;
+    }
+
+    .music-wave span {
+        width: 2px;
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -803,6 +924,32 @@ body {
 
 .concert-location i {
     font-size: 0.9rem;
+}
+
+/* 标签列表 */
+.concert-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: linear-gradient(135deg, rgba(72, 81, 173, 0.1), rgba(99, 126, 197, 0.1));
+    color: #4851ad;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid rgba(72, 81, 173, 0.2);
+    transition: all 0.3s ease;
+}
+
+.tag:hover {
+    background: linear-gradient(135deg, rgba(72, 81, 173, 0.2), rgba(99, 126, 197, 0.2));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(72, 81, 173, 0.2);
 }
 
 .concert-description {
@@ -1274,6 +1421,15 @@ body {
 
     .concert-artist {
         font-size: 1.5rem;
+    }
+
+    .concert-tags {
+        gap: 6px;
+    }
+
+    .tag {
+        font-size: 11px;
+        padding: 3px 10px;
     }
 
     .concert-location {

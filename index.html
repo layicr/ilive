@@ -19,6 +19,17 @@
         <button class="lang-btn active" data-lang="zh">中文</button>
         <button class="lang-btn" data-lang="en">EN</button>
     </div>
+    <div class="music-player">
+        <button class="music-btn" id="musicToggle" title="Play/Pause music">
+            <i class="fas fa-music" id="musicIcon"></i>
+        </button>
+        <span class="music-wave" id="musicWave">
+            <span></span><span></span><span></span><span></span>
+        </span>
+    </div>
+    <audio id="bgMusic" loop>
+        <source id="bgMusicSource" src="music/bgm_cn.mp3" type="audio/mpeg">
+    </audio>
 
     <div class="background-circles">
         <div class="logo-letter">L</div>

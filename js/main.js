@@ -142,6 +142,11 @@ function renderTimeline() {
                     <div class="concert-location">
                         <i class="fas fa-map-marker-alt"></i> ${concert.location}
                     </div>
+                    ${concert.tags && concert.tags.length > 0 ? `
+                        <div class="concert-tags">
+                            ${concert.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    ` : ''}
                     <div class="concert-description">${concert.description}</div>
                     ${imagesHTML}
                 </div>
@@ -298,6 +303,11 @@ langButtons.forEach(btn => {
 
             updatePageContent();
             renderTimeline();
+            
+            // 切换音乐
+            if (currentData.bgMusic) {
+                switchMusicSrc(currentData.bgMusic);
+            }
         }
     });
 });
@@ -409,3 +419,78 @@ initStoriesText();
 setInterval(updateText1, 4000);
 setInterval(updateText2, 4000);
 setInterval(updateText3, 4000);
+
+// 音乐播放器控制
+const bgMusic = document.getElementById('bgMusic');
+const bgMusicSource = document.getElementById('bgMusicSource');
+const musicToggle = document.getElementById('musicToggle');
+const musicIcon = document.getElementById('musicIcon');
+const musicWave = document.getElementById('musicWave');
+let isPlaying = false;
+
+// 切换音乐源
+function switchMusicSrc(musicSrc) {
+    const wasPlaying = isPlaying;
+    const currentTime = bgMusic.currentTime;
+    
+    bgMusicSource.src = musicSrc;
+    bgMusic.load();
+    
+    if (wasPlaying) {
+        bgMusic.play().then(() => {
+            bgMusic.currentTime = 0;
+        }).catch(() => {
+            isPlaying = false;
+            musicToggle.classList.remove('playing');
+            musicWave.classList.remove('active');
+            musicIcon.className = 'fas fa-music';
+        });
+    }
+}
+
+// 尝试自动播放（可能会被浏览器阻止）
+function tryAutoPlay() {
+    bgMusic.volume = 0.5;
+    const playPromise = bgMusic.play();
+    
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            // 自动播放成功
+            isPlaying = true;
+            musicToggle.classList.add('playing');
+            musicWave.classList.add('active');
+            musicIcon.className = 'fas fa-pause';
+        }).catch(() => {
+            // 自动播放被阻止，需要用户交互
+            isPlaying = false;
+            musicToggle.classList.remove('playing');
+            musicWave.classList.remove('active');
+            musicIcon.className = 'fas fa-music';
+        });
+    }
+}
+
+// 切换播放/暂停
+musicToggle.addEventListener('click', function() {
+    if (isPlaying) {
+        bgMusic.pause();
+        musicToggle.classList.remove('playing');
+        musicWave.classList.remove('active');
+        musicIcon.className = 'fas fa-music';
+    } else {
+        bgMusic.play();
+        musicToggle.classList.add('playing');
+        musicWave.classList.add('active');
+        musicIcon.className = 'fas fa-pause';
+    }
+    isPlaying = !isPlaying;
+});
+
+// 页面加载后尝试自动播放
+document.addEventListener('DOMContentLoaded', function() {
+    // 设置初始音乐源
+    bgMusicSource.src = currentData.bgMusic || 'music/bgm_cn.mp3';
+    bgMusic.load();
+    
+    setTimeout(tryAutoPlay, 500);
+});
