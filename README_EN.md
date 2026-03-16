@@ -4,7 +4,7 @@
 # 🌍 Concert Trail
 ### ✨「Concert Trail」: https://layicr.github.io/ilive/
 
-| 🎉 Artist | 🎤 Concert | 📍 Province | 📍 City | 📌 Venue | 📅 Year | 📅 Month |
+| 🎉 Artist | 🎤 Concert | 📍 Province | 🏙️ City | 📌 Venue | 📅 Year | 📅 Month |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | Wu Bai | Rock Star 2 | Jiangxi | Nanchang | Nanchang International Sports Center Stadium | 2026 | 01 |
 | Li Ronghao | Dark Horse | Guangdong | Qingyuan | Qingyuan Sports Center Stadium | 2026 | 01 |
@@ -14,7 +14,7 @@
 | Richie Jen | Richie Jen Live 2024 | Guangdong | Foshan | Foshan International Sports and Cultural Center | 2024 | 12 |
 | Wu Bai | Rock Star | Jiangsu | Nanjing | Nanjing Olympic Sports Center Gymnasium | 2023 | 10 |
 | Eason Chan | Another Eason's LIFE | Beijing | Beijing | National Stadium (Bird's Nest) | 2016 | 10 |
-| Mayday | Just Concert 2016 | Shaanxi | Xi'an | Shaanxi Province Stadium | 2016 | 09 |
+| Mayday | Just Rock It 2016 | Shaanxi | Xi'an | Shaanxi Province Stadium | 2016 | 09 |
 
 **🚀 Next stop, where will it be?**
 
