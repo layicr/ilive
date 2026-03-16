@@ -1,30 +1,26 @@
 **[中文](https://github.com/layicr/ilive/)** | **[ENGLISH](https://github.com/layicr/ilive/blob/main/README_EN.md)**
 
 
-
 # 🌍 Concert Trail
 ### ✨「Concert Trail」: https://layicr.github.io/ilive/
 
-| 🎉 Artist | 📌 Venue | 📅 Date |
-| :--- | :--- | :--- |
-| Wu Bai | Jiangxi · Nanchang · Nanchang International Sports Center Stadium | Jan 2026 |
-| Li Ronghao | Guangdong · Qingyuan · Qingyuan Sports Center Stadium | Jan 2026 |
-| G.E.M. (Gloria Tang) | Guangxi · Nanning · Guangxi Sports Center Stadium | Nov 2025 |
-| Steve Chou | Guangxi · Nanning · Guangxi Sports Center Stadium | Nov 2025 |
-| Stefanie Sun | Guangdong · Shenzhen · Shenzhen Universiade Sports Center Stadium | May 2025 |
-| Richie Jen | Guangdong · Foshan · Foshan International Sports and Cultural Center | Dec 2024 |
-| Wu Bai | Jiangsu · Nanjing · Nanjing Olympic Sports Center Gymnasium | Oct 2023 |
-| Eason Chan | Beijing · National Stadium (Bird's Nest) | Oct 2016 |
-| Mayday | Shaanxi · Xi'an · Shaanxi Province Stadium | Sep 2016 |
+| 🎉 Artist | 🎤 Concert | 📍 Province | 📍 City | 📌 Venue | 📅 Year | 📅 Month |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Wu Bai | Rock Star 2 | Jiangxi | Nanchang | Nanchang International Sports Center Stadium | 2026 | 01 |
+| Li Ronghao | Dark Horse | Guangdong | Qingyuan | Qingyuan Sports Center Stadium | 2026 | 01 |
+| G.E.M. (Gloria Tang) | I AM GLORIA 2.0 | Guangxi | Nanning | Guangxi Sports Center Stadium | 2025 | 11 |
+| Steve Chou | Unforgettable・Reunion | Guangxi | Nanning | Guangxi Sports Center Stadium | 2025 | 11 |
+| Stefanie Sun | AUT NIHILO | Guangdong | Shenzhen | Shenzhen Universiade Sports Center Stadium | 2025 | 05 |
+| Richie Jen | Richie Jen Live 2024 | Guangdong | Foshan | Foshan International Sports and Cultural Center | 2024 | 12 |
+| Wu Bai | Rock Star | Jiangsu | Nanjing | Nanjing Olympic Sports Center Gymnasium | 2023 | 10 |
+| Eason Chan | Another Eason's LIFE | Beijing | Beijing | National Stadium (Bird's Nest) | 2016 | 10 |
+| Mayday | Just Concert 2016 | Shaanxi | Xi'an | Shaanxi Province Stadium | 2016 | 09 |
 
 **🚀 Next stop, where will it be?**
->
-> To be honest,  
-> An elusive kind of candor pushes us to grow.  
-> A streak of blue,  
-> Footprints on the road will never cease.  
-> Seize the day,  
-> Is the world we look up to so hard to reach?  
-> 
 
-
+> To be honest,
+> An elusive kind of candor pushes us to grow.
+>  A streak of blue,
+>  Footprints on the road will never cease.
+>  Seize the day,
+>  Is the world we look up to so hard to reach?
