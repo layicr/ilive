@@ -930,8 +930,15 @@ body {
 .concert-artist {
     font-size: 1.8rem;
     color: #222;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     font-weight: 700;
+}
+
+.concert-name {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 10px;
+    font-weight: 400;
 }
 
 .concert-location {
@@ -1516,5 +1523,223 @@ body {
     100% {
         background-size: 100% 100%;
         color: #000;
+    }
+}
+
+/* ==================== 数据展示区域：图片墙 + 图表轮播 ==================== */
+.data-showcase {
+    padding: 40px 20px 80px;
+    position: relative;
+    z-index: 5;
+}
+
+.showcase-container {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+/* 左侧图片墙 */
+.image-wall {
+    flex: 2;
+    background: white;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.scrolling-container {
+    display: flex;
+    gap: 15px;
+    height: 500px;
+    overflow: hidden;
+    position: relative;
+}
+
+.column {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.image-track {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: absolute;
+    width: 100%;
+}
+
+.column-1 .image-track {
+    animation: scrollDown 20s linear infinite;
+}
+
+.column-2 .image-track {
+    animation: scrollUp 20s linear infinite;
+}
+
+.column-3 .image-track {
+    animation: scrollDown 20s linear infinite;
+}
+
+.column:hover .image-track {
+    animation-play-state: paused;
+}
+
+.image-item {
+    background: #f8f9fa;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    /* 正方形 */
+    width: 100%;
+    padding-bottom: 100%;
+}
+
+.image-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.image-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+@keyframes scrollDown {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-33.33%);
+    }
+}
+
+@keyframes scrollUp {
+    0% {
+        transform: translateY(-33.33%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* 右侧图表 */
+.chart-wrapper {
+    flex: 1;
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f0f4f8;
+}
+
+.chart-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chart-title i {
+    color: #3498db;
+}
+
+.countdown-display {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #3498db;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.countdown-display i {
+    color: #e74c3c;
+}
+
+.chart-container {
+    flex: 1;
+    min-height: 350px;
+    width: 100%;
+}
+
+.chart-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.chart-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.chart-indicator.active {
+    background: #3498db;
+    transform: scale(1.3);
+}
+
+/* 响应式 */
+@media (max-width: 1200px) {
+    .showcase-container {
+        flex-direction: column;
+    }
+
+    .scrolling-container {
+        height: 400px;
+    }
+
+    .chart-container {
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .showcase-container {
+        padding: 0;
+    }
+
+    .image-wall,
+    .chart-wrapper {
+        padding: 15px;
+    }
+
+    .scrolling-container {
+        height: 300px;
+    }
+
+    .chart-container {
+        min-height: 250px;
+    }
+
+    .chart-title {
+        font-size: 1.1rem;
     }
 }

@@ -1,8 +1,31 @@
 
+// ==================== 状态变量 ====================
 let currentLanguage = 'zh';
 let currentData = concertDataZH;
 let currentImageList = [];
 let currentImageIndex = 0;
+
+// 图表相关状态
+let chartInstance = null;
+let currentChartIndex = 0;
+let rotationInterval = null;
+let countdownInterval = null;
+
+// 动态文本状态
+let textIndices = [0, 0, 0];
+const dynamicTextElements = [];
+
+// ==================== 辅助函数 ====================
+
+// 获取当前语言的数据对象
+function getLangData(zhData, enData) {
+    return currentLanguage === 'zh' ? zhData : enData;
+}
+
+// 获取翻译文本
+function t(zhText, enText) {
+    return currentLanguage === 'zh' ? zhText : enText;
+}
 
 const langButtons = document.querySelectorAll('.lang-btn');
 const totalConcerts = document.getElementById('total-concerts');
@@ -29,22 +52,20 @@ const closeCityModal = document.getElementById('closeCityModal');
 const cityCard = document.getElementById('city-card');
 
 function initPage() {
+    // 初始化语言
     const savedLang = localStorage.getItem('concertJourneyLang');
     if (savedLang && (savedLang === 'zh' || savedLang === 'en')) {
         currentLanguage = savedLang;
-        currentData = currentLanguage === 'zh' ? concertDataZH : concertDataEN;
     } else {
-        const browserLang = navigator.language.toLowerCase();
-        currentLanguage = browserLang.startsWith('zh') ? 'zh' : 'en';
-        currentData = currentLanguage === 'zh' ? concertDataZH : concertDataEN;
+        currentLanguage = navigator.language.toLowerCase().startsWith('zh') ? 'zh' : 'en';
     }
+    currentData = getLangData(concertDataZH, concertDataEN);
 
     initBgMusic();
-    
     updateLanguageButtons();
-
     updatePageContent();
     renderTimeline();
+    initDataShowcase();
 }
 
 function updateLanguageButtons() {
@@ -104,7 +125,7 @@ function updatePageContent() {
 
     cityModalTitle.textContent = currentData.modalTitle;
 
-    loadingText.textContent = currentLanguage === 'zh' ? '加载中...' : 'Loading...';
+    loadingText.textContent = t('加载中...', 'Loading...');
 
     renderCityList();
 }
@@ -160,6 +181,7 @@ function renderTimeline() {
                 <div class="timeline-content">
                     <div class="concert-date">${concert.date}</div>
                     <h2 class="concert-artist">${concert.artist}</h2>
+                    <div class="concert-name">${concert.concertName || ''}</div>
                     <div class="concert-location">
                         <i class="fas fa-map-marker-alt"></i> ${concert.location}
                     </div>
@@ -283,30 +305,26 @@ function closeCityModalFunc() {
 
 cityCard.addEventListener('click', openCityModal);
 
+// 模态框事件处理
 closeModal.addEventListener('click', closeImageModal);
-prevImageBtn.addEventListener('click', () => navigateImage(-1));
-nextImageBtn.addEventListener('click', () => navigateImage(1));
-modal.addEventListener('click', function (e) {
-    if (e.target === modal) {
-        closeImageModal();
-    }
-});
-
-document.addEventListener('keydown', function (e) {
-    if (modal.classList.contains('show')) {
-        if (e.key === 'Escape') {
-            closeImageModal();
-        } else if (e.key === 'ArrowLeft' && currentImageList.length > 0) {
-            navigateImage(-1);
-        } else if (e.key === 'ArrowRight' && currentImageList.length > 0) {
-            navigateImage(1);
-        }
-    }
-});
+modal.addEventListener('click', e => e.target === modal && closeImageModal());
 
 closeCityModal.addEventListener('click', closeCityModalFunc);
-cityModal.addEventListener('click', function (e) {
-    if (e.target === cityModal) {
+cityModal.addEventListener('click', e => e.target === cityModal && closeCityModalFunc());
+
+// 图片导航
+prevImageBtn.addEventListener('click', () => navigateImage(-1));
+nextImageBtn.addEventListener('click', () => navigateImage(1));
+
+// 键盘导航
+document.addEventListener('keydown', e => {
+    if (modal.classList.contains('show')) {
+        if (e.key === 'Escape') closeImageModal();
+        else if (e.key === 'ArrowLeft' && currentImageList.length > 0) navigateImage(-1);
+        else if (e.key === 'ArrowRight' && currentImageList.length > 0) navigateImage(1);
+    }
+    if (e.key === 'Escape') {
+        closeImageModal();
         closeCityModalFunc();
     }
 });
@@ -316,139 +334,94 @@ langButtons.forEach(btn => {
         const lang = this.dataset.lang;
         if (lang !== currentLanguage) {
             currentLanguage = lang;
-            currentData = currentLanguage === 'zh' ? concertDataZH : concertDataEN;
+            currentData = getLangData(concertDataZH, concertDataEN);
 
             updateLanguageButtons();
-
             localStorage.setItem('concertJourneyLang', currentLanguage);
-
             updatePageContent();
             renderTimeline();
-            
-            // 切换音乐
+
             if (currentData.bgMusic) {
                 switchMusicSrc(currentData.bgMusic);
             }
+
+            initDataShowcase();
         }
     });
 });
 
-document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-        closeImageModal();
-        closeCityModalFunc();
-    }
-});
+document.addEventListener('DOMContentLoaded', () => initPage());
 
-document.addEventListener('DOMContentLoaded', function () {
-    initPage();
-});
-
-function initBgMusic()
-{
- // 设置初始音乐源
+function initBgMusic() {
     bgMusicSource.src = currentData.bgMusic || 'music/bgm_cn.mp3';
     bgMusic.load();
-    
     setTimeout(tryAutoPlay, 500);
 }
 
 window.openImageModal = openImageModal;
 
-
-
-
-let currentIndex1 = 0;
-let currentIndex2 = 0;
-let currentIndex3 = 0;
+// ==================== 动态文本 ====================
 
 const dynamicText1 = document.getElementById('dynamic-text-1');
 const dynamicText2 = document.getElementById('dynamic-text-2');
 const dynamicText3 = document.getElementById('dynamic-text');
 
-// 第一行动态文本
-function updateText1() {
-    const storiesTextData = currentLanguage === 'zh' ? storiesTextDataZH : storiesTextDataEN;
-    const textArray = storiesTextData.text1;
+dynamicTextElements.push(dynamicText1, dynamicText2, dynamicText3);
 
-    dynamicText1.style.opacity = '0';
-    dynamicText1.style.transition = 'opacity 0.3s ease';
-
-    setTimeout(() => {
-        currentIndex1 = (currentIndex1 + 1) % textArray.length;
-        dynamicText1.textContent = textArray[currentIndex1];
-        dynamicText1.style.opacity = '1';
-    }, 300);
-}
-
-// 第二行动态文本
-function updateText2() {
-    const storiesTextData = currentLanguage === 'zh' ? storiesTextDataZH : storiesTextDataEN;
-    const textArray = storiesTextData.text2;
-
-    dynamicText2.style.opacity = '0';
-    dynamicText2.style.transition = 'opacity 0.3s ease';
-
-    setTimeout(() => {
-        currentIndex2 = (currentIndex2 + 1) % textArray.length;
-        dynamicText2.textContent = textArray[currentIndex2];
-        dynamicText2.style.opacity = '1';
-    }, 300);
-}
-
-// 第三行动态文本（带高亮动画）
+// 播放高亮动画
 function playHighlightAnimation() {
     dynamicText3.classList.remove('animate');
     void dynamicText3.offsetWidth;
     dynamicText3.classList.add('animate');
 }
 
-function updateText3() {
-    const storiesTextData = currentLanguage === 'zh' ? storiesTextDataZH : storiesTextDataEN;
-    const textArray = storiesTextData.text3;
+// 更新动态文本（通用函数）
+function updateDynamicText(textIndex) {
+    const storiesTextData = getLangData(storiesTextDataZH, storiesTextDataEN);
+    const textArrays = [storiesTextData.text1, storiesTextData.text2, storiesTextData.text3];
+    const textArray = textArrays[textIndex];
+    const element = dynamicTextElements[textIndex];
 
-    dynamicText3.style.opacity = '0';
-    dynamicText3.style.transition = 'opacity 0.3s ease';
+    if (!element || textArray.length === 0) return;
+
+    element.style.opacity = '0';
+    element.style.transition = 'opacity 0.3s ease';
 
     setTimeout(() => {
-        currentIndex3 = (currentIndex3 + 1) % textArray.length;
-        dynamicText3.textContent = textArray[currentIndex3];
-        dynamicText3.style.opacity = '1';
+        textIndices[textIndex] = (textIndices[textIndex] + 1) % textArray.length;
+        element.textContent = textArray[textIndices[textIndex]];
+        element.style.opacity = '1';
 
-        setTimeout(() => {
-            playHighlightAnimation();
-        }, 100);
+        // 第三个文本需要高亮动画
+        if (textIndex === 2) {
+            setTimeout(playHighlightAnimation, 100);
+        }
     }, 300);
 }
 
 // 初始化文本
 function initStoriesText() {
-    const storiesTextData = currentLanguage === 'zh' ? storiesTextDataZH : storiesTextDataEN;
-    dynamicText1.textContent = storiesTextData.text1[0];
-    dynamicText2.textContent = storiesTextData.text2[0];
-    dynamicText3.textContent = storiesTextData.text3[0];
-
-    setTimeout(() => {
-        playHighlightAnimation();
-    }, 500);
+    const storiesTextData = getLangData(storiesTextDataZH, storiesTextDataEN);
+    dynamicTextElements.forEach((el, i) => {
+        if (el && storiesTextData[`text${i + 1}`]) {
+            el.textContent = storiesTextData[`text${i + 1}`][0];
+        }
+    });
+    setTimeout(playHighlightAnimation, 500);
 }
 
 // 监听语言切换
 document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.addEventListener('click', function () {
-        setTimeout(() => {
-            initStoriesText();
-        }, 100);
-    });
+    btn.addEventListener('click', () => setTimeout(initStoriesText, 100));
 });
 
 // 页面加载初始化
 initStoriesText();
 
 // 定时更新
-setInterval(updateText1, 4000);
-setInterval(updateText2, 4000);
-setInterval(updateText3, 4000);
+setInterval(() => updateDynamicText(0), 4000);
+setInterval(() => updateDynamicText(1), 4000);
+setInterval(() => updateDynamicText(2), 4000);
 
 // 音乐播放器控制
 const bgMusic = document.getElementById('bgMusic');
@@ -458,45 +431,33 @@ const musicIcon = document.getElementById('musicIcon');
 const musicWave = document.getElementById('musicWave');
 let isPlaying = false;
 
+// 更新音乐播放器UI状态
+function updateMusicUI(playing) {
+    musicToggle.classList.toggle('playing', playing);
+    musicWave.classList.toggle('active', playing);
+    musicIcon.className = playing ? 'fas fa-pause' : 'fas fa-music';
+}
+
 // 切换音乐源
 function switchMusicSrc(musicSrc) {
     const wasPlaying = isPlaying;
-    const currentTime = bgMusic.currentTime;
-    
     bgMusicSource.src = musicSrc;
     bgMusic.load();
-    
+
     if (wasPlaying) {
         bgMusic.play().then(() => {
             bgMusic.currentTime = 0;
-        }).catch(() => {
-            isPlaying = false;
-            musicToggle.classList.remove('playing');
-            musicWave.classList.remove('active');
-            musicIcon.className = 'fas fa-music';
-        });
+        }).catch(() => updateMusicUI(false));
     }
 }
 
-// 尝试自动播放（可能会被浏览器阻止）
+// 尝试自动播放
 function tryAutoPlay() {
     bgMusic.volume = 0.5;
     const playPromise = bgMusic.play();
-    
+
     if (playPromise !== undefined) {
-        playPromise.then(() => {
-            // 自动播放成功
-            isPlaying = true;
-            musicToggle.classList.add('playing');
-            musicWave.classList.add('active');
-            musicIcon.className = 'fas fa-pause';
-        }).catch(() => {
-            // 自动播放被阻止，需要用户交互
-            isPlaying = false;
-            musicToggle.classList.remove('playing');
-            musicWave.classList.remove('active');
-            musicIcon.className = 'fas fa-music';
-        });
+        playPromise.then(() => updateMusicUI(true)).catch(() => updateMusicUI(false));
     }
 }
 
@@ -504,14 +465,163 @@ function tryAutoPlay() {
 musicToggle.addEventListener('click', function() {
     if (isPlaying) {
         bgMusic.pause();
-        musicToggle.classList.remove('playing');
-        musicWave.classList.remove('active');
-        musicIcon.className = 'fas fa-music';
     } else {
         bgMusic.play();
-        musicToggle.classList.add('playing');
-        musicWave.classList.add('active');
-        musicIcon.className = 'fas fa-pause';
     }
     isPlaying = !isPlaying;
+    updateMusicUI(isPlaying);
 });
+
+// ==================== 数据展示区域：图片墙 + 图表 ====================
+
+// 初始化数据展示区域
+function initDataShowcase() {
+    initImageWallFromConcerts();
+    initChart();
+}
+
+// 初始化图片墙（从 concerts 数据读取）
+function initImageWallFromConcerts() {
+    const column1Track = document.getElementById('column1-track');
+    const column2Track = document.getElementById('column2-track');
+
+    if (!column1Track || !column2Track) return;
+
+    column1Track.innerHTML = '';
+    column2Track.innerHTML = '';
+
+    // 从 concerts 数据构建海报数据
+    const posterData = currentData.concerts.map(c => ({
+        id: c.id,
+        artist: c.artist,
+        title: c.concertName || c.artist + ' Concert',
+        img: c.poster || (c.images && c.images[0] ? c.images[0].src : '')
+    }));
+
+    // 三组数据实现交替滚动效果
+    // column1: 正向 [1,2,3,4,5,1,2,3,4,5]
+    // column2: 反向 [5,4,3,2,1,5,4,3,2,1]
+    // column3: 打乱后正向 [随机,随机,随机,随机,随机,随机,随机,随机,随机,随机]
+    const column1Data = [...posterData, ...posterData];
+    const column2Data = [...posterData].reverse().concat([...posterData].reverse());
+    
+    // 打乱 column3 的顺序
+    const shuffledPosterData = [...posterData].sort(() => Math.random() - 0.5);
+    const column3Data = [...shuffledPosterData, ...shuffledPosterData];
+
+    // 获取第三列元素
+    const column3Track = document.getElementById('column3-track');
+
+    // 填充 column1（正向滚动：从第一张到最后一张）
+    column1Data.forEach(item => {
+        column1Track.appendChild(createImageItem(item));
+    });
+
+    // 填充 column2（反向滚动：从最后一张到第一张）
+    column2Data.forEach(item => {
+        column2Track.appendChild(createImageItem(item));
+    });
+
+    // 填充 column3（正向滚动：从第一张到最后一张）
+    if (column3Track) {
+        column3Data.forEach(item => {
+            column3Track.appendChild(createImageItem(item));
+        });
+    }
+
+    // 滚动时间：一组图片的时间，无限循环
+    const itemCount = posterData.length;
+    const scrollDuration = itemCount * 3;
+
+    column1Track.style.animationDuration = `${scrollDuration}s`;
+    column1Track.style.animationIterationCount = 'infinite';
+    column1Track.style.animationTimingFunction = 'linear';
+
+    column2Track.style.animationDuration = `${scrollDuration}s`;
+    column2Track.style.animationIterationCount = 'infinite';
+    column2Track.style.animationTimingFunction = 'linear';
+
+    if (column3Track) {
+        column3Track.style.animationDuration = `${scrollDuration}s`;
+        column3Track.style.animationIterationCount = 'infinite';
+        column3Track.style.animationTimingFunction = 'linear';
+    }
+}
+
+// 创建图片项
+function createImageItem(item) {
+    const div = document.createElement('div');
+    div.className = 'image-item';
+
+    div.innerHTML = `
+        <img src="${item.img}" alt="${item.title}" onerror="this.src='img/logo.jpg'">
+    `;
+
+    return div;
+}
+
+// 初始化图表
+function initChart() {
+    const chartContainer = document.getElementById('chart-container');
+    if (!chartContainer) return;
+
+    if (chartInstance) {
+        chartInstance.dispose();
+    }
+
+    chartInstance = echarts.init(chartContainer);
+    renderProvinceChart();
+
+    window.addEventListener('resize', () => chartInstance?.resize());
+}
+
+// 渲染省份分布图表
+function renderProvinceChart() {
+    const provinceData = {};
+    currentData.concerts.forEach(concert => {
+        const province = concert.location.split('·')[0].trim();
+        provinceData[province] = (provinceData[province] || 0) + 1;
+    });
+
+    const colors = ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6', '#1abc9c', '#d35400', '#16a085'];
+
+    const option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: `{b} : {c} ${t('场', '')} ({d}%)`
+        },
+        legend: {
+            top: 'bottom',
+            left: 'center',
+            textStyle: { color: '#7f8c8d', fontSize: 11 }
+        },
+        series: [{
+            name: t('省份分布', 'Province'),
+            type: 'pie',
+            radius: ['35%', '65%'],
+            avoidLabelOverlap: false,
+            itemStyle: {
+                borderRadius: 8,
+                borderColor: '#fff',
+                borderWidth: 2
+            },
+            label: { show: false, position: 'center' },
+            emphasis: {
+                label: {
+                    show: true,
+                    fontSize: 14,
+                    fontWeight: 'bold',
+                    color: '#2c3e50'
+                }
+            },
+            labelLine: { show: false },
+            data: Object.entries(provinceData).map(([name, value], index) => ({
+                name,
+                value,
+                itemStyle: { color: colors[index % colors.length] }
+            }))
+        }]
+    };
+
+    chartInstance.setOption(option);
+}
