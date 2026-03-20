@@ -4,29 +4,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="keywords"
-        content="layicr,lyc,lyc.la,演唱会,五月天,陈奕迅,任贤齐,孙燕姿,邓紫棋,周传雄,李荣浩,伍佰,Concert,Mayday,EasonChan,RichieJen,StefanieSun,G.E.M.,SteveChou,LiRonghao,WuBai">
-    <meta name="Description"
-        content="layicr,lyc,lyc.la,演唱会,五月天,陈奕迅,任贤齐,孙燕姿,邓紫棋,周传雄,李荣浩,伍佰,Concert,Mayday,EasonChan,RichieJen,StefanieSun,G.E.M.,SteveChou,LiRonghao,WuBai">
+        content="layicr,lyc,lyc.la,演唱会,五月天,陈奕迅,任贤齐,孙燕姿,邓紫棋,周传雄,李荣浩,伍佰,Concert,Mayday,EasonChan,RichieJen,StefanieSun,G.E.M.,SteveChou,LiRonghao,WuBai,演唱会足迹,演唱会记录">
+    <meta name="description"
+        content="Layicr的个人演唱会足迹记录网站。记录观看伍佰、李荣浩、邓紫棋、周传雄、五月天、陈奕迅等歌手演唱会的美好回忆。">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>layicr</title>
-    <!-- 引入ECharts -->
-    <script src="js/echarts.min.js"></script>
+    <meta name="author" content="layicr">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="http://ilive.lyc.la">
+    
+    <!-- 安全和隐私策略 -->
+    <meta http-equiv="Content-Security-Policy" 
+          content="default-src 'self'; 
+                   script-src 'self' https://cdnjs.cloudflare.com https://cdn.tailwindcss.com 'unsafe-inline'; 
+                   style-src 'self' https://cdnjs.cloudflare.com https://cdn.tailwindcss.com 'unsafe-inline'; 
+                   img-src 'self' data: https:; 
+                   media-src 'self'; 
+                   font-src 'self' https://cdnjs.cloudflare.com; 
+                   connect-src 'self' https://cdn.busuanzi.cc;">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://ilive.lyc.la">
+    <meta property="og:title" content="Layicr 演唱会足迹">
+    <meta property="og:description" content="记录每一次演唱会的感动与回忆">
+    <meta property="og:image" content="http://ilive.lyc.la/img/logo.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="http://ilive.lyc.la">
+    <meta property="twitter:title" content="Layicr 演唱会足迹">
+    <meta property="twitter:description" content="记录每一次演唱会的感动与回忆">
+    <meta property="twitter:image" content="http://ilive.lyc.la/img/logo.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="img/logo.jpg">
+    <link rel="apple-touch-icon" href="img/logo.jpg">
+    
+    <!-- DNS预获取和预连接 -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//cdn.busuanzi.cc">
+    <link rel="dns-prefetch" href="//cdn.tailwindcss.com">
+    
+    <title>layicr - 演唱会足迹</title>
+    
+    <!-- 关键CSS内联 -->
+    <link rel="stylesheet" type="text/css" href="css/load.css" />
+
+    
+    <!-- 引入GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+        integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
     <link rel="stylesheet" type="text/css" href="css/main.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 非关键CSS延迟加载 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+          media="print" onload="this.media='all'">
+    
     <script src="//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "layicr",
+        "url": "http://ilive.lyc.la",
+        "description": "Layicr的个人演唱会足迹记录网站",
+        "sameAs": [
+            "https://github.com/layicr",
+            "https://weibo.com/layicr",
+            "https://twitter.com/layicr",
+            "https://www.instagram.com/ilayicr"
+        ],
+        "worksFor": {
+            "@type": "Organization",
+            "name": "Concert Journey"
+        }
+    }
+    </script>
 </head>
 
 <body>
-    <div class="language-switcher">
-        <button class="lang-btn active" data-lang="zh">中文</button>
-        <button class="lang-btn" data-lang="en">EN</button>
+    <!-- 骨架屏 -->
+    <div id="skeleton-loader" class="skeleton-container">
+        <div class="skeleton-content">
+            <img src="img/logo.jpg" alt="logo" class="skeleton-avatar">
+            <div class="skeleton-card">
+                <div class="skeleton-line"></div>
+                <div class="skeleton-line"></div>
+                <div class="skeleton-line short"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="language-switcher" role="group" aria-label="语言选择">
+        <button class="lang-btn active" data-lang="zh" aria-label="切换到中文">中文</button>
+        <button class="lang-btn" data-lang="en" aria-label="切换到英文">EN</button>
     </div>
     <div class="music-player">
-        <button class="music-btn" id="musicToggle" title="Play/Pause music">
-            <i class="fas fa-music" id="musicIcon"></i>
+        <button class="music-btn" id="musicToggle" title="Play/Pause music" aria-label="播放/暂停背景音乐">
+            <i class="fas fa-music" id="musicIcon" aria-hidden="true"></i>
         </button>
-        <span class="music-wave" id="musicWave">
+        <span class="music-wave" id="musicWave" aria-hidden="true">
             <span></span><span></span><span></span><span></span>
         </span>
     </div>
@@ -57,10 +140,10 @@
                 <div class="profile-label" id="profile-label">My name is:</div>
                 <h1 class="profile-name">layicr</h1>
 
-                <div class="profile-subtitle" id="profile-subtitle">XXX:</div>
+                <div class="profile-subtitle" id="profile-subtitle">Loading...</div>
                 <ul class="roles-list" id="roles-list">
-                    <li class="role-item">XX 演唱会</li>
-                    <li class="role-item">XX 城市</li>
+                    <li class="role-item">Loading...</li>
+                    <li class="role-item">Loading...</li>
                 </ul>
             </div>
         </div>
@@ -83,47 +166,46 @@
 
         <div class="stats-grid">
             <div class="stat-card cities" id="city-card">
-                <div class="stat-number" id="total-cities">X</div>
+                <div class="stat-number" id="total-cities">Loading...</div>
                 <div class="stat-label" id="cities-label">城市</div>
             </div>
 
             <div class="stat-card artists">
-                <div class="stat-number" id="total-artists">X</div>
+                <div class="stat-number" id="total-artists">Loading...</div>
                 <div class="stat-label" id="artists-label">艺人</div>
             </div>
 
             <div class="stat-card total">
-                <div class="stat-number" id="total-concerts">X</div>
+                <div class="stat-number" id="total-concerts">Loading...</div>
                 <div class="stat-label" id="total-label">场次</div>
             </div>
         </div>
     </section>
 
-    <!-- 数据展示区域：图片墙 + 图表轮播 -->
-    <section class="data-showcase">
-        <div class="showcase-container">
-            <!-- 左侧图片墙 -->
-            <div class="image-wall">
-                <div class="scrolling-container">
-                    <div class="column column-1">
-                        <div class="image-track" id="column1-track"></div>
-                    </div>
-                    <div class="column column-2">
-                        <div class="image-track" id="column2-track"></div>
-                    </div>
-                    <div class="column column-3">
-                        <div class="image-track" id="column3-track"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 右侧图表 -->
-            <div class="chart-wrapper">
-                <div id="chart-container" class="chart-container"></div>
+    <!-- 3D专辑展示区域 -->
+    <div class="album-showcase-container">
+        <!-- 左侧：专辑堆叠 -->
+        <div class="album-stack-container">
+            <div class="album-stack" id="albumStack">
+                <!-- 专辑卡片将通过JS动态生成 -->
             </div>
         </div>
-    </section>
 
+        <!-- 右侧：详情面板 -->
+        <div class="detail-panel">
+            <div class="detail-header">
+                <h2 class="detail-title" id="detailTitle">Loading...</h2>
+                <p class="detail-subtitle" id="detailSubtitle">-</p>
+                <p class="detail-date" id="detailDate">-</p>
+            </div>
+
+            <div class="detail-content">
+                <div class="album-intro" id="albumIntro">
+                  Loading...
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- 时间轴 -->
     <div class="timeline" id="timeline">
     </div>
@@ -131,7 +213,7 @@
     <!-- 加载动画 -->
     <div class="loader" id="loader">
         <div class="spinner"></div>
-        <p id="loading-text">加载中...</p>
+        <p id="loading-text">Loading...</p>
     </div>
 
     <!-- 城市列表模态框 -->
@@ -147,16 +229,16 @@
     </div>
 
     <!-- 图片查看器模态框 -->
-    <div class="modal" id="imageModal">
-        <span class="close" id="closeModal">&times;</span>
-        <button class="modal-nav modal-prev" id="prevImage">
-            <i class="fas fa-chevron-left"></i>
+    <div class="modal" id="imageModal" role="dialog" aria-modal="true" aria-labelledby="modalCaption" aria-label="演唱会图片查看器">
+        <button class="close" id="closeModal" aria-label="关闭图片查看器">&times;</button>
+        <button class="modal-nav modal-prev" id="prevImage" aria-label="上一张图片">
+            <i class="fas fa-chevron-left" aria-hidden="true"></i>
         </button>
-        <button class="modal-nav modal-next" id="nextImage">
-            <i class="fas fa-chevron-right"></i>
+        <button class="modal-nav modal-next" id="nextImage" aria-label="下一张图片">
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
         </button>
         <img class="modal-content" id="modalImage" alt="演唱会图片">
-        <div class="modal-caption" id="modalCaption"></div>
+        <div class="modal-caption" id="modalCaption" role="status" aria-live="polite"></div>
     </div>
 
     <!-- 页脚 -->
@@ -197,15 +279,16 @@
             <div class="footer-bottom">
                 <span> <span id="site-name"></span></span>
                 <span class="footer-separator">·</span>
-                <span><span id="busuanzi_site_pv">加载中...</span></span>
+                <span><span id="busuanzi_site_pv">Loading...</span></span>
             </div>
         </div>
     </footer>
 
-    <button class="back-to-top" id="backToTop" title="Back">
-        <i class="fas fa-arrow-up"></i>
+    <button class="back-to-top" id="backToTop" title="返回顶部" aria-label="返回页面顶部">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
     </button>
 
+    <script src="db/concerts_base.js"></script>
     <script src="db/datas_zh.js"></script>
     <script src="db/datas_en.js"></script>
     <script src="js/main.js"></script>
