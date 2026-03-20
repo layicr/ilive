@@ -141,6 +141,24 @@ function initPage() {
         currentLanguage = navigator.language.toLowerCase().startsWith('zh') ? 'zh' : 'en';
     }
     
+    // 显示 skeleton-loader 文本
+    setTimeout(() => {
+        const scrambleLines = document.querySelectorAll('.scramble-line');
+        
+        scrambleLines.forEach((line, index) => {
+            const text = line.getAttribute('data-text');
+            
+            // 确保元素可见
+            line.style.opacity = '1';
+            line.style.visibility = 'visible';
+            line.style.color = '#e0e0ff';
+            line.style.display = 'flex';
+            
+            // 直接显示文本，无动画
+            line.textContent = text;
+        });
+    }, 100);
+    
     // 应用计算属性
     applyComputedProperties(concertDataZH, showFirStr);
     applyComputedProperties(concertDataEN, '->   ');
@@ -152,14 +170,13 @@ function initPage() {
         navigator.serviceWorker.register('js/sw.js')
             .then((registration) => {
                 console.log('Service Worker 注册成功:', registration.scope);
-                
                 // 监听更新
                 registration.addEventListener('updatefound', () => {
-                    console.log('发现新的 Service Worker 版本');
+                     console.log('发现新的 Service Worker 版本');
                 });
             })
             .catch((error) => {
-                console.error('Service Worker 注册失败:', error);
+                 console.error('Service Worker 注册失败:', error);
             });
     }
 
@@ -362,13 +379,18 @@ function renderTimeline() {
 
         loader.style.display = 'none';
         
-        // 隐藏骨架屏
+        // 隐藏骨架屏（等待 GSAP 动画完成）
         const skeletonLoader = document.getElementById('skeleton-loader');
         if (skeletonLoader) {
-            skeletonLoader.classList.add('hide');
+            // 计算最小等待时间：最后一行动画完成时间 + 缓冲
+            const minWaitTime = 3000; // 3秒，确保所有 scramble-line 动画完成
+            
             setTimeout(() => {
-                skeletonLoader.style.display = 'none';
-            }, 300);
+                skeletonLoader.classList.add('hide');
+                setTimeout(() => {
+                    skeletonLoader.style.display = 'none';
+                }, 300);
+            }, minWaitTime);
         }
 
         observeTimelineItems();
@@ -463,7 +485,6 @@ function createGalleryItem(img, imgIndex, concertImages) {
             // 第二次失败：重试（带延迟）
             const retryDelay = 500 * this.errorCount;
             console.warn(`原图加载失败（尝试 ${this.errorCount}），${retryDelay}ms 后重试`);
-            
             setTimeout(() => {
                 this.src = this.src.split('?')[0] + '?retry=' + this.errorCount;
             }, retryDelay);
