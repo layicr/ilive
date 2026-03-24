@@ -15,7 +15,9 @@ function generateZHData() {
         images: concert.images.map(img => ({
             src: img.src,
             alt: img.alt.zh
-        }))
+        })),
+        video: concert.video ? concert.video.zh : null,
+        videoUrl: concert.videoUrl ? concert.videoUrl.zh : null
     }));
     
     const cities = citiesBaseData.map(city => ({

@@ -28,7 +28,15 @@ const concertsBaseData = {
                 { src: "concert/202601/01/04.jpg", alt: { zh: "伍佰演唱会", en: "Wu Bai Concert" } },
                 { src: "concert/202601/01/05.jpg", alt: { zh: "伍佰演唱会", en: "Wu Bai Concert" } },
                 { src: "concert/202601/01/06.jpg", alt: { zh: "伍佰演唱会", en: "Wu Bai Concert" } }
-            ]
+            ],
+            video: {
+                zh: "BV1ZuQqBaEBm",
+                en: "BV1ZuQqBaEBm"
+            },
+            videoUrl: {
+                zh: "https://space.bilibili.com/29825132/lists/7719548",
+                en: "https://space.bilibili.com/29825132/lists/7719548"
+            }
         },
         {
             id: 2,
@@ -56,7 +64,15 @@ const concertsBaseData = {
                 { src: "concert/202601/02/03.jpg", alt: { zh: "李荣浩演唱会", en: "Li Ronghao Concert" } },
                 { src: "concert/202601/02/04.jpg", alt: { zh: "李荣浩演唱会", en: "Li Ronghao Concert" } },
                 { src: "concert/202601/02/05.jpg", alt: { zh: "李荣浩演唱会", en: "Li Ronghao Concert" } }
-            ]
+            ],
+            video: {
+                zh: "BV1ADfCB5EYL",
+                en: "BV1ADfCB5EYL"
+            },
+            videoUrl: {
+                zh: "https://space.bilibili.com/29825132/lists/7719488",
+                en: "https://space.bilibili.com/29825132/lists/7719488"
+            }
         },
         {
             id: 3,
@@ -84,7 +100,15 @@ const concertsBaseData = {
                 { src: "concert/202511/01/03.jpg", alt: { zh: "邓紫棋演唱会", en: "G.E.M. Concert" } },
                 { src: "concert/202511/01/05.jpg", alt: { zh: "邓紫棋演唱会", en: "G.E.M. Concert" } },
                 { src: "concert/202511/01/06.jpg", alt: { zh: "邓紫棋演唱会", en: "G.E.M. Concert" } }
-            ]
+            ],
+            video: {
+                zh: "BV1g9Q6BFEMe",
+                en: "BV1g9Q6BFEMe"
+            },
+            videoUrl: {
+                zh: "https://space.bilibili.com/29825132/lists/7719554",
+                en: "https://space.bilibili.com/29825132/lists/7719554"
+            }
         },
         {
             id: 4,
@@ -113,7 +137,15 @@ const concertsBaseData = {
                 { src: "concert/202511/02/04.jpg", alt: { zh: "周传雄演唱会", en: "Steve Chou Concert" } },
                 { src: "concert/202511/02/05.jpg", alt: { zh: "周传雄演唱会", en: "Steve Chou Concert" } },
                 { src: "concert/202511/02/06.jpg", alt: { zh: "周传雄演唱会", en: "Steve Chou Concert" } }
-            ]
+            ],
+            video: {
+                zh: "BV1aS6sB4EiC",
+                en: "BV1aS6sB4EiC"
+            },
+            videoUrl: {
+                zh: "https://space.bilibili.com/29825132/lists/7719512",
+                en: "https://space.bilibili.com/29825132/lists/7719512"
+            }
         },
         {
             id: 5,
@@ -140,7 +172,15 @@ const concertsBaseData = {
                 { src: "concert/202505/03.jpg", alt: { zh: "孙燕姿演唱会", en: "Stefanie Sun Concert" } },
                 { src: "concert/202505/04.jpg", alt: { zh: "孙燕姿演唱会", en: "Stefanie Sun Concert" } },
                 { src: "concert/202505/05.jpg", alt: { zh: "孙燕姿演唱会", en: "Stefanie Sun Concert" } }
-            ]
+            ],
+            video: {
+                zh: "BV1g9Q6BFEnW",
+                en: "BV1g9Q6BFEnW"
+            },
+            videoUrl: {
+                zh: "https://space.bilibili.com/29825132/lists/7719553",
+                en: "https://space.bilibili.com/29825132/lists/7719553"
+            }
         },
         {
             id: 6,
@@ -167,7 +207,15 @@ const concertsBaseData = {
                 { src: "concert/202412/02.jpg", alt: { zh: "任贤齐演唱会", en: "Richie Jen Concert" } },
                 { src: "concert/202412/03.jpg", alt: { zh: "任贤齐演唱会", en: "Richie Jen Concert" } },
                 { src: "concert/202412/04.jpg", alt: { zh: "任贤齐演唱会", en: "Richie Jen Concert" } }
-            ]
+            ],
+            video: {
+                zh: "BV1MB6xB9EV7",
+                en: "BV1MB6xB9EV7"
+            },
+            videoUrl: {
+                zh: "https://space.bilibili.com/29825132/lists/7719476",
+                en: "https://space.bilibili.com/29825132/lists/7719476"
+            }
         },
         {
             id: 7,

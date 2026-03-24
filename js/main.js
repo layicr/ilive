@@ -131,6 +131,10 @@ const cityModalTitle = document.getElementById('city-modal-title');
 const cityList = document.getElementById('cityList');
 const closeCityModal = document.getElementById('closeCityModal');
 const cityCard = document.getElementById('city-card');
+const videoModal = document.getElementById('videoModal');
+const videoPlayer = document.getElementById('videoPlayer');
+const videoModalTitle = document.getElementById('videoModalTitle');
+const closeVideoModal = document.getElementById('closeVideoModal');
 
 function initPage() {
     // 初始化语言
@@ -368,6 +372,31 @@ function renderTimeline() {
             
             if (galleryContainer) {
                 timelineContent.appendChild(galleryContainer);
+            }
+            
+            // 添加视频按钮（如果有视频）
+            if (concert.video) {
+                const videoButton = document.createElement('button');
+                videoButton.className = 'video-btn';
+                videoButton.innerHTML = '<i class="fas fa-video"></i> ' + t('观看视频', 'Watch Video');
+                videoButton.dataset.videoId = concert.video;
+                videoButton.dataset.videoTitle = concert.artist + ' - ' + concert.concertName;
+                videoButton.addEventListener('click', function() {
+                    openVideoModal(this.dataset.videoId, this.dataset.videoTitle);
+                });
+                timelineContent.appendChild(videoButton);
+            }
+            
+            // 添加视频跳转按钮（如果有视频URL）
+            if (concert.videoUrl) {
+                const videoLinkButton = document.createElement('button');
+                videoLinkButton.className = 'video-link-btn';
+                videoLinkButton.innerHTML = '<i class="fas fa-external-link-alt"></i> ' + t('打开视频', 'Open Video');
+                videoLinkButton.dataset.videoUrl = concert.videoUrl;
+                videoLinkButton.addEventListener('click', function() {
+                    window.open(this.dataset.videoUrl, '_blank');
+                });
+                timelineContent.appendChild(videoLinkButton);
             }
             
             timelineItem.appendChild(timelineContent);
@@ -756,6 +785,42 @@ modal.addEventListener('click', e => e.target === modal && closeImageModal());
 
 closeCityModal.addEventListener('click', closeCityModalFunc);
 cityModal.addEventListener('click', e => e.target === cityModal && closeCityModalFunc());
+
+// 视频模态框控制
+function openVideoModal(videoId, title) {
+    if (!videoId) return;
+    
+    // B站嵌入URL格式
+    const embedUrl = `https://player.bilibili.com/player.html?bvid=${videoId}&autoplay=1`;
+    videoPlayer.src = embedUrl;
+    videoModalTitle.textContent = title;
+    videoModal.classList.add('show');
+    
+    // 阻止背景滚动
+    document.body.style.overflow = 'hidden';
+}
+
+function closeVideoModalFunc() {
+    videoModal.classList.remove('show');
+    videoPlayer.src = '';
+    
+    // 恢复背景滚动
+    document.body.style.overflow = '';
+}
+
+closeVideoModal.addEventListener('click', closeVideoModalFunc);
+videoModal.addEventListener('click', e => {
+    if (e.target === videoModal || e.target.classList.contains('video-modal-content')) {
+        closeVideoModalFunc();
+    }
+});
+
+// ESC键关闭视频模态框
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && videoModal.classList.contains('show')) {
+        closeVideoModalFunc();
+    }
+});
 
 // 图片导航
 prevImageBtn.addEventListener('click', () => navigateImage(-1));

@@ -13,7 +13,9 @@ function generateENData() {
         images: concert.images.map(img => ({
             src: img.src,
             alt: img.alt.en
-        }))
+        })),
+        video: concert.video ? concert.video.en : null,
+        videoUrl: concert.videoUrl ? concert.videoUrl.en : null
     }));
     
     const cities = citiesBaseData.map(city => ({
