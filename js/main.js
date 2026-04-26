@@ -184,21 +184,6 @@ function initPage() {
             });
     }
 
-    initBgMusic();
-    
-    // 用户交互后尝试播放音频（解决浏览器自动播放限制）
-    let audioInitialized = false;
-    const initAudioOnInteraction = () => {
-        if (!audioInitialized && !isPlaying && bgMusic.readyState >= 2) {
-            tryAutoPlay();
-            audioInitialized = true;
-        }
-    };
-    
-    // 监听首次用户交互
-    document.addEventListener('click', initAudioOnInteraction, { once: true });
-    document.addEventListener('touchstart', initAudioOnInteraction, { once: true });
-    
     updateLanguageButtons();
     updatePageContent();
     renderTimeline();
@@ -298,7 +283,7 @@ function renderTimeline() {
 
     setTimeout(() => {
         const sortedConcerts = [...currentData.concerts].sort((a, b) => {
-            return new Date(b.date) - new Date(a.date);
+            return b.id - a.id;
         });
 
         // 使用 DocumentFragment 批量插入 DOM，减少重排
@@ -896,20 +881,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initBgMusic() {
+    if (musicInitialized) return;
+    musicInitialized = true;
+    
     bgMusicSource.src = currentData.bgMusic || 'music/bgm_cn.mp3';
     bgMusic.load();
     
-    // 预加载音频数据（使用AudioContext）
-    if ('AudioContext' in window || 'webkitAudioContext' in window) {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        fetch(currentData.bgMusic || 'music/bgm_cn.mp3')
-            .then(response => response.arrayBuffer())
-            .then(data => audioContext.decodeAudioData(data))
-            .catch(() => console.log('Audio preloading failed'));
-    }
-    
-    // 延迟尝试自动播放
-    setTimeout(tryAutoPlay, 500);
+    // 等待音频可以播放后再尝试自动播放
+    const onCanPlay = () => {
+        bgMusic.removeEventListener('canplay', onCanPlay);
+        tryAutoPlay();
+    };
+    bgMusic.addEventListener('canplay', onCanPlay);
 }
 
 // 语言切换时清理所有定时器
@@ -999,6 +982,7 @@ const musicToggle = document.getElementById('musicToggle');
 const musicIcon = document.getElementById('musicIcon');
 const musicWave = document.getElementById('musicWave');
 let isPlaying = false;
+let musicInitialized = false;
 
 // 更新音乐播放器UI状态
 function updateMusicUI(playing) {
@@ -1032,13 +1016,40 @@ function tryAutoPlay() {
 
 // 切换播放/暂停
 musicToggle.addEventListener('click', function() {
+    // 如果音频源未设置，先初始化音频
+    if (!bgMusicSource.src || bgMusicSource.src === '') {
+        bgMusicSource.src = currentData.bgMusic || 'music/bgm_cn.mp3';
+        bgMusic.load();
+        
+        // 等待音频可以播放后再播放
+        const onCanPlay = () => {
+            bgMusic.removeEventListener('canplay', onCanPlay);
+            bgMusic.volume = 0.5;
+            bgMusic.play().then(() => {
+                isPlaying = true;
+                updateMusicUI(true);
+            }).catch(() => {
+                isPlaying = false;
+                updateMusicUI(false);
+            });
+        };
+        bgMusic.addEventListener('canplay', onCanPlay);
+        return;
+    }
+    
     if (isPlaying) {
         bgMusic.pause();
+        isPlaying = false;
+        updateMusicUI(false);
     } else {
-        bgMusic.play();
+        bgMusic.play().then(() => {
+            isPlaying = true;
+            updateMusicUI(true);
+        }).catch(() => {
+            isPlaying = false;
+            updateMusicUI(false);
+        });
     }
-    isPlaying = !isPlaying;
-    updateMusicUI(isPlaying);
 });
 
 

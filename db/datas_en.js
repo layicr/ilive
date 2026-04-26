@@ -17,13 +17,27 @@ function generateENData() {
         video: concert.video ? concert.video.en : null,
         videoUrl: concert.videoUrl ? concert.videoUrl.en : null
     }));
-    
+
+    // 计算每个城市的演唱会数量
+    const cityConcertCounts = {};
+    const cityNames = citiesBaseData.map(c => c.name.en);
+
+    concerts.forEach(concert => {
+        // 遍历所有城市名称，找到位置字符串中包含的城市
+        for (const cityName of cityNames) {
+            if (concert.location.includes(cityName)) {
+                cityConcertCounts[cityName] = (cityConcertCounts[cityName] || 0) + 1;
+                break;
+            }
+        }
+    });
+
     const cities = citiesBaseData.map(city => ({
         name: city.name.en,
-        concerts: city.concerts,
+        concerts: cityConcertCounts[city.name.en] || 0,
         icon: city.icon
     }));
-    
+
     return { concerts, cities };
 }
 
