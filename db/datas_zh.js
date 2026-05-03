@@ -85,3 +85,138 @@ const roleTextsZH = {
     concertsLabel: "演唱会",
     citiesLabel: "城市"
 };
+
+const wishesDataZH = [
+    {
+        content: "希望家人和兄弟们身体健康，平安喜乐",
+        time: "2005-01-01 00:00:00",
+        likes: 100,
+        liked: true
+    },
+    {
+        content: "林俊杰演唱会",
+        time: "2025-01-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "阿杜演唱会",
+        time: "2025-02-01 00:00:00",
+        likes: 28,
+        liked: true
+    },
+    {
+        content: "动力火车演唱会",
+        time: "2025-03-01 00:00:00",
+        likes: 25,
+        liked: true
+    },
+    {
+        content: "F4演唱会",
+        time: "2025-05-01 00:00:00",
+        likes: 20,
+        liked: true
+    },
+    {
+        content: "梁静茹演唱会",
+        time: "2025-06-01 00:00:00",
+        likes: 20,
+        liked: true
+    },
+     {
+        content: "谢霆锋演唱会",
+        time: "2025-06-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+     {
+        content: "张学友演唱会",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+     {
+        content: "陶喆演唱会",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "刘若英演唱会",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "李宗盛演唱会",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "汪峰演唱会",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "朴树演唱会",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "周华健演唱会",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "张震岳演唱会",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "王心凌演唱会",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "杨丞琳演唱会",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "薛之谦演唱会",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "小虎队演唱会",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "5566演唱会",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "王杰演唱会",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "陈小春演唱会",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    }
+];

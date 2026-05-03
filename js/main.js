@@ -251,6 +251,68 @@ function updatePageContent() {
     loadingText.textContent = t('加载中...', 'Loading...');
 
     renderCityList();
+    renderWishWall();
+}
+
+function renderWishWall() {
+    const wishes = currentLanguage === 'zh' ? wishesDataZH : wishesDataEN;
+    const wishGrid = document.getElementById('wishGrid');
+    const wishTitle = document.getElementById('wishTitle');
+    const wishCount = document.getElementById('wishCount');
+
+    wishTitle.textContent = currentLanguage === 'zh' ? '许愿墙' : 'Wish Wall';
+    wishCount.innerHTML = (currentLanguage === 'zh' ? '已有 <span>' : 'Total: <span>') + wishes.length + '</span>' + (currentLanguage === 'zh' ? ' 个心愿' : ' wishes');
+
+    if (wishes.length === 0) {
+        wishGrid.innerHTML = `
+            <div class="wish-empty">
+                <div class="wish-empty-icon">🌙</div>
+                <div class="wish-empty-text">${currentLanguage === 'zh' ? '还没有人许愿，来做第一个许愿的人吧！' : 'No wishes yet, be the first to make one!'}</div>
+            </div>
+        `;
+        return;
+    }
+
+    wishGrid.innerHTML = wishes.map((wish, index) => `
+        <div class="wish-card">
+            <div class="wish-card-content">${escapeHtml(wish.content)}</div>
+            <div class="wish-card-footer">
+                <div class="wish-card-likes ${wish.liked ? 'liked' : ''}" onclick="toggleWishLike(${index})">
+                    <span>${wish.liked ? '❤️' : '🤍'}</span>
+                    <span>${wish.likes || 0}</span>
+                </div>
+                <div class="wish-card-time">${formatWishTime(wish.time)}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function toggleWishLike(index) {
+    const wishes = currentLanguage === 'zh' ? wishesDataZH : wishesDataEN;
+    if (wishes[index]) {
+        wishes[index].liked = !wishes[index].liked;
+        wishes[index].likes = (wishes[index].likes || 0) + (wishes[index].liked ? 1 : -1);
+        renderWishWall();
+    }
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function formatWishTime(timeString) {
+    const date = new Date(timeString);
+    const now = new Date();
+    const diff = now - date;
+
+    if (diff < 60000) return currentLanguage === 'zh' ? '刚刚' : 'Just now';
+    if (diff < 3600000) return Math.floor(diff / 60000) + (currentLanguage === 'zh' ? '分钟前' : ' min ago');
+    if (diff < 86400000) return Math.floor(diff / 3600000) + (currentLanguage === 'zh' ? '小时前' : ' hours ago');
+    if (diff < 604800000) return Math.floor(diff / 86400000) + (currentLanguage === 'zh' ? '天前' : ' days ago');
+
+    return date.toLocaleDateString(currentLanguage === 'zh' ? 'zh-CN' : 'en-US');
 }
 
 function renderCityList() {

@@ -82,3 +82,138 @@ const roleTextsEN = {
     concertsLabel: "Concerts",
     citiesLabel: "Cities"
 };
+
+const wishesDataEN = [
+    {
+        content: "Hope my family and brothers stay healthy and safe",
+        time: "2005-01-01 00:00:00",
+        likes: 100,
+        liked: true
+    },
+    {
+        content: "JJ Lin Concert",
+        time: "2025-01-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "A-Do Concert",
+        time: "2025-02-01 00:00:00",
+        likes: 28,
+        liked: true
+    },
+    {
+        content: "Power Station Concert",
+        time: "2025-03-01 00:00:00",
+        likes: 25,
+        liked: true
+    },
+    {
+        content: "F4 Concert",
+        time: "2025-05-01 00:00:00",
+        likes: 20,
+        liked: true
+    },
+    {
+        content: "Fish Leong Concert",
+        time: "2025-06-01 00:00:00",
+        likes: 20,
+        liked: true
+    },
+    {
+        content: "Nicholas Tse Concert",
+        time: "2025-06-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "Jacky Cheung Concert",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "David Tao Concert",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "Lee Ann Rimes Concert",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "Jonathan Lee Concert",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "Wang Feng Concert",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "Pu Shu Concert",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "Wakin Chau Concert",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "Ayal Kom Concert",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "Cyndi Wang Concert",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "Rainie Yang Concert",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "Joker Xue Concert",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "Xiao Hu Dui Concert",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "5566 Concert",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "Wang Jie Concert",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    },
+    {
+        content: "Andy Lau Concert",
+        time: "2025-07-01 00:00:00",
+        likes: 30,
+        liked: true
+    }
+];

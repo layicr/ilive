@@ -566,6 +566,134 @@ body {
 }
 
 
+/* Wish Wall */
+.wish-section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.wish-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.wish-title {
+    font-size: 28px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #4851AD 0%, #FF6B35 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.wish-title::before {
+    content: '💫';
+    -webkit-text-fill-color: initial;
+}
+
+.wish-count {
+    font-size: 14px;
+    color: #999;
+}
+
+.wish-count span {
+    color: #FF6B35;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.wish-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.wish-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.wish-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #4851AD, #FF6B35, #c44569);
+}
+
+.wish-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-color: rgba(72, 81, 173, 0.3);
+}
+
+.wish-card-content {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 15px;
+    word-wrap: break-word;
+}
+
+.wish-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wish-card-likes {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s ease;
+}
+
+.wish-card-likes:hover {
+    color: #FF6B35;
+}
+
+.wish-card-likes.liked {
+    color: #FF6B35;
+}
+
+.wish-card-time {
+    font-size: 12px;
+    color: #999;
+}
+
+.wish-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+    grid-column: 1 / -1;
+}
+
+.wish-empty-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .wish-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Footer */
 .footer {
     padding: 50px 20px;
