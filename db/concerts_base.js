@@ -328,6 +328,46 @@ const concertsBaseData = {
                 zh: "https://space.bilibili.com/29825132/lists/7941208",
                 en: "https://space.bilibili.com/29825132/lists/7941208"
             }
+        },{
+            id: 11,
+            artist: { zh: "蔡依林", en: "Jolin Cai" },
+            concertName: { zh: "PLEASURE 世界巡回演唱会", en: "PLEASURE World Tour" },
+            theme: {
+                zh: "蔡依林全新主题巡回演唱会 \"PLEASURE\"，以\"面对内心、找到真实自我\"为核心命题，打造出一座横跨音乐、视觉与感官体验的巨型舞台。整场演出围绕\"一个女孩的成长故事\"展开：她从童年的花园出走，穿越现实与欲望的挑战，在一次次考验中重新拥抱自己，最终找到回归内在的稳定力量。",
+                en: "Jolin Cai's brand new themed tour \"PLEASURE\" centers on the core proposition of \"facing your inner self and finding your authentic self,\" creating a massive stage that spans music, visuals, and sensory experiences. The entire performance revolves around \"a girl's growth story\": she departs from the garden of childhood, traverses challenges of reality and desire, re-embraces herself through countless trials, and finally finds the stable power to return to her inner self."
+            },
+            location: { zh: "广西 · 南宁 · 广西体育中心体育场", en: "Guangxi · Nanning" },
+            date: "2026.05",
+            poster: "concert/poster/20260503.jpg",
+            tags: {
+                zh: ["蔡依林", "PLEASURE", "青春","倒带","舞娘"],
+                en: ["Jolin Cai", "PLEASURE", "Youth", "Dance", "Dance"]
+            },
+            description: {
+                zh: "蔡依林“PLEASURE”世界巡演南宁站呈现了一场颠覆传统的演出，<br>全程无嘉宾、无点歌、无冗长互动，只有整整120分钟不间断的歌唱。<br><br>从《Pleasure》前奏响起，蔡依林便以纯粹的音乐能量掌控全场。 <br>她将三十年音乐生涯凝练成一条流动的声轨：《舞娘》的力量，《倒带》的深情，《怪美的》的自信……<br>超过三十首金曲在精密编排下自然衔接，形成一部完整的“人生原声带”。<br> <br>蔡依林证明：当作品足够强大时，纯粹的音乐本身，便是最动人的语言。",
+                en: "Jolin Cai's \"PLEASURE\" World Tour Nanning stop presented a performance that subverted tradition,<br>featuring no guest appearances, no song requests, no lengthy interactions—just a full 120 minutes of uninterrupted singing.<br><br>From the moment the prelude of \"Pleasure\" played, Jolin Cai commanded the entire venue with pure musical energy.<br>She condensed thirty years of her musical career into a flowing soundtrack: the power of \"Dancing Queen,\" the deep emotions of \"Count on Me,\" the confidence of \"Play\"...<br>Over thirty golden hits naturally connected through precise choreography, forming a complete \"Life Soundtrack.\"<br><br>Jolin Cai proved: when the work is strong enough, pure music itself is the most moving language."
+            },
+            images: [
+                { src: "concert/202605/01/01.jpg", alt: { zh: "蔡依林演唱会", en: "Jolin Cai Concert" } },
+                { src: "concert/202605/01/02.jpg", alt: { zh: "蔡依林演唱会", en: "Jolin Cai Concert" } },
+                { src: "concert/202605/01/03.jpg", alt: { zh: "蔡依林演唱会", en: "Jolin Cai Concert" } },
+                { src: "concert/202605/01/05.jpg", alt: { zh: "蔡依林演唱会", en: "Jolin Cai Concert" } },
+                { src: "concert/202605/01/06.jpg", alt: { zh: "蔡依林演唱会", en: "Jolin Cai Concert" } },
+                { src: "concert/202605/01/07.jpg", alt: { zh: "蔡依林演唱会", en: "Jolin Cai Concert" } },
+                { src: "concert/202605/01/08.jpg", alt: { zh: "蔡依林演唱会", en: "Jolin Cai Concert" } },
+                { src: "concert/202605/01/09.jpg", alt: { zh: "蔡依林演唱会", en: "Jolin Cai Concert" } },
+                { src: "concert/202605/01/10.jpg", alt: { zh: "蔡依林演唱会", en: "Jolin Cai Concert" } },
+                { src: "concert/202605/01/11.jpg", alt: { zh: "蔡依林演唱会", en: "Jolin Cai Concert" } },
+                { src: "concert/202605/01/13.jpg", alt: { zh: "蔡依林演唱会", en: "Jolin Cai Concert" } }
+            ],
+            video: {
+                zh: "BV1SaRqBtE81",
+                en: "BV1SaRqBtE81"
+            },
+            videoUrl: {
+                zh: "https://space.bilibili.com/29825132/lists/8034050",
+                en: "https://space.bilibili.com/29825132/lists/8034050"
+            }
         }
     ]
 };
