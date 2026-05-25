@@ -380,8 +380,8 @@ const concertsBaseData = {
             date: "2026.05",
             poster: "concert/poster/20260524.jpg",
             tags: {
-                zh: ["歌谣", "李荣浩", "海陆风", "机车", "紫荆花盛开", "香港", "旅行", "背包客", "台湾", "鹅銮鼻", "太平洋", "黑马"],
-                en: ["Ballad", "Li Ronghao", "Sea-Land Breeze", "Motorcycle", "Bauhinia in Bloom", "Hong Kong", "Travel", "Backpacker", "Taiwan", "Eluanbi", "Pacific Ocean", "Ocean Sound","Dark Horse"]
+                zh: ["乌梅子酱", "青皮甘蔗", "杨丞琳", "黑马","李荣浩"],
+                en: ["Dark Plum Sauce", "Green Sugarcane", "Rainie Yang", "Dark Horse", "Li Ronghao"]
             },
             description: {
                 zh: "那晚的甜，<br/>是唱《乌梅子酱》时塞进他怀里的两根青皮甘蔗。<br/>酸，<br/>是歌迷说第一次追的是杨丞琳，他笑着转去“醋意转账”二百元。<br/>咸，<br/>是唱《黑马》时汗水蛰眼，他戴上墨镜继续嘶吼。<br/><br/>散场时，数万人手机的光，汇成了地上星河。<br/>那个即兴的、不完美的夏夜，成了我们共同的，发着光的括号。",
@@ -401,12 +401,12 @@ const concertsBaseData = {
                 { src: "concert/202605/02/13.jpg", alt: { zh: "李荣浩演唱会", en: "Li Ronghao Concert" } }     
             ],
             video: {
-                zh: "BV1ADfCB5EYL",
-                en: "BV1ADfCB5EYL"
+                zh: "BV1XmGo6SEmt",
+                en: "BV1XmGo6SEmt"
             },
             videoUrl: {
-                zh: "https://space.bilibili.com/29825132/lists/7719488",
-                en: "https://space.bilibili.com/29825132/lists/7719488"
+                zh: "https://space.bilibili.com/29825132/lists/8201616",
+                en: "https://space.bilibili.com/29825132/lists/8201616"
             }
         }
     ]
