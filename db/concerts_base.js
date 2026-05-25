@@ -368,6 +368,46 @@ const concertsBaseData = {
                 zh: "https://space.bilibili.com/29825132/lists/8034050",
                 en: "https://space.bilibili.com/29825132/lists/8034050"
             }
+        },{
+            id: 12,
+            artist: { zh: "李荣浩", en: "Li Ronghao" },
+            concertName: { zh: "黑马", en: "Dark Horse" },
+            theme: {
+                zh: "主题源自其第八张创作专辑《黑马》，旨在传递 \"黑马不是不合群，是听天不由命，我们每个人都是一匹黑马\" 的精神。舞台中心矗立巨型黑马艺术装置，整场演出是一场关于坚持、梦想与自我突破的音乐叙事，旨在唤醒每个人心中的潜能。",
+                en: "The theme originates from his eighth original album 'Dark Horse,' aiming to convey the spirit that 'a dark horse isn't antisocial, but refuses to accept fate. Each of us is a dark horse.' A giant dark horse art installation stands at the center of the stage, making the entire show a musical narrative about perseverance, dreams, and self-breakthrough, awakening the potential within everyone."
+            },
+            location: { zh: "广西 · 南宁 · 广西体育中心体育场", en: "Guangxi · Nanning" },
+            date: "2026.05",
+            poster: "concert/poster/20260524.jpg",
+            tags: {
+                zh: ["歌谣", "李荣浩", "海陆风", "机车", "紫荆花盛开", "香港", "旅行", "背包客", "台湾", "鹅銮鼻", "太平洋", "黑马"],
+                en: ["Ballad", "Li Ronghao", "Sea-Land Breeze", "Motorcycle", "Bauhinia in Bloom", "Hong Kong", "Travel", "Backpacker", "Taiwan", "Eluanbi", "Pacific Ocean", "Ocean Sound","Dark Horse"]
+            },
+            description: {
+                zh: "那晚的甜，<br/>是唱《乌梅子酱》时塞进他怀里的两根青皮甘蔗。<br/>酸，<br/>是歌迷说第一次追的是杨丞琳，他笑着转去“醋意转账”二百元。<br/>咸，<br/>是唱《黑马》时汗水蛰眼，他戴上墨镜继续嘶吼。<br/><br/>散场时，数万人手机的光，汇成了地上星河。<br/>那个即兴的、不完美的夏夜，成了我们共同的，发着光的括号。",
+                en: "The sweetness of that night,<br/>Was the two green sugarcanes stuffed into his arms while singing \"Dark Plum Sauce.\"<br/>The sourness,<br/>Was when a fan said they first followed Rainie Yang, and he laughed while transferring 200 yuan as \"jealousy payment.\"<br/>The saltiness,<br/>Was when sweat stung his eyes while singing \"Dark Horse,\" and he put on sunglasses to keep roaring.<br/><br/>When the show ended, the light from tens of thousands of phones converged into a galaxy on the ground.<br/>That improvised, imperfect summer night became our shared, glowing parentheses."
+            },
+            images: [
+                { src: "concert/202605/02/02.jpg", alt: { zh: "李荣浩演唱会", en: "Li Ronghao Concert" } },
+                { src: "concert/202605/02/03.jpg", alt: { zh: "李荣浩演唱会", en: "Li Ronghao Concert" } },
+                { src: "concert/202605/02/04.jpg", alt: { zh: "李荣浩演唱会", en: "Li Ronghao Concert" } },
+                { src: "concert/202605/02/05.jpg", alt: { zh: "李荣浩演唱会", en: "Li Ronghao Concert" } },
+                { src: "concert/202605/02/07.jpg", alt: { zh: "李荣浩演唱会", en: "Li Ronghao Concert" } },
+                { src: "concert/202605/02/08.jpg", alt: { zh: "李荣浩演唱会", en: "Li Ronghao Concert" } },
+                { src: "concert/202605/02/09.jpg", alt: { zh: "李荣浩演唱会", en: "Li Ronghao Concert" } },
+                { src: "concert/202605/02/10.jpg", alt: { zh: "李荣浩演唱会", en: "Li Ronghao Concert" } },
+                { src: "concert/202605/02/11.jpg", alt: { zh: "李荣浩演唱会", en: "Li Ronghao Concert" } },
+                { src: "concert/202605/02/12.jpg", alt: { zh: "李荣浩演唱会", en: "Li Ronghao Concert" } },
+                { src: "concert/202605/02/13.jpg", alt: { zh: "李荣浩演唱会", en: "Li Ronghao Concert" } }     
+            ],
+            video: {
+                zh: "BV1ADfCB5EYL",
+                en: "BV1ADfCB5EYL"
+            },
+            videoUrl: {
+                zh: "https://space.bilibili.com/29825132/lists/7719488",
+                en: "https://space.bilibili.com/29825132/lists/7719488"
+            }
         }
     ]
 };
