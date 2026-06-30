@@ -967,7 +967,7 @@ body {
 
 .timeline {
     position: relative;
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto 60px;
     padding: 0 20px;
 }
@@ -1972,6 +1972,128 @@ body {
     border: 1px solid rgba(0, 0, 0, 0.05);
     height: auto;
     min-height: 340px;
+    position: relative;
+}
+
+/* 演唱会切换按钮样式 */
+.detail-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(72, 81, 173, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(72, 81, 173, 0.2);
+    color: #4851AD;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.detail-nav:hover {
+    background: linear-gradient(135deg, #4851AD 0%, #637ec5 100%);
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+    border-color: rgba(72, 81, 173, 0.4);
+    box-shadow: 0 8px 25px rgba(72, 81, 173, 0.3);
+}
+
+.detail-nav.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    background: rgba(72, 81, 173, 0.05);
+}
+
+.detail-nav.disabled:hover {
+    transform: translateY(-50%);
+    background: rgba(72, 81, 173, 0.05);
+    color: #4851AD;
+    border-color: rgba(72, 81, 173, 0.2);
+}
+
+.detail-prev {
+    left: -70px;
+}
+
+.detail-next {
+    right: -70px;
+}
+
+/* 移动端适配 */
+@media (max-width: 899px) {
+    .detail-panel {
+        position: relative;
+        padding: 20px 15px; /* 正常padding，按钮在两侧 */
+        margin-top: 20px;
+    }
+    
+    .detail-nav {
+        width: 44px; /* 移动端最小触摸目标尺寸 */
+        height: 44px;
+        font-size: 20px;
+        top: 50%; /* 垂直居中 */
+        transform: translateY(-50%);
+        border-width: 2px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        padding: 0;
+    }
+    
+    /* 移动端触摸反馈 */
+    .detail-nav:active {
+        transform: translateY(-50%) scale(0.95);
+        background: linear-gradient(135deg, #4851AD 0%, #637ec5 100%);
+        color: white;
+    }
+    
+    .detail-nav:hover {
+        transform: translateY(-50%) scale(1.05);
+    }
+    
+    .detail-nav.disabled:hover {
+        transform: translateY(-50%);
+        background: rgba(72, 81, 173, 0.05);
+    }
+    
+    .detail-nav.disabled:active {
+        transform: translateY(-50%);
+        background: rgba(72, 81, 173, 0.05);
+        color: #4851AD;
+    }
+    
+    .detail-prev {
+        left: 10px;
+        right: auto;
+    }
+    
+    .detail-next {
+        right: 10px;
+        left: auto;
+    }
+    
+    .detail-header {
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        margin-top: 0;
+    }
+    
+    .detail-title {
+        font-size: 1.5rem;
+    }
+    
+    .detail-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .detail-date {
+        font-size: 0.85rem;
+    }
 }
 
 @media (min-width: 900px) {
@@ -2034,25 +2156,34 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
+/* ==================== 按钮容器样式 ==================== */
+.timeline-buttons {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    margin-top: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
 /* ==================== 视频按钮样式 ==================== */
 .video-btn {
     background: linear-gradient(45deg, #8c9ed9, #ff8e8e);
     color: white;
     border: none;
-    padding: 10px 18px;
-    border-radius: 25px;
-    font-size: 13px;
-    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
     cursor: pointer;
-    margin-top: 20px;
-    margin-right: 8px;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    box-shadow: 0 3px 12px rgba(255, 107, 107, 0.25);
+    gap: 4px;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.2);
     position: relative;
     overflow: hidden;
+    white-space: nowrap;
 }
 
 .video-btn:hover {
@@ -2076,7 +2207,7 @@ body {
 }
 
 .video-btn i {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 /* 视频跳转按钮样式 */
@@ -2084,20 +2215,19 @@ body {
     background: linear-gradient(45deg, #b685a6, #8c9ed9);
     color: white;
     border: none;
-    padding: 10px 18px;
-    border-radius: 25px;
-    font-size: 13px;
-    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
     cursor: pointer;
-    margin-top: 20px;
-    margin-left: 0;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    box-shadow: 0 3px 12px rgba(79, 172, 254, 0.25);
+    gap: 4px;
+    box-shadow: 0 2px 8px rgba(79, 172, 254, 0.2);
     position: relative;
     overflow: hidden;
+    white-space: nowrap;
 }
 
 .video-link-btn:hover {
@@ -2234,16 +2364,334 @@ body {
         height: 35px;
     }
     
+    .timeline-buttons {
+        gap: 6px;
+        margin-top: 12px;
+    }
+    
     .video-btn {
-        padding: 8px 14px;
-        font-size: 12px;
-        margin-right: 6px;
-        margin-bottom: 8px;
+        padding: 5px 10px;
+        font-size: 11px;
     }
     
     .video-link-btn {
-        padding: 8px 14px;
-        font-size: 12px;
-        margin-bottom: 8px;
+        padding: 5px 10px;
+        font-size: 11px;
+    }
+    
+    .songlist-btn {
+        padding: 5px 10px;
+        font-size: 11px;
+    }
+}
+
+/* ==================== 歌单模态框样式 ==================== */
+.songlist-modal {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.songlist-modal.show {
+    display: flex;
+}
+
+.songlist-modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    max-height: 85vh;
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.92) 0%, rgba(22, 33, 62, 0.92) 100%);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(72, 81, 173, 0.2);
+}
+
+/* 歌单切换按钮样式 */
+.songlist-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.songlist-nav:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-50%) scale(1.1);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.songlist-nav.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.songlist-nav.disabled:hover {
+    transform: translateY(-50%);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.songlist-prev {
+    left: -60px;
+}
+
+.songlist-next {
+    right: -60px;
+}
+
+.songlist-modal-header {
+    background: linear-gradient(90deg, #4851ad, #637ec5);
+    padding: 20px 30px;
+    color: white;
+    text-align: center;
+}
+
+.songlist-modal-header h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.songlist-modal-subtitle {
+    margin: 0;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.songlist-container {
+    padding: 30px;
+    max-height: calc(85vh - 100px);
+    overflow-y: auto;
+}
+
+.songlist-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.songlist-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.songlist-container::-webkit-scrollbar-thumb {
+    background: rgba(72, 81, 173, 0.6);
+    border-radius: 4px;
+}
+
+.songlist-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(72, 81, 173, 0.8);
+}
+
+.songlist-section {
+    margin-bottom: 25px;
+}
+
+.songlist-section:last-child {
+    margin-bottom: 0;
+}
+
+.songlist-section-title {
+    color: #637ec5;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(72, 81, 173, 0.3);
+}
+
+.songlist-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: song-counter;
+}
+
+.songlist-item {
+    counter-increment: song-counter;
+    color: #e0e0e0;
+    font-size: 0.95rem;
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.songlist-item::before {
+    content: counter(song-counter);
+    position: absolute;
+    left: 15px;
+    color: #637ec5;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.songlist-item {
+    padding-left: 45px;
+}
+
+.songlist-item:hover {
+    background: rgba(72, 81, 173, 0.15);
+    transform: translateX(5px);
+}
+
+.songlist-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    transition: color 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.songlist-close:hover {
+    color: #ff6b6b;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* 歌单按钮样式 */
+.songlist-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background: linear-gradient(135deg, #4851ad, #637ec5);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 2px 8px rgba(72, 81, 173, 0.2);
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.songlist-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(72, 81, 173, 0.4);
+    background: linear-gradient(135deg, #5a62bd, #748ed5);
+}
+
+.songlist-btn i {
+    font-size: 12px;
+}
+
+/* 响应式歌单模态框 */
+@media (max-width: 768px) {
+    .songlist-modal-content {
+        width: 95%;
+        max-width: none;
+        margin: 10px;
+    }
+    
+    /* 歌单切换按钮移动端适配 */
+    .songlist-nav {
+        width: 44px; /* 移动端最小触摸目标尺寸 */
+        height: 44px;
+        font-size: 20px;
+        top: 15px; /* 放在顶部 */
+        transform: none;
+        border-width: 2px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .songlist-nav:active {
+        transform: scale(0.95);
+        background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .songlist-nav:hover {
+        transform: scale(1.05);
+    }
+    
+    .songlist-nav.disabled:hover {
+        transform: none;
+    }
+    
+    .songlist-nav.disabled:active {
+        transform: none;
+    }
+    
+    .songlist-prev {
+        left: 10px;
+        right: auto;
+    }
+    
+    .songlist-next {
+        right: 10px;
+        left: auto;
+    }
+    
+    .songlist-modal-header {
+        padding: 60px 15px 15px 15px; /* 为顶部按钮留出空间 */
+    }
+    
+    .songlist-modal-header h3 {
+        font-size: 1.1rem;
+        padding-right: 0;
+    }
+    
+    .songlist-container {
+        padding: 20px;
+    }
+    
+    .songlist-item {
+        padding: 10px 12px;
+        padding-left: 40px;
+        font-size: 0.85rem;
+        margin-bottom: 6px;
+    }
+    
+    .songlist-item::before {
+        font-size: 0.75rem;
+        left: 12px;
+    }
+    
+    .songlist-close {
+        top: 10px;
+        right: 15px;
+        font-size: 28px;
+        width: 35px;
+        height: 35px;
     }
 }

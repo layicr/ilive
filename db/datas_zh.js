@@ -17,7 +17,8 @@ function generateZHData() {
             alt: img.alt.zh
         })),
         video: concert.video ? concert.video.zh : null,
-        videoUrl: concert.videoUrl ? concert.videoUrl.zh : null
+        videoUrl: concert.videoUrl ? concert.videoUrl.zh : null,
+        songlist: concert.songlist ? concert.songlist.map(song => song.zh) : null
     }));
 
     // 计算每个城市的演唱会数量

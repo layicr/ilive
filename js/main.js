@@ -135,6 +135,13 @@ const videoModal = document.getElementById('videoModal');
 const videoPlayer = document.getElementById('videoPlayer');
 const videoModalTitle = document.getElementById('videoModalTitle');
 const closeVideoModal = document.getElementById('closeVideoModal');
+const songlistModal = document.getElementById('songlistModal');
+const songlistContainer = document.getElementById('songlistContainer');
+const songlistModalTitle = document.getElementById('songlistModalTitle');
+const songlistModalSubtitle = document.getElementById('songlistModalSubtitle');
+const closeSonglistModal = document.getElementById('closeSonglistModal');
+const prevConcert = document.getElementById('prevConcert');
+const nextConcert = document.getElementById('nextConcert');
 
 function initPage() {
     // 初始化语言
@@ -421,6 +428,24 @@ function renderTimeline() {
                 timelineContent.appendChild(galleryContainer);
             }
             
+            // 创建按钮容器
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'timeline-buttons';
+            
+            // 添加歌单按钮（如果有歌单）
+            if (concert.songlist && concert.songlist.length > 0) {
+                const songlistButton = document.createElement('button');
+                songlistButton.className = 'songlist-btn';
+                songlistButton.innerHTML = '<i class="fas fa-music"></i> ' + t('查看歌单', 'View Songlist');
+                songlistButton.dataset.songlist = JSON.stringify(concert.songlist);
+                songlistButton.dataset.artist = concert.artist;
+                songlistButton.dataset.concertName = concert.concertName;
+                songlistButton.addEventListener('click', function() {
+                    openSonglistModal(JSON.parse(this.dataset.songlist), this.dataset.artist, this.dataset.concertName);
+                });
+                buttonContainer.appendChild(songlistButton);
+            }
+            
             // 添加视频按钮（如果有视频）
             if (concert.video) {
                 const videoButton = document.createElement('button');
@@ -431,7 +456,7 @@ function renderTimeline() {
                 videoButton.addEventListener('click', function() {
                     openVideoModal(this.dataset.videoId, this.dataset.videoTitle);
                 });
-                timelineContent.appendChild(videoButton);
+                buttonContainer.appendChild(videoButton);
             }
             
             // 添加视频跳转按钮（如果有视频URL）
@@ -443,7 +468,12 @@ function renderTimeline() {
                 videoLinkButton.addEventListener('click', function() {
                     window.open(this.dataset.videoUrl, '_blank');
                 });
-                timelineContent.appendChild(videoLinkButton);
+                buttonContainer.appendChild(videoLinkButton);
+            }
+            
+            // 将按钮容器添加到时间轴内容
+            if (buttonContainer.children.length > 0) {
+                timelineContent.appendChild(buttonContainer);
             }
             
             timelineItem.appendChild(timelineContent);
@@ -869,6 +899,83 @@ document.addEventListener('keydown', e => {
     }
 });
 
+// 歌单模态框控制
+function openSonglistModal(songlist, artist, concertName) {
+    if (!songlist || songlist.length === 0) return;
+    
+    // 设置标题
+    songlistModalTitle.textContent = artist + ' - ' + concertName;
+    songlistModalSubtitle.textContent = t('共 ' + songlist.length + ' 首歌曲', 'Total ' + songlist.length + ' songs');
+    
+    // 清空并生成歌单列表
+    songlistContainer.innerHTML = '';
+    
+    // 检查是否有分组结构（对象数组带 section 属性）
+    if (songlist[0] && typeof songlist[0] === 'object' && songlist[0].section) {
+        // 分组歌单
+        songlist.forEach(section => {
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'songlist-section';
+            
+            const sectionTitle = document.createElement('h4');
+            sectionTitle.className = 'songlist-section-title';
+            sectionTitle.textContent = section.section;
+            sectionDiv.appendChild(sectionTitle);
+            
+            const sectionList = document.createElement('ol');
+            sectionList.className = 'songlist-list';
+            section.songs.forEach((song, index) => {
+                const li = document.createElement('li');
+                li.className = 'songlist-item';
+                li.textContent = song;
+                sectionList.appendChild(li);
+            });
+            sectionDiv.appendChild(sectionList);
+            
+            songlistContainer.appendChild(sectionDiv);
+        });
+    } else {
+        // 普通歌单（字符串数组）
+        const list = document.createElement('ol');
+        list.className = 'songlist-list';
+        songlist.forEach((song, index) => {
+            const li = document.createElement('li');
+            li.className = 'songlist-item';
+            li.textContent = song;
+            list.appendChild(li);
+        });
+        songlistContainer.appendChild(list);
+    }
+    
+    // 显示模态框
+    songlistModal.classList.add('show');
+    
+    // 阻止背景滚动
+    document.body.style.overflow = 'hidden';
+}
+
+function closeSonglistModalFunc() {
+    songlistModal.classList.remove('show');
+    songlistContainer.innerHTML = '';
+    
+    // 恢复背景滚动
+    document.body.style.overflow = '';
+}
+
+closeSonglistModal.addEventListener('click', closeSonglistModalFunc);
+songlistModal.addEventListener('click', e => {
+    if (e.target === songlistModal || e.target.classList.contains('songlist-modal-content')) {
+        closeSonglistModalFunc();
+    }
+});
+
+// ESC键关闭歌单模态框
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && songlistModal.classList.contains('show')) {
+        closeSonglistModalFunc();
+    }
+});
+
 // 图片导航
 prevImageBtn.addEventListener('click', () => navigateImage(-1));
 nextImageBtn.addEventListener('click', () => navigateImage(1));
@@ -1208,6 +1315,15 @@ function init3DAlbumShowcase() {
     // 当前选中的专辑索引
     let currentAlbumIndex = 0;
     
+    // 更新切换按钮状态
+    function updateConcertNavButtons() {
+        prevConcert.disabled = currentAlbumIndex === 0;
+        nextConcert.disabled = currentAlbumIndex === albums.length - 1;
+        
+        prevConcert.classList.toggle('disabled', currentAlbumIndex === 0);
+        nextConcert.classList.toggle('disabled', currentAlbumIndex === albums.length - 1);
+    }
+    
     // 触摸滑动变量
     let touchStartX = 0;
     let touchStartY = 0;
@@ -1310,6 +1426,9 @@ function init3DAlbumShowcase() {
         
         // 应用旋转视图布局
         applyCarouselLayout(index);
+        
+        // 更新切换按钮状态
+        updateConcertNavButtons();
     }
 
     // 触摸滑动事件
@@ -1389,4 +1508,20 @@ function init3DAlbumShowcase() {
             }, CONFIG.CAROUSEL_INTERVAL);
         }
     });
+
+    // 演唱会切换按钮事件
+    prevConcert.addEventListener('click', () => {
+        if (currentAlbumIndex > 0) {
+            selectAlbum(currentAlbumIndex - 1);
+        }
+    });
+
+    nextConcert.addEventListener('click', () => {
+        if (currentAlbumIndex < albums.length - 1) {
+            selectAlbum(currentAlbumIndex + 1);
+        }
+    });
+
+    // 初始化按钮状态
+    updateConcertNavButtons();
 }

@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="keywords"
-        content="layicr,lyc,lyc.la,演唱会,五月天,陈奕迅,任贤齐,孙燕姿,邓紫棋,周传雄,李荣浩,伍佰,Concert,Mayday,EasonChan,RichieJen,StefanieSun,G.E.M.,SteveChou,LiRonghao,WuBai,演唱会足迹,演唱会记录">
+        content="layicr,lyc,lyc.la,演唱会,五月天,陈奕迅,任贤齐,孙燕姿,邓紫棋,周传雄,李荣浩,伍佰,周杰伦,蔡依林,侧田,Concert,Mayday,EasonChan,RichieJen,StefanieSun,G.E.M.,SteveChou,LiRonghao,WuBai,JayChou,JolinCai,JustinLo,演唱会足迹,演唱会记录">
     <meta name="description"
-        content="Layicr的个人演唱会足迹记录网站。记录观看伍佰、李荣浩、邓紫棋、周传雄、五月天、陈奕迅等歌手演唱会的美好回忆。">
+        content="Layicr的个人演唱会足迹记录网站。记录观看五月天、陈奕迅、伍佰、任贤齐、孙燕姿、周传雄、邓紫棋、李荣浩、周杰伦、蔡依林、侧田等歌手演唱会的美好回忆。">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="layicr">
     <meta name="robots" content="index, follow">
@@ -186,6 +186,12 @@
 
         <!-- 右侧：详情面板 -->
         <div class="detail-panel">
+            <button class="detail-nav detail-prev" id="prevConcert" aria-label="上一场演唱会">
+                <i class="fas fa-chevron-left" aria-hidden="true"></i>
+            </button>
+            <button class="detail-nav detail-next" id="nextConcert" aria-label="下一场演唱会">
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </button>
             <div class="detail-header">
                 <h2 class="detail-title" id="detailTitle">Loading...</h2>
                 <p class="detail-subtitle" id="detailSubtitle">-</p>
@@ -243,6 +249,20 @@
             </div>
             <div class="video-container">
                 <iframe id="videoPlayer" src="" frameborder="0" allowfullscreen allow="autoplay; encrypted-media" title="演唱会视频"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- 歌单查看器模态框 -->
+    <div class="songlist-modal" id="songlistModal" role="dialog" aria-modal="true" aria-labelledby="songlistModalTitle" aria-label="演唱会歌单查看器">
+        <div class="songlist-modal-content">
+            <button class="songlist-close" id="closeSonglistModal" aria-label="关闭歌单查看器">&times;</button>
+            <div class="songlist-modal-header">
+                <h3 id="songlistModalTitle">Loading...</h3>
+                <p class="songlist-modal-subtitle" id="songlistModalSubtitle">-</p>
+            </div>
+            <div class="songlist-container" id="songlistContainer">
+                <!-- 歌单列表将通过JS动态生成 -->
             </div>
         </div>
     </div>
