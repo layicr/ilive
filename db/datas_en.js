@@ -16,7 +16,7 @@ function generateENData() {
         })),
         video: concert.video ? concert.video.en : null,
         videoUrl: concert.videoUrl ? concert.videoUrl.en : null,
-        songlist: concert.songlist ? concert.songlist.map(song => song.en) : null
+        songlist: processSonglist(concert.songlist, 'en')
     }));
 
     // 计算每个城市的演唱会数量
@@ -56,6 +56,73 @@ const concertDataEN = {
     footerText: "",
     siteName: "layicr",
     modalTitle: "Tour Cities",
+
+    // Button texts
+    buttons: {
+        songlist: "View Songlist",
+        watchVideo: "Watch Video",
+        openVideo: "Open Video",
+        backToTop: "Back to Top",
+        feedback: "Report Issue"
+    },
+
+    // Tooltip texts
+    tooltips: {
+        musicToggle: "Play/Pause Background Music",
+        musicToggleAria: "Play/Pause Background Music",
+        feedback: "Report Issue",
+        feedbackAria: "Report Issue to GitHub",
+        backToTop: "Back to Top",
+        backToTopAria: "Back to Page Top"
+    },
+
+    // Loading and status texts
+    status: {
+        loading: "Loading..."
+    },
+
+    // Songlist texts
+    songlist: {
+        totalSongs: "Total {count} songs"
+    },
+
+    // Feedback URL params
+    feedback: {
+        urlTitle: "[Bug Report]",
+        urlBody: "Description:%0A%0APlease describe the issue you encountered in detail..."
+    },
+
+    // City list texts
+    cityList: {
+        concertsPrefix: "Concerts: ",
+        concertsSuffix: ""
+    },
+
+    // Wish wall texts
+    wishWall: {
+        title: "Wish Wall",
+        countPrefix: "Total: ",
+        countSuffix: " wishes",
+        emptyMessage: "No wishes yet, be the first to make one!"
+    },
+
+    // Time format texts
+    timeFormat: {
+        justNow: "Just now",
+        minutesAgo: " min ago",
+        hoursAgo: " hours ago",
+        daysAgo: " days ago"
+    },
+
+    // Error messages
+    errorMessages: {
+        generic: "Operation failed, please try again later",
+        network: "Network connection failed, please check your network",
+        loadFailed: "Loading failed, please refresh the page",
+        musicPlay: "Music playback failed",
+        imageLoad: "Image loading failed"
+    },
+
     cities: citiesEN,
     concerts: concertsEN
 };

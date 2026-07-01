@@ -99,7 +99,7 @@
         <button class="lang-btn" data-lang="en" aria-label="切换到英文">EN</button>
     </div>
     <div class="music-player">
-        <button class="music-btn" id="musicToggle" title="Play/Pause music" aria-label="播放/暂停背景音乐">
+        <button class="music-btn" id="musicToggle" aria-label="播放/暂停背景音乐">
             <i class="fas fa-music" id="musicIcon" aria-hidden="true"></i>
         </button>
         <span class="music-wave" id="musicWave" aria-hidden="true">
@@ -322,13 +322,34 @@
         </div>
     </footer>
 
-    <button class="back-to-top" id="backToTop" title="返回顶部" aria-label="返回页面顶部">
+    <!-- 反馈问题按钮 -->
+    <button class="feedback-btn" id="feedbackBtn" aria-label="反馈问题到GitHub">
+        <i class="fas fa-lightbulb" aria-hidden="true"></i>
+    </button>
+
+    <button class="back-to-top" id="backToTop" aria-label="返回页面顶部">
         <i class="fas fa-arrow-up" aria-hidden="true"></i>
     </button>
 
+    <!-- 数据文件 -->
     <script src="db/concerts_base.js"></script>
     <script src="db/datas_zh.js"></script>
     <script src="db/datas_en.js"></script>
+
+
+    <!-- 配置和工具模块 -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/error.js"></script>
+
+    <!-- 功能模块 -->
+    <script src="js/music.js"></script>
+    <script src="js/gallery.js"></script>
+    <script src="js/songlist.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/language.js"></script>
+
+    <!-- 主逻辑 -->
     <script src="js/main.js"></script>
 </body>
 

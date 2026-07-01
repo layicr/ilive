@@ -22,8 +22,6 @@ var _hmt = _hmt || [];
         gtag('js', new Date());
         // 进行基础配置
         gtag('config', 'G-Y7B6DLCXSE');
-        // 你可以在此处添加更多的 gtag('config', '其他ID') 或事件代码
-        console.log('GA4 动态加载并初始化完成。');
     };
     // 可选：添加错误处理
     firstScript.onerror = function() {
