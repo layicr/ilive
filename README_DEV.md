@@ -19,29 +19,38 @@
 | 模块 | 说明 |
 |------|------|
 | 🎤 演唱会时间轴 | 按时间倒序展示所有演唱会卡片，点击查看详情 |
-| 💿 3D专辑堆叠 | GSAP驱动的专辑轮播 + 详情面板，支持上/下一场切换 |
+| 💿 3D专辑堆叠 | GSAP驱动的专辑轮播 + 详情面板，支持上/下一场切换、移动端滑动手势 |
 | 🖼️ 图片画廊 | 模态查看器，支持键盘导航、触摸滑动、懒加载 |
 | 🎬 视频查看器 | 嵌入B站视频，iframe 播放 |
-| 📜 歌单查看器 | 完整曲目列表，支持中英双语 |
-| 🌐 双语切换 | 中英文实时切换，记忆用户偏好 |
-| 🎵 背景音乐 | 自动播放、淡入淡出、状态同步 |
+| 📜 歌单查看器 | 完整曲目列表，支持中英双语、实时搜索过滤、分组显示 |
+| 🔍 歌单搜索 | 实时搜索歌曲，支持中英文关键词，输入验证防护 |
+| 📱 移动端手势 | 左右滑动切换演唱会详情和歌单，触摸反馈动画 |
+| 🌐 双语切换 | 中英文实时切换，记忆用户偏好，动态更新所有文本 |
+| 🎵 背景音乐 | 自动播放、淡入淡出、状态同步、音乐源切换 |
 | 💫 许愿墙 | 卡片式心愿墙，支持点赞、空状态、相对时间 |
+| 🔗 友情链接 | 动态生成页脚社交链接，支持中英文title切换 |
 | 📊 数据统计 | 城市/艺人/场次自动统计 |
 | 🔍 SEO优化 | JSON-LD结构化数据、OG/Twitter Card、sitemap |
 | ⚡ PWA离线 | Service Worker分类型缓存策略 |
 | 🐛 反馈入口 | 一键跳转GitHub Issue反馈问题 |
+| 🔒 XSS安全防护 | 输入验证、HTML转义、URL验证、安全DOM操作 |
+| ✨ 按钮动画优化 | Hover发光效果、点击反馈动画、脉冲动画 |
 
 ---
 
 ## 🛠️ 技术栈
 
 - **HTML5 / CSS3 / 原生 JavaScript**（无构建工具）
-- **GSAP 3.12** — 动画引擎
+- **GSAP 3.12** — 动画引擎（专辑堆叠、动态文本）
 - **Tailwind CSS (CDN)** — 工具类样式
-- **Font Awesome 6.4** — 图标
-- **Service Worker** — 离线缓存
+- **Font Awesome 6.4** — 图标库
+- **Service Worker** — 离线缓存、PWA支持
 - **localStorage** — 语言偏好持久化
-- **IntersectionObserver** — 滚动触发动画与懒加载
+- **IntersectionObserver** — 滚动触发动画、懒加载、返回顶部按钮
+- **Touch Events API** — 移动端滑动手势识别
+- **XSS防护机制** — 输入验证、HTML转义、URL验证
+- **防抖/节流函数** — 优化搜索、滚动、动画性能
+- **百度统计 / Google Analytics / 51.la** — 多维度用户行为分析
 - **GitHub Pages** — 部署托管
 
 ---
@@ -68,16 +77,17 @@ ilive/
 │
 ├── js/
 │   ├── config.js           # 全局配置（GitHub、音乐、图片、动画、缓存等）
-│   ├── utils.js            # 通用工具（防抖/节流/语言切换）
+│   ├── utils.js            # 通用工具（防抖/节流/XSS防护/语言切换）
 │   ├── error.js            # 错误处理与 Toast
-│   ├── music.js            # 背景音乐播放器
-│   ├── gallery.js          # 图片画廊与手势交互
-│   ├── songlist.js         # 歌单查看器
-│   ├── navigation.js       # 导航/返回顶部/模态框/反馈按钮
-│   ├── language.js         # 语言切换与 i18n 文本
-│   ├── main.js             # 主逻辑（初始化、渲染、动画协调）
-│   ├── statis.js           # 统计代码（百度统计、GA4）
-│   └── sw.js               # Service Worker
+│   ├── music.js            # 背景音乐播放器（自动播放、淡入淡出）
+│   ├── gallery.js          # 图片画廊与手势交互（键盘导航、触摸滑动）
+│   ├── songlist.js         # 歌单查看器（渲染、搜索、过滤、分组）
+│   ├── navigation.js       # 导航/返回顶部/模态框/反馈按钮/触摸手势
+│   ├── friendLink.js       # 友情链接动态生成（中英文切换）
+│   ├── language.js         # 语言切换与 i18n 文本（页面内容更新）
+│   ├── main.js             # 主逻辑（初始化、渲染、动画协调、3D专辑）
+│   ├── statis.js           # 统计代码（百度统计、GA4、51.la）
+│   └── sw.js               # Service Worker（分类型缓存策略）
 │
 ├── concert/
 │   ├── poster/             # 演唱会海报
@@ -112,8 +122,22 @@ ilive/
 | 手势 | `SWIPE_MIN_DISTANCE` | 触摸滑动阈值 |
 | 缓存 | `CACHE_VERSION` / `CACHE_STRATEGY` | SW缓存策略 |
 | UI | `SCROLL_THRESHOLD` / `TOAST_DURATION` | 交互阈值 |
+| XSS防护 | `sanitizeInput()` / `escapeHtml()` | 输入验证、HTML转义 |
 
 > ⚠️ 修改 `CONFIG.CACHE_VERSION` 时需同步更新 `js/sw.js` 中的缓存版本号。
+
+### 核心工具函数（utils.js）
+
+| 函数名 | 用途 |
+|--------|------|
+| `debounce(fn, delay)` | 防抖函数，用于搜索、滚动事件 |
+| `throttle(fn, limit)` | 节流函数，用于动画、手势事件 |
+| `escapeHtml(text)` | HTML转义，防止XSS注入 |
+| `safeHtml(html)` | 安全HTML处理，允许特定标签 |
+| `sanitizeInput(input, maxLength)` | 输入验证和净化，用于搜索框 |
+| `safeCreateElement(tag, content, className)` | 安全创建DOM元素 |
+| `getLangData(key)` | 获取当前语言数据 |
+| `t(key)` | 翻译函数，用于i18n |
 
 ---
 

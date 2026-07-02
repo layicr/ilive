@@ -171,6 +171,30 @@ function safeHtml(html) {
 }
 
 /**
+ * 输入验证和净化（用于搜索等用户输入）
+ * @param {string} input - 用户输入
+ * @param {number} maxLength - 最大长度限制（默认100）
+ * @returns {string} 验证后的安全输入
+ * @description 去除前后空格，限制长度，转义HTML特殊字符，防止XSS注入
+ */
+function sanitizeInput(input, maxLength = 100) {
+    if (typeof input !== 'string') return '';
+
+    // 去除前后空格
+    let sanitized = input.trim();
+
+    // 限制长度（防止过长输入）
+    if (sanitized.length > maxLength) {
+        sanitized = sanitized.substring(0, maxLength);
+    }
+
+    // 转义HTML特殊字符（防止XSS）
+    sanitized = escapeHtml(sanitized);
+
+    return sanitized;
+}
+
+/**
  * 格式化许愿时间
  * @param {string} timeString - 时间字符串（ISO格式）
  * @param {string} [lang] - 语言代码，默认使用 currentLanguage

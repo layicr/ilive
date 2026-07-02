@@ -14,7 +14,7 @@
     
 
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="http://ilive.lyc.la">
@@ -260,6 +260,13 @@
             <div class="songlist-modal-header">
                 <h3 id="songlistModalTitle">Loading...</h3>
                 <p class="songlist-modal-subtitle" id="songlistModalSubtitle">-</p>
+                <div class="songlist-search-container">
+                    <input type="text" id="songlistSearchInput"
+                           class="songlist-search-input"
+                           placeholder=""
+                           aria-label="">
+                    <i class="fas fa-search songlist-search-icon"></i>
+                </div>
             </div>
             <div class="songlist-container" id="songlistContainer">
                 <!-- 歌单列表将通过JS动态生成 -->
@@ -285,34 +292,7 @@
                 <span class="footer-tagline" id="footer-text"></span>
             </div>
             <div class="footer-social">
-                <a href="http://www.lyc.la" target="_blank" class="social-link" title="lyc.la">
-                    <i class="fas fa-globe"></i>
-                </a>
-                <a href="http://github.com/layicr" target="_blank" class="social-link" title="Github">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="http://weibo.com/layicr" target="_blank" class="social-link" title="Weibo">
-                    <i class="fab fa-weibo"></i>
-                </a>
-                <a href="https://mp.weixin.qq.com/s/S1sq45LC_iQuCLYxzoaRkw" target="_blank" class="social-link"
-                    title="WeChat">
-                    <i class="fab fa-weixin"></i>
-                </a>
-                <a href="https://v.douyin.com/5nAiAZQoUXw/" target="_blank" class="social-link" title="Douyin">
-                    <i class="fab fa-tiktok"></i>
-                </a>
-                 <a href="https://space.bilibili.com/29825132" target="_blank" class="social-link" title="Bilibili">
-                    <i class="fa fa-video-camera"></i>
-                </a>
-                <a href="http://twitter.com/layicr" target="_blank" class="social-link" title="Twitter">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="http://www.instagram.com/ilayicr" target="_blank" class="social-link" title="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="http://www.facebook.com/layicr" target="_blank" class="social-link" title="Facebook">
-                    <i class="fab fa-facebook"></i>
-                </a>
+                <!-- 友情链接将由footer.js动态生成 -->
             </div>
             <div class="footer-bottom">
                 <span> ©<span id="site-name"></span></span>
@@ -347,6 +327,7 @@
     <script src="js/gallery.js"></script>
     <script src="js/songlist.js"></script>
     <script src="js/navigation.js"></script>
+    <script src="js/friendLink.js"></script>
     <script src="js/language.js"></script>
 
     <!-- 主逻辑 -->

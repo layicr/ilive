@@ -1,4 +1,4 @@
-var showFirStr = "->   ";
+const showFirStr = "->   ";
 
 // 从基础数据生成中文数据
 function generateZHData() {
@@ -85,7 +85,8 @@ const concertDataZH = {
 
     // 歌单文本
     songlist: {
-        totalSongs: "共 {count} 首歌曲"
+        totalSongs: "共 {count} 首歌曲",
+        searchPlaceholder: "搜索歌曲..."
     },
 
     // 反馈URL参数

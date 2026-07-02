@@ -122,6 +122,16 @@ function updatePageContent() {
     // 渲染动态列表
     renderCityList();
     renderWishWall();
+
+    // 更新歌单搜索框placeholder
+    if (typeof updateSearchPlaceholder === 'function') {
+        updateSearchPlaceholder();
+    }
+
+    // 更新页脚友情链接
+    if (typeof window.updateFriendLinks === 'function') {
+        window.updateFriendLinks();
+    }
 }
 
 /**

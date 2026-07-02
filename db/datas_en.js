@@ -83,7 +83,8 @@ const concertDataEN = {
 
     // Songlist texts
     songlist: {
-        totalSongs: "Total {count} songs"
+        totalSongs: "Total {count} songs",
+        searchPlaceholder: "Search songs..."
     },
 
     // Feedback URL params

@@ -144,3 +144,170 @@ document.addEventListener('keydown', e => {
         closeCityModalFunc();
     }
 });
+
+// ==================== 触摸手势管理器 ====================
+/**
+ * 触摸手势管理器
+ * @description 处理移动端滑动手势，支持左右切换
+ * @class
+ */
+class TouchGestureManager {
+    /**
+     * 创建手势管理器实例
+     * @param {HTMLElement} container - 监听手势的容器元素
+     * @param {Object} callbacks - 回调函数对象 { onSwipeLeft, onSwipeRight }
+     */
+    constructor(container, callbacks) {
+        this.container = container;
+        this.callbacks = callbacks;
+        this.startX = 0;
+        this.startY = 0;
+        this.startTime = 0;
+        this.isSwiping = false;
+
+        this.bindEvents();
+    }
+
+    /**
+     * 绑定触摸事件
+     * @private
+     */
+    bindEvents() {
+        this.container.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
+        this.container.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
+        this.container.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: true });
+    }
+
+    /**
+     * 处理触摸开始事件
+     * @private
+     * @param {TouchEvent} e - 触摸事件对象
+     */
+    handleTouchStart(e) {
+        if (e.touches.length === 1) {
+            this.startX = e.touches[0].clientX;
+            this.startY = e.touches[0].clientY;
+            this.startTime = Date.now();
+            this.isSwiping = false;
+        }
+    }
+
+    /**
+     * 处理触摸移动事件
+     * @private
+     * @param {TouchEvent} e - 触摸事件对象
+     */
+    handleTouchMove(e) {
+        if (e.touches.length === 1) {
+            const deltaX = e.touches[0].clientX - this.startX;
+            const deltaY = e.touches[0].clientY - this.startY;
+
+            // 判断是横向滑动（横向距离大于纵向距离）
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
+                this.isSwiping = true;
+                e.preventDefault(); // 阻止纵向滚动
+
+                // 实时视觉反馈
+                const opacity = Math.max(CONFIG.SWIPE_OPACITY_MIN, 1 - Math.abs(deltaX) / 200);
+                this.container.style.opacity = opacity;
+            }
+        }
+    }
+
+    /**
+     * 处理触摸结束事件
+     * @private
+     * @param {TouchEvent} e - 触摸事件对象
+     */
+    handleTouchEnd(e) {
+        if (this.isSwiping) {
+            const endX = e.changedTouches[0].clientX;
+            const deltaX = endX - this.startX;
+            const deltaTime = Date.now() - this.startTime;
+
+            // 恢复透明度
+            this.container.style.opacity = '1';
+
+            // 判断是否触发切换
+            if (Math.abs(deltaX) >= CONFIG.SWIPE_MIN_DISTANCE && 
+                deltaTime <= CONFIG.SWIPE_MAX_TIME) {
+                
+                if (deltaX > 0 && this.callbacks.onSwipeRight) {
+                    this.callbacks.onSwipeRight();
+                } else if (deltaX < 0 && this.callbacks.onSwipeLeft) {
+                    this.callbacks.onSwipeLeft();
+                }
+            }
+        }
+        this.isSwiping = false;
+    }
+
+    /**
+     * 销毁手势管理器（移除事件监听）
+     */
+    destroy() {
+        this.container.removeEventListener('touchstart', this.handleTouchStart);
+        this.container.removeEventListener('touchmove', this.handleTouchMove);
+        this.container.removeEventListener('touchend', this.handleTouchEnd);
+    }
+}
+
+// ==================== 初始化手势管理 ====================
+// 演唱会详情面板手势管理器实例
+let detailGestureManager = null;
+
+/**
+ * 初始化演唱会详情面板手势
+ * @description 仅在移动端初始化（屏幕宽度 <= 768px）
+ * @param {Function} navigateCallback - 切换演唱会的回调函数
+ */
+function initDetailGesture(navigateCallback) {
+    const detailPanel = document.querySelector('.detail-panel');
+    if (detailPanel && window.innerWidth <= CONFIG.MOBILE_BREAKPOINT) {
+        // 销毁旧实例（如果存在）
+        if (detailGestureManager) {
+            detailGestureManager.destroy();
+        }
+        
+        // 创建新实例
+        detailGestureManager = new TouchGestureManager(detailPanel, {
+            onSwipeLeft: () => navigateCallback('next'),
+            onSwipeRight: () => navigateCallback('prev')
+        });
+    }
+}
+
+// 歌单模态框手势管理器实例
+let songlistGestureManager = null;
+
+/**
+ * 初始化歌单模态框手势
+ * @description 仅在移动端初始化（屏幕宽度 <= 768px）
+ * @param {Function} navigateCallback - 切换歌单的回调函数
+ */
+function initSonglistGesture(navigateCallback) {
+    const songlistContent = document.querySelector('.songlist-modal-content');
+    if (songlistContent && window.innerWidth <= CONFIG.MOBILE_BREAKPOINT) {
+        // 销毁旧实例（如果存在）
+        if (songlistGestureManager) {
+            songlistGestureManager.destroy();
+        }
+        
+        // 创建新实例
+        songlistGestureManager = new TouchGestureManager(songlistContent, {
+            onSwipeLeft: () => navigateCallback('next'),
+            onSwipeRight: () => navigateCallback('prev')
+        });
+    }
+}
+
+// 窗口大小变化时重新初始化（防抖处理）
+window.addEventListener('resize', debounce(() => {
+    // 重新初始化手势（需在其他模块中调用）
+    console.log('窗口大小变化，建议重新初始化手势管理器');
+}, CONFIG.DEBOUNCE_RESIZE_DELAY));
+
+// ==================== 导出供其他模块使用 ====================
+window.TouchGestureManager = TouchGestureManager;
+window.initDetailGesture = initDetailGesture;
+window.initSonglistGesture = initSonglistGesture;
