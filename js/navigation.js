@@ -85,10 +85,12 @@ backToTopBtn.addEventListener('click', function() {
 // 城市模态框控制
 function openCityModal() {
     cityModal.classList.add('show');
+    document.body.style.overflow = 'hidden';
 }
 
 function closeCityModalFunc() {
     cityModal.classList.remove('show');
+    document.body.style.overflow = '';
 }
 
 cityCard.addEventListener('click', openCityModal);

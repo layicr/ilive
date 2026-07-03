@@ -235,9 +235,14 @@ function createGalleryItem(img, imgIndex, concertImages) {
     const thumbSrc = img.src.replace('.jpg', '_thumb.jpg');
     const mediumSrc = img.src.replace('.jpg', '_medium.jpg');
 
+    const isMobile = window.innerWidth <= CONFIG.MOBILE_BREAKPOINT;
+
     imgElement.src = thumbSrc;
-    imgElement.srcset = `${thumbSrc} 120w, ${mediumSrc} 300w`;
-    imgElement.sizes = "(max-width: 768px) 100px, 120px";
+    // 移动端：只显示缩略图，点击后再加载原图；桌面端保留 srcset 自适应
+    if (!isMobile) {
+        imgElement.srcset = `${thumbSrc} 120w, ${mediumSrc} 300w`;
+        imgElement.sizes = "120px";
+    }
 
     imgElement.alt = img.alt;
     imgElement.loading = 'lazy';
@@ -270,10 +275,16 @@ function createGalleryItem(img, imgIndex, concertImages) {
 // 画廊点击事件处理器
 function handleGalleryClick(e) {
     const container = e.currentTarget;
-    const images = JSON.parse(container.dataset.images);
+    let images = JSON.parse(container.dataset.images);
     const startIndex = parseInt(container.dataset.index, 10);
-    const currentImg = images[startIndex];
 
+    const isMobile = window.innerWidth <= CONFIG.MOBILE_BREAKPOINT;
+    if (isMobile) {
+        // 移动端：模态框直接显示原图，避免加载 medium
+        images = images.map(image => ({ ...image, medium: image.src }));
+    }
+
+    const currentImg = images[startIndex];
     openImageModal(currentImg.medium, currentImg.alt, images, startIndex);
 }
 

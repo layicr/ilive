@@ -731,7 +731,7 @@ const concertsBaseData = {
                 en: ["Jolin Cai", "PLEASURE", "Youth", "Dance", "Dance"]
             },
             description: {
-                zh: "蔡依林“PLEASURE”世界巡演南宁站呈现了一场颠覆传统的演出，<br>全程无嘉宾、无点歌、无冗长互动，只有整整120分钟不间断的歌唱。<br><br>从《Pleasure》前奏响起，蔡依林便以纯粹的音乐能量掌控全场。 <br>她将三十年音乐生涯凝练成一条流动的声轨：《舞娘》的力量，《倒带》的深情，《怪美的》的自信……<br>超过三十首金曲在精密编排下自然衔接，形成一部完整的“人生原声带”。<br> <br>蔡依林证明：当作品足够强大时，纯粹的音乐本身，便是最动人的语言。",
+                zh: "蔡依林\"PLEASURE\"世界巡演南宁站呈现了一场颠覆传统的演出，<br>全程无嘉宾、无点歌、无冗长互动，只有整整120分钟不间断的歌唱。<br><br>从《Pleasure》前奏响起，蔡依林便以纯粹的音乐能量掌控全场。 <br>她将三十年音乐生涯凝练成一条流动的声轨：《舞娘》的力量，《倒带》的深情，《怪美的》的自信……<br>超过三十首金曲在精密编排下自然衔接，形成一部完整的\"人生原声带\"。<br> <br>蔡依林证明：当作品足够强大时，纯粹的音乐本身，便是最动人的语言。",
                 en: "Jolin Cai's \"PLEASURE\" World Tour Nanning stop presented a performance that subverted tradition,<br>featuring no guest appearances, no song requests, no lengthy interactions—just a full 120 minutes of uninterrupted singing.<br><br>From the moment the prelude of \"Pleasure\" played, Jolin Cai commanded the entire venue with pure musical energy.<br>She condensed thirty years of her musical career into a flowing soundtrack: the power of \"Dancing Queen,\" the deep emotions of \"Count on Me,\" the confidence of \"Play\"...<br>Over thirty golden hits naturally connected through precise choreography, forming a complete \"Life Soundtrack.\"<br><br>Jolin Cai proved: when the work is strong enough, pure music itself is the most moving language."
             },
             images: [
@@ -885,7 +885,7 @@ const concertsBaseData = {
                 en: ["Hard Fate", "Man KTV", "Love Song", "OldBoy", "Justin Lo", "COME TOGETHER"]
             },
             description: {
-                zh: "当《命硬》的前奏响起，全场灯光暗下又瞬间亮起，万人齐声合唱的瞬间，所有情绪都被点燃。《男人KTV》《情歌》《好人》《Kong》一首首经典轮番唱响，每一句歌词都是刻在青春里的印记，耳机里循环过无数次的旋律，终于在现场与万人同频共振。<br/><br/>出道 20 年，侧田的嗓音依旧极具穿透力，真假音转换丝滑，稳得 CD 质感，即兴改编与吉他 solo 更是尽显唱作实力。他带来全新创作《OldBoy》，也奉上资深乐迷心心念念的 \"沧海遗珠\"，既有情怀杀，也有新鲜感动。<br/><br/>最动人的从不是完美舞台，而是 “再一起  COME TOGETHER” 的意义：是跨越 20 年的双向奔赴，是陌生人因相同旋律相拥，是那些藏在粤语歌里的遗憾、倔强与温柔，终于在这一刻找到共鸣。",
+                zh: "当《命硬》的前奏响起，全场灯光暗下又瞬间亮起，万人齐声合唱的瞬间，所有情绪都被点燃。《男人KTV》《情歌》《好人》《Kong》一首首经典轮番唱响，每一句歌词都是刻在青春里的印记，耳机里循环过无数次的旋律，终于在现场与万人同频共振。<br/><br/>出道 20 年，侧田的嗓音依旧极具穿透力，真假音转换丝滑，稳得 CD 质感，即兴改编与吉他 solo 更是尽显唱作实力。他带来全新创作《OldBoy》，也奉上资深乐迷心心念念的 \"沧海遗珠\"，既有情怀杀，也有新鲜感动。<br/><br/>最动人的从不是完美舞台，而是 \"再一起  COME TOGETHER\" 的意义：是跨越 20 年的双向奔赴，是陌生人因相同旋律相拥，是那些藏在粤语歌里的遗憾、倔强与温柔，终于在这一刻找到共鸣。",
                 en: "When the prelude of \"Hard Fate\" played, the lights dimmed and instantly lit up again. In that moment of ten thousand people singing in unison, all emotions were ignited. \"Man KTV,\" \"Love Song,\" \"Good Person\", \"Kong\"—classics rang out one after another. Every lyric was etched in youth, melodies looped countless times in earphones finally resonating with ten thousand people at the venue.<br/><br/>Twenty years since debut, Justin Lo's voice remains piercing and powerful, with smooth transitions between real and falsetto, stable like CD quality. His impromptu adaptations and guitar solos fully demonstrate his singer-songwriter prowess. He brought the new creation \"OldBoy\" and delivered the \"hidden gems\" beloved by devoted fans—a blend of nostalgic nostalgia and fresh emotion.<br/><br/>The most moving part is never the perfect stage, but the meaning of \"COME TOGETHER\", it's a two-way journey spanning 20 years, strangers embracing over shared melodies, those regrets, stubbornness, and tenderness hidden in Cantonese songs finally finding resonance at this moment."
             },
             images: [
