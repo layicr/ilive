@@ -172,12 +172,6 @@ const wishesDataEN = [
         liked: true
     },
     {
-        content: "Power Station Concert",
-        time: "2025-03-01 00:00:00",
-        likes: 25,
-        liked: true
-    },
-    {
         content: "F4 Concert",
         time: "2025-05-01 00:00:00",
         likes: 20,

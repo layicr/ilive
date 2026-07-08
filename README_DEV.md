@@ -27,7 +27,7 @@
 | 📱 移动端手势 | 左右滑动切换演唱会详情和歌单，触摸反馈动画 |
 | 🌐 双语切换 | 中英文实时切换，记忆用户偏好，动态更新所有文本 |
 | 🎵 背景音乐 | 自动播放、淡入淡出、状态同步、音乐源切换 |
-| 💫 许愿墙 | 卡片式心愿墙，支持点赞、空状态、相对时间 |
+| 💫 许愿墙 | 卡片式心愿墙，数据存储在 datas_zh.js/en.js 的 wishesData 数组，支持点赞、空状态、相对时间显示、中英文双语 |
 | 🔗 友情链接 | 动态生成页脚社交链接，支持中英文title切换 |
 | 📊 数据统计 | 城市/艺人/场次自动统计 |
 | 🔍 SEO优化 | JSON-LD结构化数据、OG/Twitter Card、sitemap |
@@ -41,9 +41,9 @@
 ## 🛠️ 技术栈
 
 - **HTML5 / CSS3 / 原生 JavaScript**（无构建工具）
-- **GSAP 3.12** — 动画引擎（专辑堆叠、动态文本）
+- **GSAP 3.12.2** — 动画引擎（专辑堆叠、动态文本）
 - **Tailwind CSS (CDN)** — 工具类样式
-- **Font Awesome 6.4** — 图标库
+- **Font Awesome 6.4.0** — 图标库
 - **Service Worker** — 离线缓存、PWA支持
 - **localStorage** — 语言偏好持久化
 - **IntersectionObserver** — 滚动触发动画、懒加载、返回顶部按钮
@@ -72,8 +72,8 @@ ilive/
 │
 ├── db/
 │   ├── concerts_base.js    # 演唱会基础数据（多语言结构，数据源）
-│   ├── datas_zh.js         # 由基础数据生成的中文数据
-│   └── datas_en.js         # 由基础数据生成的英文数据
+│   ├── datas_zh.js         # 中文数据（包含演唱会数据 concertDataZH 和许愿墙数据 wishesDataZH）
+│   └── datas_en.js         # 英文数据（包含演唱会数据 concertDataEN 和许愿墙数据 wishesDataEN）
 │
 ├── js/
 │   ├── config.js           # 全局配置（GitHub、音乐、图片、动画、缓存等）
@@ -91,10 +91,13 @@ ilive/
 │
 ├── concert/
 │   ├── poster/             # 演唱会海报
-│   └── YYYYMM/             # 按月份组织的现场照片
+│   └── YYYYMMDD/             # 按日期组织的现场照片
 │
 ├── img/                    # Logo 等静态图片
+│   └── logo.jpg           # 网站Logo
 └── music/                  # 背景音乐 mp3
+    ├── bgm_cn.mp3         # 中文版背景音乐
+    └── bgm_en.mp3         # 英文版背景音乐
 ```
 
 ---
@@ -116,15 +119,15 @@ ilive/
 | 配置分类 | 关键字段 | 用途 |
 |---------|---------|------|
 | GitHub | `GITHUB_REPO_URL` / `GITHUB_ISSUES_URL` | 反馈跳转 |
-| 音乐 | `MUSIC_VOLUME` / `MUSIC_AUTOPLAY` | 背景音乐控制 |
-| 图片 | `LAZY_LOAD_THRESHOLD` / `IMAGE_RETRY_MAX` | 懒加载与重试 |
-| 动画 | `GSAP_ALBUM_DURATION` / `CAROUSEL_INTERVAL` | GSAP动画参数 |
-| 手势 | `SWIPE_MIN_DISTANCE` | 触摸滑动阈值 |
+| 音乐 | `MUSIC_VOLUME` / `MUSIC_AUTOPLAY` / `MUSIC_FADE_DURATION` | 背景音乐控制与淡入淡出 |
+| 图片 | `LAZY_LOAD_THRESHOLD` / `IMAGE_RETRY_MAX` / `IMAGE_RETRY_DELAY` | 懒加载、重试策略 |
+| 动画 | `GSAP_ALBUM_DURATION` / `CAROUSEL_INTERVAL` / `ANIMATION_DURATION` | GSAP动画参数 |
+| 手势 | `SWIPE_MIN_DISTANCE` / `SWIPE_MAX_TIME` / `SWIPE_OPACITY_MIN` | 触摸滑动阈值 |
 | 缓存 | `CACHE_VERSION` / `CACHE_STRATEGY` | SW缓存策略 |
-| UI | `SCROLL_THRESHOLD` / `TOAST_DURATION` | 交互阈值 |
+| UI | `SCROLL_THRESHOLD` / `TOAST_DURATION` / `SKELETON_MIN_WAIT` | 交互阈值、骨架屏 |
+| 性能 | `PERFORMANCE_MONITOR` / `DEBOUNCE_RESIZE_DELAY` | 性能监控、防抖延迟 |
+| 设备 | `MOBILE_BREAKPOINT` | 移动端断点 |
 | XSS防护 | `sanitizeInput()` / `escapeHtml()` | 输入验证、HTML转义 |
-
-> ⚠️ 修改 `CONFIG.CACHE_VERSION` 时需同步更新 `js/sw.js` 中的缓存版本号。
 
 ### 核心工具函数（utils.js）
 

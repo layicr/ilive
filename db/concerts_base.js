@@ -271,7 +271,7 @@ const concertsBaseData = {
                 zh: "孙燕姿说，既然\"不能在日落前相聚\"，那就\"在日落之后好好庆祝\"。巡演的主题旨在\"将生命中的每一个日落串起\"，更深层的含义则是\"日落前的灿烂，日落后的勇气，一切都是值得从零开始\"。孙燕姿也希望再次与观众创造美好的回忆。",
                 en: "Stefanie Sun says, since 'we couldn't gather before sunset,' then 'let's celebrate beautifully after sunset.' The tour's theme aims to 'string together every sunset in life,' with the deeper meaning being 'the brilliance before sunset, the courage after sunset, everything is worth starting from zero.' Stefanie Sun also hopes to create beautiful memories with the audience again through this tour."
             },
-            location: { zh: "广东 · 深圳 · 深圳湾体育中心", en: "Guangdong · Shenzhen" },
+            location: { zh: "广东 · 深圳 · 深圳大运中心体育场", en: "Guangdong · Shenzhen" },
             date: "2025.05.18",
             poster: "concert/poster/20250518.jpg",
             tags: {
@@ -915,6 +915,73 @@ const concertsBaseData = {
                 { zh: "命硬", en: "Hard Fate" },
                 { zh: "B.O.K", en: "B.O.K" },
                 { zh: "Upside Down", en: "Upside Down" }
+            ]
+        }, {
+            id: 14,
+            artist: { zh: "动力火车", en: "Power Station" },
+            concertName: { zh: "一路向前", en: "All the Way Forward" },
+            theme: {
+                zh: "动力火车\"一路向前\"巡回演唱会以\"希望是光，勇气为燃，全速火车，动力满载\"为核心主题，旨在传递陪伴、前行与初心不变的精神力量。",
+                en: "Power Station's \"All the Way Forward\" tour centers on the theme of \"Hope is light, courage is fuel, full-speed train, fully powered,\" aiming to convey the spiritual strength of companionship, moving forward, and unwavering original intentions."
+            },
+            location: { zh: "广东 · 深圳 · 深圳体育中心体育馆", en: "Guangdong · Shenzhen" },
+            date: "2026.07.04",
+            poster: "concert/poster/20260704.jpg",
+            tags: {
+                zh: ["动力火车", "摇滚",  "当", "忠孝东路走九遍", "回忆",  "青春"],
+                en: ["Power Station", "Rock", "When", "Walk Nine Times on Zhongxiao East Road", "Memories",  "Youth"]
+            },
+            description: {
+                zh: "深圳夏夜，被动力火车的摇滚能量点燃。<br/>全开麦高音穿透力依旧，电吉他 solo 炸裂，首首经典引发万人大合唱。<br/>从《当》到《忠孝东路走九遍》，<br/>每一句都是回忆，<br/>每一曲都是情怀。<br/>这是一场属于我们这代人的狂欢，<br/>歌声落，意难平，青春永不散场。",
+                en: "A summer night in Shenzhen, ignited by Power Station's rock energy.<br/>Live vocals with penetrating high notes remain powerful, electric guitar solos explode, classic songs trigger mass sing-alongs.<br/>From 『When』 to 『Walk Nine Times on Zhongxiao East Road』,<br/>Every line is a memory,<br/>Every song is nostalgia.<br/>This is a celebration belonging to our generation,<br/>The songs end, emotions linger, youth never fades away."
+            },
+            images: [
+                { src: "concert/20260704/01.jpg", alt: { zh: "动力火车演唱会", en: "Power Station Concert" } },
+                { src: "concert/20260704/02.jpg", alt: { zh: "动力火车演唱会", en: "Power Station Concert" } },
+                { src: "concert/20260704/03.jpg", alt: { zh: "动力火车演唱会", en: "Power Station Concert" } },
+                { src: "concert/20260704/04.jpg", alt: { zh: "动力火车演唱会", en: "Power Station Concert" } },
+                { src: "concert/20260704/05.jpg", alt: { zh: "动力火车演唱会", en: "Power Station Concert" } },
+                { src: "concert/20260704/06.jpg", alt: { zh: "动力火车演唱会", en: "Power Station Concert" } },
+                { src: "concert/20260704/07.jpg", alt: { zh: "动力火车演唱会", en: "Power Station Concert" } },
+                { src: "concert/20260704/08.jpg", alt: { zh: "动力火车演唱会", en: "Power Station Concert" } }
+            ],
+            video: {
+                zh: "BV1L6Ty6uEiL",
+                en: "BV1L6Ty6uEiL"
+            },
+            videoUrl: {
+                zh: Bil_Url.spaceBaseUrl + '8505134',
+                en: Bil_Url.spaceBaseUrl + '8505134'
+            },
+            songlist: [
+                { zh: "光", en: "Light", link: Bil_Url.videoBaseUrl + 'BV1SAMv6iEKu' },
+                { zh: "再见我的爱人", en: "Goodbye My Love", link: Bil_Url.videoBaseUrl + 'BV1AeMe64E5E' },
+                { zh: "I'll Be Back", en: "I'll Be Back", link: Bil_Url.videoBaseUrl + 'BV1jpMg62E2J' },
+                { zh: "终于明白", en: "Finally Understand", link: Bil_Url.videoBaseUrl + 'BV1FcMV6bEEf' },
+                { zh: "除了爱你还能爱谁", en: "Who Else Can I Love But You", link: Bil_Url.videoBaseUrl + 'BV1ogMV6pEFd' },
+                { zh: "明天的明天的明天", en: "Tomorrow's Tomorrow's Tomorrow", link: Bil_Url.videoBaseUrl + 'BV1jMMV69EcS' },
+                { zh: "爱不顾身", en: "Love Without Fear", link: Bil_Url.videoBaseUrl + 'BV1oTMV6WEdM' },
+                { zh: "不完美心跳", en: "Imperfect Heartbeat", link: Bil_Url.videoBaseUrl + 'BV1FcMV6bE9b' },
+                { zh: "厚重的记忆", en: "Heavy Memories", link: Bil_Url.videoBaseUrl + 'BV1HFMV6FEcv' },
+                { zh: "二月", en: "February", link: Bil_Url.videoBaseUrl + 'BV1cFMV6FEPs' },
+                { zh: "外套", en: "Jacket", link: Bil_Url.videoBaseUrl + 'BV1FcMV6bEBc' },
+                { zh: "我不知道", en: "I Don't Know", link: Bil_Url.videoBaseUrl + 'BV1XjMV67Enm' },
+                { zh: "背叛情歌", en: "Betrayal Love Song", link: Bil_Url.videoBaseUrl + 'BV1X5MV6UEXq' },
+                { zh: "摇滚区", en: "Rock Zone", link: Bil_Url.videoBaseUrl + 'BV1GjMV6EEzd' },
+                { zh: "乱乱的", en: "Messy", link: Bil_Url.videoBaseUrl + 'BV1L3MV6QEJP' },
+                { zh: "嗨歌万万岁", en: "Long Live the High Songs", link: Bil_Url.videoBaseUrl + 'BV195MV6UEgQ' },
+                { zh: "你是我的花朵", en: "You Are My Flower", link: Bil_Url.videoBaseUrl + 'BV195MV6UEgQ' },
+                { zh: "玫瑰玫瑰", en: "Rose Rose", link: Bil_Url.videoBaseUrl + 'BV1grMG6GE8R' },
+                { zh: "再会吧！我的心上人", en: "Goodbye! My Beloved", link: Bil_Url.videoBaseUrl + 'BV18rMG6GEve' },
+                { zh: "第一滴泪", en: "First Teardrop", link: Bil_Url.videoBaseUrl + 'BV1sGMG6wEMb' },
+                { zh: "无情的情书", en: "Heartless Love Letter", link: Bil_Url.videoBaseUrl + 'BV1kjMG6bEMo' },
+                { zh: "当", en: "When", link: Bil_Url.videoBaseUrl + 'BV1JJMG64Efy' },
+                { zh: "莫忘初衷", en: "Don't Forget the Original Intention", link: Bil_Url.videoBaseUrl + 'BV1r7MG6ZEy8' },
+                { zh: "I NEED YOU", en: "I NEED YOU", link: Bil_Url.videoBaseUrl + 'BV1znMG6dEtj' },
+                { zh: "那就这样吧", en: "Then Let It Be", link: Bil_Url.videoBaseUrl + 'BV1nJMG64EgK' },
+                { zh: "酒醉的探戈2001", en: "Drunken Tango 2001", link: Bil_Url.videoBaseUrl + 'BV1JnMG6dE89' },
+                { zh: "忠孝东路走九遍", en: "Walk Nine Times on Zhongxiao East Road", link: Bil_Url.videoBaseUrl + 'BV1L6Ty6uEiL' },
+                { zh: "彩虹", en: "Rainbow" , link: Bil_Url.videoBaseUrl + 'BV1HjMG6bEnr'}
             ]
         }
     ]

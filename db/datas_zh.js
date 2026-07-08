@@ -175,12 +175,6 @@ const wishesDataZH = [
         liked: true
     },
     {
-        content: "动力火车演唱会",
-        time: "2025-03-01 00:00:00",
-        likes: 25,
-        liked: true
-    },
-    {
         content: "F4演唱会",
         time: "2025-05-01 00:00:00",
         likes: 20,
