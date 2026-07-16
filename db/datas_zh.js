@@ -8,6 +8,8 @@ function generateZHData() {
         concertName: concert.concertName.zh,
         theme: concert.theme.zh,
         location: concert.location.zh,
+        seat: concert.seat ? concert.seat.zh : null,
+        price: concert.price ? concert.price.zh : null,
         date: concert.date,
         poster: concert.poster,
         tags: concert.tags.zh,
@@ -58,6 +60,7 @@ const concertDataZH = {
     footerText: "",
     siteName: "Layicr",
     modalTitle: "演唱会城市",
+    ticketModalTitle: "演唱会足迹",
 
     // 按钮文本
     buttons: {

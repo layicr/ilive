@@ -6,6 +6,8 @@ function generateENData() {
         concertName: concert.concertName.en,
         theme: concert.theme.en,
         location: concert.location.en,
+        seat: concert.seat ? concert.seat.en : null,
+        price: concert.price ? concert.price.en : null,
         date: concert.date,
         poster: concert.poster,
         tags: concert.tags.en,
@@ -56,6 +58,7 @@ const concertDataEN = {
     footerText: "",
     siteName: "layicr",
     modalTitle: "Tour Cities",
+    ticketModalTitle: "Concert Journey",
 
     // Button texts
     buttons: {

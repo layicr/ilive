@@ -103,6 +103,7 @@ function initPage() {
     renderTimeline();
     initDataShowcase();
     init3DAlbumShowcase();
+    initTicketModal();
 }
 
 // ==================== 时间轴渲染 ====================
@@ -172,6 +173,54 @@ function renderTimeline() {
             locationDiv.appendChild(locationText);
 
             timelineContent.appendChild(locationDiv);
+
+            // 添加座位和价格信息（同一行）
+            if (concert.seat || concert.price) {
+                const seatPriceDiv = document.createElement('div');
+                seatPriceDiv.className = 'concert-seat-price';
+                
+                // 座位信息
+                if (concert.seat) {
+                    const seatSpan = document.createElement('span');
+                    seatSpan.className = 'seat-info';
+                    
+                    const seatIcon = document.createElement('i');
+                    seatIcon.className = 'fas fa-chair';
+                    seatIcon.setAttribute('aria-hidden', 'true');
+                    seatSpan.appendChild(seatIcon);
+                    
+                    const seatText = document.createTextNode(' ' + concert.seat);
+                    seatSpan.appendChild(seatText);
+                    
+                    seatPriceDiv.appendChild(seatSpan);
+                }
+                
+                // 分隔符
+                if (concert.seat && concert.price) {
+                    const separator = document.createElement('span');
+                    separator.className = 'seat-price-separator';
+                    separator.textContent = ' | ';
+                    seatPriceDiv.appendChild(separator);
+                }
+                
+                // 价格信息
+                if (concert.price) {
+                    const priceSpan = document.createElement('span');
+                    priceSpan.className = 'price-info';
+                    
+                    const priceIcon = document.createElement('i');
+                    priceIcon.className = 'fas fa-ticket-alt';
+                    priceIcon.setAttribute('aria-hidden', 'true');
+                    priceSpan.appendChild(priceIcon);
+                    
+                    const priceText = document.createTextNode(' ' + concert.price);
+                    priceSpan.appendChild(priceText);
+                    
+                    seatPriceDiv.appendChild(priceSpan);
+                }
+                
+                timelineContent.appendChild(seatPriceDiv);
+            }
 
             if (concert.tags && concert.tags.length > 0) {
                 const tagsDiv = document.createElement('div');
@@ -638,6 +687,144 @@ function init3DAlbumShowcase() {
     });
 
     updateConcertNavButtons();
+}
+
+// ==================== 票根模态框功能 ====================
+/**
+ * 初始化票根模态框
+ * @description 为场次统计卡片添加点击事件，打开票根展示模态框
+ */
+function initTicketModal() {
+    const totalConcertsElement = document.getElementById('total-concerts');
+    const totalConcertsContainer = totalConcertsElement ? totalConcertsElement.parentElement : null;
+
+    if (totalConcertsContainer) {
+        totalConcertsContainer.style.cursor = 'pointer';
+        totalConcertsContainer.addEventListener('click', openTicketModal);
+    }
+
+    // 关闭按钮
+    const closeBtn = document.getElementById('closeTicketModal');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeTicketModal);
+    }
+
+    // 点击遮罩层关闭
+    const overlay = document.getElementById('ticketModalOverlay');
+    if (overlay) {
+        overlay.addEventListener('click', closeTicketModal);
+    }
+}
+
+/**
+ * 打开票根模态框
+ * @description 渲染所有演唱会票根并显示模态框
+ */
+function openTicketModal() {
+    const modal = document.getElementById('ticketModal');
+    const container = document.getElementById('ticketContainer');
+    const titleElement = document.getElementById('ticketModalTitle');
+
+    if (!modal || !container) return;
+
+    // 设置标题（使用数据对象中的标题）
+    if (titleElement && currentData.ticketModalTitle) {
+        titleElement.textContent = currentData.ticketModalTitle;
+    }
+
+    // 清空容器
+    container.innerHTML = '';
+
+    // 渲染票根
+    const sortedConcerts = [...currentData.concerts].sort((a, b) => b.id - a.id);
+    const fragment = document.createDocumentFragment();
+
+    sortedConcerts.forEach((concert, index) => {
+        const ticketCard = createTicketCard(concert, index + 1);
+        fragment.appendChild(ticketCard);
+    });
+
+    container.appendChild(fragment);
+
+    // 显示模态框
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    // 渐入动画
+    setTimeout(() => {
+        const tickets = container.querySelectorAll('.ticket-card');
+        tickets.forEach((ticket, i) => {
+            setTimeout(() => {
+                ticket.style.opacity = '1';
+                ticket.style.transform = 'translateY(0)';
+            }, i * 50);
+        });
+    }, 100);
+}
+
+/**
+ * 关闭票根模态框
+ */
+function closeTicketModal() {
+    const modal = document.getElementById('ticketModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+/**
+ * 创建单张票根卡片
+ * @param {Object} concert - 演唱会数据对象
+ * @param {number} number - 票根序号
+ * @returns {HTMLElement} 票根卡片DOM元素
+ */
+function createTicketCard(concert, number) {
+    const ticketCard = document.createElement('div');
+    ticketCard.className = 'ticket-card';
+    ticketCard.style.opacity = '0';
+    ticketCard.style.transform = 'translateY(20px)';
+    ticketCard.style.transition = 'all 0.4s ease';
+
+    const posterUrl = concert.poster || 'img/logo.jpg';
+
+    ticketCard.innerHTML = `
+        <div class="ticket-poster" style="background-image: url('${posterUrl}')"></div>
+        <div class="ticket-content">
+            <div class="ticket-artist">${concert.artist || ''}</div>
+            <div class="ticket-concert">${concert.concertName || ''}</div>
+            <div class="ticket-divider"></div>
+            <div class="ticket-info">
+                <div class="ticket-info-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>${concert.date || ''}</span>
+                </div>
+                <div class="ticket-info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>${concert.location || ''}</span>
+                </div>
+                ${concert.seat || concert.price ? `
+                <div class="ticket-info-item ticket-seat-price">
+                    ${concert.seat ? `
+                    <span class="ticket-seat">
+                        <i class="fas fa-chair"></i>
+                        ${concert.seat}
+                    </span>
+                    ` : ''}
+                    ${concert.seat && concert.price ? '<span class="ticket-separator">|</span>' : ''}
+                    ${concert.price ? `
+                    <span class="ticket-price">
+                        <i class="fas fa-ticket-alt"></i>
+                        ${concert.price}
+                    </span>
+                    ` : ''}
+                </div>
+                ` : ''}
+            </div>
+        </div>
+    `;
+
+    return ticketCard;
 }
 
 // ==================== 性能监控 ====================

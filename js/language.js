@@ -102,6 +102,12 @@ function updatePageContent() {
 
     // 更新模态框标题
     document.getElementById('city-modal-title').textContent = currentData.modalTitle;
+    
+    // 更新票根模态框标题
+    const ticketModalTitle = document.getElementById('ticketModalTitle');
+    if (ticketModalTitle) {
+        ticketModalTitle.textContent = currentData.ticketModalTitle;
+    }
 
     // 更新加载状态文本
     document.getElementById('loading-text').textContent = currentData.status.loading;
