@@ -139,35 +139,55 @@ function safeCreateElement(tag, content, className) {
 }
 
 /**
- * 安全HTML处理（允许特定安全标签）
+ * 安全HTML处理（允许特定安全标签，过滤所有属性）
  * @param {string} html - HTML字符串
  * @returns {string} 处理后的安全HTML
- * @description 允许的安全标签：br, b, i, strong, em, span, p
- *              其他标签全部转义，防止XSS攻击
+ * @description 使用 DOMParser 解析并过滤，仅保留允许的安全标签，
+ *              所有属性（包括事件处理属性）均被移除，防止XSS攻击。
+ *              允许的安全标签：br, b, i, strong, em, span, p
  */
 function safeHtml(html) {
     if (typeof html !== 'string') return html;
 
-    // 允许的安全标签列表
-    const allowedTags = ['br', 'b', 'i', 'strong', 'em', 'span', 'p'];
+    const allowedTags = new Set(['br', 'b', 'i', 'strong', 'em', 'span', 'p']);
 
-    // 先转义所有 HTML
-    let escaped = html
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
 
-    // 恢复允许的安全标签
-    allowedTags.forEach(tag => {
-        // 恢复开标签 <tag> 和 <tag/>
-        escaped = escaped.replace(new RegExp(`&lt;${tag}[^&]*&gt;`, 'gi'), `<${tag}>`);
-        escaped = escaped.replace(new RegExp(`&lt;${tag}/&gt;`, 'gi'), `<${tag}/>`);
-        escaped = escaped.replace(new RegExp(`&lt;${tag}\\s*/&gt;`, 'gi'), `<${tag}/>`);
-        // 恢复闭标签 </tag>
-        escaped = escaped.replace(new RegExp(`&lt;/${tag}&gt;`, 'gi'), `</${tag}>`);
-    });
+    function cleanNode(node) {
+        const result = [];
+        for (const child of node.childNodes) {
+            if (child.nodeType === Node.TEXT_NODE) {
+                result.push(document.createTextNode(child.textContent));
+            } else if (child.nodeType === Node.ELEMENT_NODE) {
+                const tagName = child.tagName.toLowerCase();
+                if (allowedTags.has(tagName)) {
+                    const newEl = document.createElement(tagName);
+                    // 允许 <span> 保留 style 属性（用于项目中的高亮），
+                    // 但仍严格过滤事件处理属性（如 onclick, onerror, onload 等）
+                    if (tagName === 'span' && child.hasAttribute('style')) {
+                        const styleValue = child.getAttribute('style');
+                        // 过滤掉包含 'javascript:' 或表达式引用的 style
+                        if (styleValue && !/javascript:/i.test(styleValue)) {
+                            newEl.setAttribute('style', styleValue);
+                        }
+                    }
+                    // 递归处理子节点
+                    cleanNode(child).forEach(n => newEl.appendChild(n));
+                    result.push(newEl);
+                } else {
+                    // 不在白名单的标签，丢弃标签本身，只保留子节点
+                    result.push(...cleanNode(child));
+                }
+            }
+        }
+        return result;
+    }
 
-    return escaped;
+    const container = document.createElement('div');
+    cleanNode(doc.body).forEach(node => container.appendChild(node));
+
+    return container.innerHTML;
 }
 
 /**

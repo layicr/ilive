@@ -53,7 +53,7 @@ const CONFIG = {
     SWIPE_OPACITY_MIN: 0.5,         // 滑动时最小透明度
 
     // ==================== 缓存配置 ====================
-    CACHE_VERSION: 'concert-journey-v1',
+    CACHE_VERSION: 'concert-journey-v2',
     CACHE_STRATEGY: {
         IMAGES: 'stale-while-revalidate',
         CSS_JS: 'network-first',

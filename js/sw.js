@@ -14,7 +14,7 @@
 
 // ==================== 缓存配置 ====================
 // 注意：此版本号需与 config.js 中的 CONFIG.CACHE_VERSION 保持同步
-const CACHE_NAME = 'concert-journey-v1';
+const CACHE_NAME = 'concert-journey-v2';
 const urlsToCache = [
     '/',
     '/index.html',
