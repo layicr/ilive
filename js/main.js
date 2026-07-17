@@ -39,6 +39,10 @@
 let textIndices = [0, 0, 0];
 const dynamicTextElements = [];
 
+// 票根模态框状态
+let currentTicketIndex = 0;
+let totalTickets = 0;
+
 // 统一管理定时器
 const timers = {
     dynamicTexts: [],
@@ -714,6 +718,9 @@ function initTicketModal() {
     if (overlay) {
         overlay.addEventListener('click', closeTicketModal);
     }
+
+    // 键盘事件监听
+    document.addEventListener('keydown', handleTicketKeydown);
 }
 
 /**
@@ -737,6 +744,8 @@ function openTicketModal() {
 
     // 渲染票根
     const sortedConcerts = [...currentData.concerts].sort((a, b) => b.id - a.id);
+    totalTickets = sortedConcerts.length;
+    currentTicketIndex = 0;
     const fragment = document.createDocumentFragment();
 
     sortedConcerts.forEach((concert, index) => {
@@ -771,6 +780,75 @@ function closeTicketModal() {
         modal.classList.remove('active');
         document.body.style.overflow = '';
     }
+}
+
+/**
+ * 处理票根模态框键盘事件
+ * @param {KeyboardEvent} e - 键盘事件对象
+ */
+function handleTicketKeydown(e) {
+    const modal = document.getElementById('ticketModal');
+    if (!modal || !modal.classList.contains('active')) return;
+
+    switch (e.key) {
+        case 'Escape':
+            closeTicketModal();
+            break;
+        case 'ArrowLeft':
+            e.preventDefault();
+            navigateTicket(-1);
+            break;
+        case 'ArrowRight':
+            e.preventDefault();
+            navigateTicket(1);
+            break;
+        case 'Home':
+            e.preventDefault();
+            scrollToTicket(0);
+            break;
+        case 'End':
+            e.preventDefault();
+            scrollToTicket(totalTickets - 1);
+            break;
+    }
+}
+
+/**
+ * 导航到上一张或下一张票根
+ * @param {number} direction - 导航方向（-1: 上一张, 1: 下一张）
+ */
+function navigateTicket(direction) {
+    const newIndex = currentTicketIndex + direction;
+    if (newIndex >= 0 && newIndex < totalTickets) {
+        scrollToTicket(newIndex);
+    }
+}
+
+/**
+ * 滚动到指定票根
+ * @param {number} index - 票根索引
+ */
+function scrollToTicket(index) {
+    const container = document.getElementById('ticketContainer');
+    if (!container) return;
+
+    const tickets = container.querySelectorAll('.ticket-card');
+    if (index < 0 || index >= tickets.length) return;
+
+    currentTicketIndex = index;
+    const targetTicket = tickets[index];
+
+    // 平滑滚动到目标票根
+    targetTicket.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center'
+    });
+
+    // 添加高亮效果
+    tickets.forEach(ticket => ticket.classList.remove('highlight'));
+    targetTicket.classList.add('highlight');
+    setTimeout(() => targetTicket.classList.remove('highlight'), 1000);
 }
 
 /**

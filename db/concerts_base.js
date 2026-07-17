@@ -30,8 +30,8 @@ const concertsBaseData = {
                 en: "The concert uses 'birth, aging, sickness, and death are a life party' as its theme, encouraging the audience to face challenges head-on. The 2016 tour created a dazzling stage at high cost and incorporated concepts from the then-new album 'Autobiography,' making it a rock party full of energy, sentiment, and collective celebration for thousands of people."
             },
             location: { zh: "陕西 · 西安 · 陕西省体育场", en: "Shaanxi · Xi'an" },
-            seat: { zh: "25-26看台22排", en: "Row 22,Stands 25-26" },
-            price: { zh: "￥455", en: "¥455" },
+            seat: { zh: "25-26 22排", en: "Row 22,Stands 25-26" },
+            price: { zh: "¥455", en: "¥455" },
             date: "2016.09.03",
             poster: "concert/poster/20160903.jpg",
             tags: {
@@ -149,6 +149,7 @@ const concertsBaseData = {
                 en: "The first round of the 'Rock Star' series tour aims to reopen the audience's vision and understanding of rock music. Wu Bai declares 'I'm not singing love songs, I'm singing life,' spanning tracks from albums over the years, showcasing the transformation of his musical style and the core power of being a rock star."
             },
             location: { zh: "江苏 · 南京 · 南京奥体中心体育馆", en: "Jiangsu · Nanjing" },
+            seat: { zh: "场外", en: "Outside Venue" },
 
             date: "2023.10.13",
             poster: "concert/poster/20231013.jpg",
@@ -209,7 +210,7 @@ const concertsBaseData = {
             },
             location: { zh: "广东 · 佛山 · 佛山体育馆", en: "Guangdong · Foshan" },
             seat: { zh: "三层 318区 7排", en: "Row 7,Section 318,Level 3" },
-            price: { zh: "￥699", en: "¥699" },
+            price: { zh: "¥699", en: "¥699" },
             date: "2024.12.08",
             poster: "concert/poster/20241208.jpg",
             tags: {
@@ -278,8 +279,8 @@ const concertsBaseData = {
                 en: "Stefanie Sun says, since 'we couldn't gather before sunset,' then 'let's celebrate beautifully after sunset.' The tour's theme aims to 'string together every sunset in life,' with the deeper meaning being 'the brilliance before sunset, the courage after sunset, everything is worth starting from zero.' Stefanie Sun also hopes to create beautiful memories with the audience again through this tour."
             },
             location: { zh: "广东 · 深圳 · 深圳大运中心体育场", en: "Guangdong · Shenzhen" },
-            seat: { zh: "看台 329区 8排", en: "Row 8,Section 329" },
-            price: { zh: "￥480", en: "¥480" },
+            seat: { zh: "329区 8排", en: "Row 8,Section 329" },
+            price: { zh: "¥480", en: "¥480" },
             date: "2025.05.18",
             poster: "concert/poster/20250518.jpg",
             tags: {
@@ -346,7 +347,7 @@ const concertsBaseData = {
             },
             location: { zh: "广西 · 南宁 · 广西体育中心体育场", en: "Guangxi · Nanning" },
             seat: { zh: "内场 D4区 7排", en: "Row 7,Section D4" },
-            price: { zh: "￥780", en: "¥780" },
+            price: { zh: "¥780", en: "¥780" },
             date: "2025.11.15",
             poster: "concert/poster/20251115.jpg",
             tags: {
@@ -418,8 +419,8 @@ const concertsBaseData = {
                 en: "I AM GLORIA is G.E.M.'s tour after a six-year hiatus. She says that during these six years, the world has changed dramatically. The rampant pandemic, successive wars in other countries, and various natural and man-made disasters have left many people walking through a desert, longing for light that dispels darkness in confusion. G.E.M. hopes to use her voice to tell her story of experiencing loneliness and darkness, yearning for light and self-redemption, inspiring people's souls through music."
             },
             location: { zh: "广西 · 南宁 · 广西体育中心体育场", en: "Guangxi · Nanning" },
-            seat: { zh: "看台 5楼 C55区 16排", en: "Row 16,Section C55,Level 5" },
-            price: { zh: "￥580", en: "¥580" },
+            seat: { zh: "5楼 C55区 16排", en: "Row 16,Section C55,Level 5" },
+            price: { zh: "¥580", en: "¥580" },
             date: "2025.11.30",
             poster: "concert/poster/20251130.jpg",
             tags: {
@@ -495,8 +496,8 @@ const concertsBaseData = {
                 en: "The theme originates from his eighth original album 'Dark Horse,' aiming to convey the spirit that 'a dark horse isn't antisocial, but refuses to accept fate. Each of us is a dark horse.' A giant dark horse art installation stands at the center of the stage, making the entire show a musical narrative about perseverance, dreams, and self-breakthrough, awakening the potential within everyone."
             },
             location: { zh: "广东 · 清远 · 清远体育中心体育场", en: "Guangdong · Qingyuan" },
-            seat: { zh: "看台 220区 11排", en: "Row 11,Section 220" },
-            price: { zh: "￥580", en: "¥580" },
+            seat: { zh: "220区 11排", en: "Row 11,Section 220" },
+            price: { zh: "¥580", en: "¥580" },
             date: "2026.01.02",
             poster: "concert/poster/20260102.jpg",
             tags: {
@@ -569,7 +570,7 @@ const concertsBaseData = {
             },
             location: { zh: "江西 · 南昌 · 南昌国际体育中心", en: "Jiangxi · Nanchang" },
             seat: { zh: "内场 VIP6区 1排", en: "Row 1,Section VIP6,Level 1" },
-            price: { zh: "￥1580", en: "¥1580" },
+            price: { zh: "¥1580", en: "¥1580" },
             date: "2026.01.09",
             poster: "concert/poster/20260109.jpg",
             tags: {
@@ -634,7 +635,7 @@ const concertsBaseData = {
             },
             location: { zh: "广西 · 南宁 · 广西体育中心体育场", en: "Guangxi · Nanning" },
             seat: { zh: "内场 VIP4区 9排", en: "Row 9,Section VIP4" },
-            price: { zh: "￥2380", en: "¥2380" },
+            price: { zh: "¥2380", en: "¥2380" },
             date: "2026.04.17",
             poster: "concert/poster/20260417.jpg",
             tags: {
@@ -729,8 +730,8 @@ const concertsBaseData = {
                 en: "Jolin Cai's brand new themed tour \"PLEASURE\" centers on the core proposition of \"facing your inner self and finding your authentic self,\" creating a massive stage that spans music, visuals, and sensory experiences. The entire performance revolves around \"a girl's growth story\": she departs from the garden of childhood, traverses challenges of reality and desire, re-embraces herself through countless trials, and finally finds the stable power to return to her inner self."
             },
             location: { zh: "广西 · 南宁 · 广西体育中心体育场", en: "Guangxi · Nanning" },
-            seat: { zh: "看台 3楼 A12区 3排", en: "Row 3,Section A12,Level 3" },
-            price: { zh: "￥990", en: "¥990" },
+            seat: { zh: "3楼 A12区 3排", en: "Row 3,Section A12,Level 3" },
+            price: { zh: "¥990", en: "¥990" },
             date: "2026.05.03",
             poster: "concert/poster/20260503.jpg",
             tags: {
@@ -811,7 +812,7 @@ const concertsBaseData = {
             },
             location: { zh: "广西 · 南宁 · 广西体育中心体育场", en: "Guangxi · Nanning" },
             seat: { zh: "5楼 C45区 3排", en: "Row 3,Section C45,Level 5" },
-            price: { zh: "￥480", en: "¥480" },
+            price: { zh: "¥480", en: "¥480" },
             date: "2026.05.24",
             poster: "concert/poster/20260524.jpg",
             tags: {
@@ -888,7 +889,7 @@ const concertsBaseData = {
             },
             location: { zh: "广东 · 东莞 · 东莞篮球中心", en: "Guangdong · Dongguan" },
             seat: { zh: "113区 1层 31排", en: "Row 31,Section 113,Level 1" },
-            price: { zh: "￥780", en: "¥780" },
+            price: { zh: "¥780", en: "¥780" },
             date: "2026.06.27",
             poster: "concert/poster/20260627.jpg",
             tags: {
@@ -950,7 +951,7 @@ const concertsBaseData = {
             },
             location: { zh: "广东 · 深圳 · 深圳体育中心体育馆", en: "Guangdong · Shenzhen" },
             seat: { zh: "5层 513区 10排", en: "Row 10,Section 513,Level 5" },
-            price: { zh: "￥380", en: "¥380" },
+            price: { zh: "¥380", en: "¥380" },
             date: "2026.07.04",
             poster: "concert/poster/20260704.jpg",
             tags: {
