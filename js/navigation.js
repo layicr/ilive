@@ -102,6 +102,16 @@ function openVideoModal(videoId, title) {
     if (!videoId) return;
 
     const embedUrl = `https://player.bilibili.com/player.html?bvid=${videoId}&autoplay=1`;
+
+    // 安全验证URL
+    if (typeof isValidUrl === 'function' && !isValidUrl(embedUrl)) {
+        console.error('视频URL不安全，已阻止加载:', embedUrl);
+        if (typeof showToast === 'function') {
+            showToast('视频加载失败', 'error');
+        }
+        return;
+    }
+
     videoPlayer.src = embedUrl;
     videoModalTitle.textContent = title;
     videoModal.classList.add('show');
@@ -121,13 +131,6 @@ videoModal.addEventListener('click', e => {
     }
 });
 
-// ESC键关闭视频模态框
-document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && videoModal.classList.contains('show')) {
-        closeVideoModalFunc();
-    }
-});
-
 // 反馈按钮功能
 function getFeedbackUrl() {
     const title = currentData.feedback.urlTitle;
@@ -137,14 +140,6 @@ function getFeedbackUrl() {
 
 feedbackBtn.addEventListener('click', () => {
     window.open(getFeedbackUrl(), '_blank');
-});
-
-// ESC键关闭所有模态框（全局）
-document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-        closeImageModal();
-        closeCityModalFunc();
-    }
 });
 
 // ==================== 触摸手势管理器 ====================
@@ -313,3 +308,44 @@ window.addEventListener('resize', debounce(() => {
 window.TouchGestureManager = TouchGestureManager;
 window.initDetailGesture = initDetailGesture;
 window.initSonglistGesture = initSonglistGesture;
+
+// ==================== 统一键盘事件管理 ====================
+/**
+ * ESC键统一处理器（优先级：低）
+ * @description 处理所有模态框的ESC关闭逻辑
+ */
+function handleESCKey(e) {
+    // 按照模态框打开顺序关闭（后打开的先关闭）
+    // 图片模态框
+    if (document.getElementById('imageModal').classList.contains('show')) {
+        closeImageModal();
+        return true;
+    }
+    // 票根模态框
+    if (document.getElementById('ticketModal').classList.contains('active')) {
+        closeTicketModal();
+        return true;
+    }
+    // 歌单模态框
+    if (document.getElementById('songlistModal').classList.contains('show')) {
+        closeSonglistModalFunc();
+        return true;
+    }
+    // 视频模态框
+    if (document.getElementById('videoModal').classList.contains('show')) {
+        closeVideoModalFunc();
+        return true;
+    }
+    // 城市模态框
+    if (document.getElementById('cityModal').classList.contains('show')) {
+        closeCityModalFunc();
+        return true;
+    }
+
+    return false;
+}
+
+// 注册全局ESC处理器（低优先级，作为默认处理器）
+if (window.KeyboardManager) {
+    window.KeyboardManager.register('Escape', handleESCKey, 1);
+}

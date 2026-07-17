@@ -525,7 +525,9 @@ function init3DAlbumShowcase() {
 
         card.innerHTML = `
             <div class="album-cover">
-                <img class="album-cover-img" src="${album.image}" alt="${album.title}">
+                <img class="album-cover-img"
+                     src="${escapeHtml(album.image)}"
+                     alt="${escapeHtml(album.title)}">
             </div>
         `;
 
@@ -548,10 +550,10 @@ function init3DAlbumShowcase() {
     }
 
     const carouselParams = {
-        radius: isSmallScreen ? 220 : 320,
-        selectedX: isSmallScreen ? 100 : 200,
-        selectedY: isSmallScreen ? 40 : 90,
-        selectedScale: isSmallScreen ? 1.3 : 1.4
+        radius: isSmallScreen ? CONFIG.ALBUM_CAROUSEL.MOBILE_RADIUS : CONFIG.ALBUM_CAROUSEL.DESKTOP_RADIUS,
+        selectedX: isSmallScreen ? CONFIG.ALBUM_CAROUSEL.MOBILE_SELECTED_X : CONFIG.ALBUM_CAROUSEL.DESKTOP_SELECTED_X,
+        selectedY: isSmallScreen ? CONFIG.ALBUM_CAROUSEL.MOBILE_SELECTED_Y : CONFIG.ALBUM_CAROUSEL.DESKTOP_SELECTED_Y,
+        selectedScale: isSmallScreen ? CONFIG.ALBUM_CAROUSEL.MOBILE_SELECTED_SCALE : CONFIG.ALBUM_CAROUSEL.DESKTOP_SELECTED_SCALE
     };
 
     function applyCarouselLayout(selectedIndex = 0) {
@@ -561,7 +563,9 @@ function init3DAlbumShowcase() {
         cards.forEach((card, i) => {
             const isSelected = i === selectedIndex;
             const diff = Math.abs(i - selectedIndex);
-            const scale = isSmallScreen ? (0.85 - diff * 0.06) : (0.9 - diff * 0.05);
+            const baseScale = isSmallScreen ? CONFIG.ALBUM_CAROUSEL.MOBILE_BASE_SCALE : CONFIG.ALBUM_CAROUSEL.DESKTOP_BASE_SCALE;
+            const scaleDecrement = isSmallScreen ? CONFIG.ALBUM_CAROUSEL.SCALE_DECREMENT_MOBILE : CONFIG.ALBUM_CAROUSEL.SCALE_DECREMENT_DESKTOP;
+            const scale = baseScale - diff * scaleDecrement;
 
             if (isSelected) {
                 gsap.to(card, {
@@ -584,7 +588,7 @@ function init3DAlbumShowcase() {
                     z: Math.cos(angle) * radius - radius,
                     rotationY: (angle * 180 / Math.PI) - 90,
                     rotationX: 0,
-                    scale: Math.max(scale, 0.6),
+                    scale: Math.max(scale, CONFIG.ALBUM_CAROUSEL.MIN_SCALE),
                     ease: ANIMATION_EASE
                 });
                 card.style.zIndex = cards.length - diff;
@@ -719,8 +723,13 @@ function initTicketModal() {
         overlay.addEventListener('click', closeTicketModal);
     }
 
-    // 键盘事件监听
-    document.addEventListener('keydown', handleTicketKeydown);
+    // 使用KeyboardManager注册键盘事件（高优先级）
+    if (window.KeyboardManager) {
+        window.KeyboardManager.register('ArrowLeft', handleTicketKeydown, 5);
+        window.KeyboardManager.register('ArrowRight', handleTicketKeydown, 5);
+        window.KeyboardManager.register('Home', handleTicketKeydown, 5);
+        window.KeyboardManager.register('End', handleTicketKeydown, 5);
+    }
 }
 
 /**
@@ -785,32 +794,27 @@ function closeTicketModal() {
 /**
  * 处理票根模态框键盘事件
  * @param {KeyboardEvent} e - 键盘事件对象
+ * @returns {boolean} 是否停止事件传播
  */
 function handleTicketKeydown(e) {
     const modal = document.getElementById('ticketModal');
-    if (!modal || !modal.classList.contains('active')) return;
+    if (!modal || !modal.classList.contains('active')) return false;
 
     switch (e.key) {
-        case 'Escape':
-            closeTicketModal();
-            break;
         case 'ArrowLeft':
-            e.preventDefault();
             navigateTicket(-1);
-            break;
+            return true;
         case 'ArrowRight':
-            e.preventDefault();
             navigateTicket(1);
-            break;
+            return true;
         case 'Home':
-            e.preventDefault();
             scrollToTicket(0);
-            break;
+            return true;
         case 'End':
-            e.preventDefault();
             scrollToTicket(totalTickets - 1);
-            break;
+            return true;
     }
+    return false;
 }
 
 /**
@@ -864,36 +868,36 @@ function createTicketCard(concert, number) {
     ticketCard.style.transform = 'translateY(20px)';
     ticketCard.style.transition = 'all 0.4s ease';
 
-    const posterUrl = concert.poster || 'img/logo.jpg';
+    const posterUrl = escapeHtml(concert.poster || 'img/logo.jpg');
 
     ticketCard.innerHTML = `
         <div class="ticket-poster" style="background-image: url('${posterUrl}')"></div>
         <div class="ticket-content">
-            <div class="ticket-artist">${concert.artist || ''}</div>
-            <div class="ticket-concert">${concert.concertName || ''}</div>
+            <div class="ticket-artist">${escapeHtml(concert.artist || '')}</div>
+            <div class="ticket-concert">${escapeHtml(concert.concertName || '')}</div>
             <div class="ticket-divider"></div>
             <div class="ticket-info">
                 <div class="ticket-info-item">
                     <i class="fas fa-calendar"></i>
-                    <span>${concert.date || ''}</span>
+                    <span>${escapeHtml(concert.date || '')}</span>
                 </div>
                 <div class="ticket-info-item">
                     <i class="fas fa-map-marker-alt"></i>
-                    <span>${concert.location || ''}</span>
+                    <span>${escapeHtml(concert.location || '')}</span>
                 </div>
                 ${concert.seat || concert.price ? `
                 <div class="ticket-info-item ticket-seat-price">
                     ${concert.seat ? `
                     <span class="ticket-seat">
                         <i class="fas fa-chair"></i>
-                        ${concert.seat}
+                        ${escapeHtml(concert.seat)}
                     </span>
                     ` : ''}
                     ${concert.seat && concert.price ? '<span class="ticket-separator">|</span>' : ''}
                     ${concert.price ? `
                     <span class="ticket-price">
                         <i class="fas fa-ticket-alt"></i>
-                        ${concert.price}
+                        ${escapeHtml(concert.price)}
                     </span>
                     ` : ''}
                 </div>

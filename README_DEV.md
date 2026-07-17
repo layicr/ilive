@@ -21,10 +21,11 @@
 | 🎤 演唱会时间轴 | 按时间倒序展示所有演唱会卡片，包含地点、座位、价格信息，点击查看详情 |
 | 🎫 票根展示 | 点击场次统计卡片，以精美票根形式展示所有演唱会，包含海报、日期、地点、座位、价格 |
 | 💿 3D专辑堆叠 | GSAP驱动的专辑轮播 + 详情面板，支持上/下一场切换、移动端滑动手势 |
-| 🖼️ 图片画廊 | 模态查看器，支持键盘导航、触摸滑动、懒加载 |
+| 🖼️ 图片画廊 | 模态查看器，支持键盘导航、触摸滑动、懒加载、图片加载失败降级 |
 | 🎬 视频查看器 | 嵌入B站视频，iframe 播放 |
 | 📜 歌单查看器 | 完整曲目列表，支持中英双语、实时搜索过滤、分组显示 |
 | 🔍 歌单搜索 | 实时搜索歌曲，支持中英文关键词，输入验证防护 |
+| ⌨️ 键盘导航 | 统一键盘事件管理，支持图片/票根模态框键盘导航（←→翻页、Home/End跳转、ESC关闭） |
 | 📱 移动端手势 | 左右滑动切换演唱会详情和歌单，触摸反馈动画 |
 | 🌐 双语切换 | 中英文实时切换，记忆用户偏好，动态更新所有文本 |
 | 🎵 背景音乐 | 自动播放、淡入淡出、状态同步、音乐源切换 |
@@ -49,6 +50,7 @@
 - **localStorage** — 语言偏好持久化
 - **IntersectionObserver** — 滚动触发动画、懒加载、返回顶部按钮
 - **Touch Events API** — 移动端滑动手势识别
+- **KeyboardManager** — 统一键盘事件管理，支持优先级机制
 - **XSS防护机制** — 输入验证、HTML转义、URL验证
 - **防抖/节流函数** — 优化搜索、滚动、动画性能
 - **百度统计 / Google Analytics / 51.la** — 多维度用户行为分析
@@ -78,11 +80,12 @@ ilive/
 │   └── datas_en.js         # 英文数据（包含演唱会数据 concertDataEN 和许愿墙数据 wishesDataEN）
 │
 ├── js/
-│   ├── config.js           # 全局配置（GitHub、音乐、图片、动画、缓存等）
-│   ├── utils.js            # 通用工具（防抖/节流/XSS防护/语言切换）
+│   ├── config.js           # 全局配置（GitHub、音乐、图片、动画、缓存、专辑轮播等）
+│   ├── keyboardManager.js  # 键盘事件管理器（统一管理键盘事件，支持优先级）
+│   ├── utils.js            # 通用工具（防抖/节流/XSS防护/语言切换/图片错误处理）
 │   ├── error.js            # 错误处理与 Toast
 │   ├── music.js            # 背景音乐播放器（自动播放、淡入淡出）
-│   ├── gallery.js          # 图片画廊与手势交互（键盘导航、触摸滑动）
+│   ├── gallery.js          # 图片画廊与手势交互（键盘导航、触摸滑动、图片加载失败处理）
 │   ├── songlist.js         # 歌单查看器（渲染、搜索、过滤、分组）
 │   ├── navigation.js       # 导航/返回顶部/模态框/反馈按钮/触摸手势
 │   ├── friendLink.js       # 友情链接动态生成（中英文切换）
@@ -124,6 +127,7 @@ ilive/
 | 音乐 | `MUSIC_VOLUME` / `MUSIC_AUTOPLAY` / `MUSIC_FADE_DURATION` | 背景音乐控制与淡入淡出 |
 | 图片 | `LAZY_LOAD_THRESHOLD` / `IMAGE_RETRY_MAX` / `IMAGE_RETRY_DELAY` | 懒加载、重试策略 |
 | 动画 | `GSAP_ALBUM_DURATION` / `CAROUSEL_INTERVAL` / `ANIMATION_DURATION` | GSAP动画参数 |
+| 专辑轮播 | `ALBUM_CAROUSEL` | 轮播半径、选中卡片偏移、缩放比例等详细配置 |
 | 手势 | `SWIPE_MIN_DISTANCE` / `SWIPE_MAX_TIME` / `SWIPE_OPACITY_MIN` | 触摸滑动阈值 |
 | 缓存 | `CACHE_VERSION` / `CACHE_STRATEGY` | SW缓存策略 |
 | UI | `SCROLL_THRESHOLD` / `TOAST_DURATION` / `SKELETON_MIN_WAIT` | 交互阈值、骨架屏 |
@@ -141,6 +145,9 @@ ilive/
 | `safeHtml(html)` | 安全HTML处理，允许特定标签 |
 | `sanitizeInput(input, maxLength)` | 输入验证和净化，用于搜索框 |
 | `safeCreateElement(tag, content, className)` | 安全创建DOM元素 |
+| `handleImageError(img, imageList, index)` | 图片加载失败处理，支持降级加载和重试机制 |
+| `isValidUrl(url)` | URL安全验证，防止javascript:协议注入 |
+| `safeSetUrl(element, attr, url)` | 安全设置URL属性，自动验证URL格式 |
 | `getLangData(key)` | 获取当前语言数据 |
 | `t(key)` | 翻译函数，用于i18n |
 
@@ -184,6 +191,13 @@ ilive/
 
 ### 双语支持
 座位和价格信息完全支持中英文切换，通过 `datas_zh.js` 和 `datas_en.js` 动态生成。
+
+---
+
+## ⌨️ 键盘事件管理器
+
+### 功能说明
+统一管理全局键盘事件，避免重复监听，支持优先级机制。
 
 ---
 

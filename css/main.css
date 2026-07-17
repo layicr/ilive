@@ -337,7 +337,7 @@ body {
 .role-item:active {
     background: linear-gradient(135deg, #d88263 0%, #ff8c42 100%);
     color: white;
-    transform: scale(2) translateY(-5px);
+    transform: scale(1.15) translateY(-5px);
     box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
     z-index: 10;
 }

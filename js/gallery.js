@@ -58,7 +58,6 @@ function openImageModal(src, alt, imageList = null, startIndex = 0) {
     updateModalNavButtons();
     modal.classList.add('show');
 
-    document.addEventListener('keydown', handleModalKeydown);
     initTouchGestures();
 }
 
@@ -68,7 +67,6 @@ function closeImageModal() {
     currentImageList = [];
     currentImageIndex = 0;
 
-    document.removeEventListener('keydown', handleModalKeydown);
     cleanupTouchGestures();
 }
 
@@ -115,24 +113,22 @@ function updateModalNavButtons() {
     }
 }
 
-// 键盘快捷键处理
+// 键盘快捷键处理（使用统一键盘管理器）
 function handleModalKeydown(e) {
-    if (!modal.classList.contains('show')) return;
+    if (!modal.classList.contains('show')) return false;
 
     switch (e.key) {
         case 'Escape':
-            e.preventDefault();
             closeImageModal();
-            break;
+            return true; // 停止传播
         case 'ArrowLeft':
-            e.preventDefault();
             navigateImage(-1);
-            break;
+            return true; // 停止传播
         case 'ArrowRight':
-            e.preventDefault();
             navigateImage(1);
-            break;
+            return true; // 停止传播
     }
+    return false;
 }
 
 // 初始化触摸手势
@@ -248,24 +244,9 @@ function createGalleryItem(img, imgIndex, concertImages) {
     imgElement.loading = 'lazy';
     imgElement.decoding = 'async';
 
+    // 使用统一的图片错误处理函数
     imgElement.onerror = function() {
-        this.errorCount = (this.errorCount || 0) + 1;
-
-        if (this.src.includes('_thumb.jpg') || this.src.includes('_medium.jpg')) {
-            console.warn(`图片加载失败（尝试 ${this.errorCount}），使用原图:`, img.src);
-            this.src = img.src;
-            this.srcset = '';
-        } else if (this.errorCount < CONFIG.IMAGE_RETRY_MAX) {
-            const retryDelay = CONFIG.IMAGE_RETRY_DELAY * this.errorCount;
-            console.warn(`原图加载失败（尝试 ${this.errorCount}），${retryDelay}ms 后重试`);
-            setTimeout(() => {
-                this.src = this.src.split('?')[0] + '?retry=' + this.errorCount;
-            }, retryDelay);
-        } else {
-            console.error(`图片加载失败（尝试 ${this.errorCount}），显示占位图`);
-            this.src = 'img/logo.jpg';
-            this.onerror = null;
-        }
+        handleImageError(this, img.src);
     };
 
     div.appendChild(imgElement);
@@ -295,11 +276,9 @@ modal.addEventListener('click', e => e.target === modal && closeImageModal());
 prevImageBtn.addEventListener('click', () => navigateImage(-1));
 nextImageBtn.addEventListener('click', () => navigateImage(1));
 
-// 键盘导航（全局）
-document.addEventListener('keydown', e => {
-    if (modal.classList.contains('show')) {
-        if (e.key === 'Escape') closeImageModal();
-        else if (e.key === 'ArrowLeft' && currentImageList.length > 0) navigateImage(-1);
-        else if (e.key === 'ArrowRight' && currentImageList.length > 0) navigateImage(1);
-    }
-});
+// 初始化时注册键盘事件（高优先级）
+if (window.KeyboardManager) {
+    window.KeyboardManager.register('Escape', handleModalKeydown, 10);
+    window.KeyboardManager.register('ArrowLeft', handleModalKeydown, 10);
+    window.KeyboardManager.register('ArrowRight', handleModalKeydown, 10);
+}

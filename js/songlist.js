@@ -196,13 +196,6 @@ songlistModal.addEventListener('click', e => {
     }
 });
 
-// ESC键关闭歌单模态框
-document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && songlistModal.classList.contains('show')) {
-        closeSonglistModalFunc();
-    }
-});
-
 // ==================== 搜索事件监听 ====================
 if (songlistSearchInput) {
     // 使用防抖函数避免频繁触发（300ms延迟）

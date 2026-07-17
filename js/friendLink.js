@@ -102,6 +102,12 @@ function generateFriendLinks() {
 
     // 生成友情链接
     friendLinksData.forEach(link => {
+        // 安全验证URL
+        if (typeof isValidUrl === 'function' && !isValidUrl(link.href)) {
+            console.warn('友情链接URL不安全，已跳过:', link.href);
+            return; // 跳过不安全的链接
+        }
+
         const anchor = document.createElement('a');
         anchor.href = link.href;
         anchor.target = '_blank';

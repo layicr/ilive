@@ -215,6 +215,86 @@ function sanitizeInput(input, maxLength = 100) {
 }
 
 /**
+ * 图片错误处理函数
+ * @param {HTMLImageElement} img - 图片元素
+ * @param {string} originalSrc - 原始图片地址
+ * @param {string} [fallbackSrc='img/logo.jpg'] - 失败后的占位图地址
+ * @description 统一处理图片加载失败逻辑，包括：
+ *              1. 尝试降级加载（缩略图 → 中等图 → 原图）
+ *              2. 重试机制（最多3次）
+ *              3. 显示占位图
+ * @example
+ * imgElement.onerror = function() {
+ *     handleImageError(this, originalImageUrl);
+ * };
+ */
+function handleImageError(img, originalSrc, fallbackSrc = 'img/logo.jpg') {
+    // 累计错误次数
+    img.errorCount = (img.errorCount || 0) + 1;
+
+    // 如果当前是缩略图或中等尺寸图，尝试降级到原图
+    if (img.src.includes('_thumb.jpg') || img.src.includes('_medium.jpg')) {
+        console.warn(`图片加载失败（尝试 ${img.errorCount}），使用原图:`, originalSrc);
+        img.src = originalSrc;
+        img.srcset = '';
+        return;
+    }
+
+    // 如果是原图且重试次数未达上限，延迟重试
+    if (img.errorCount < CONFIG.IMAGE_RETRY_MAX) {
+        const retryDelay = CONFIG.IMAGE_RETRY_DELAY * img.errorCount;
+        console.warn(`原图加载失败（尝试 ${img.errorCount}），${retryDelay}ms 后重试`);
+        setTimeout(() => {
+            // 添加随机参数避免缓存
+            img.src = img.src.split('?')[0] + '?retry=' + img.errorCount;
+        }, retryDelay);
+        return;
+    }
+
+    // 重试次数已达上限，显示占位图
+    console.error(`图片加载失败（尝试 ${img.errorCount}），显示占位图`);
+    img.src = fallbackSrc;
+    img.onerror = null; // 移除错误处理器，避免无限循环
+}
+
+// ==================== URL安全验证 ====================
+/**
+ * 验证URL安全性
+ * @param {string} url - 需要验证的URL
+ * @returns {boolean} 是否为安全的URL
+ * @description 只允许http/https协议，防止javascript:等危险协议
+ *              用于防御XSS攻击中的协议注入
+ */
+function isValidUrl(url) {
+    if (typeof url !== 'string') return false;
+
+    // 允许的协议白名单
+    const allowedProtocols = ['http://', 'https://', 'mailto:', 'tel:'];
+    const lowerUrl = url.toLowerCase().trim();
+
+    // 检查是否以安全协议开头
+    return allowedProtocols.some(protocol => lowerUrl.startsWith(protocol));
+}
+
+/**
+ * 安全设置URL属性
+ * @param {HTMLElement} element - DOM元素
+ * @param {string} attr - 属性名（href/src）
+ * @param {string} url - URL值
+ * @returns {boolean} 是否成功设置
+ * @description 验证URL安全性后再设置，防止javascript:协议注入
+ */
+function safeSetUrl(element, attr, url) {
+    if (isValidUrl(url)) {
+        element.setAttribute(attr, url);
+        return true;
+    } else {
+        console.warn('不安全的URL被阻止:', url);
+        return false;
+    }
+}
+
+/**
  * 格式化许愿时间
  * @param {string} timeString - 时间字符串（ISO格式）
  * @param {string} [lang] - 语言代码，默认使用 currentLanguage
