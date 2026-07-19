@@ -33,6 +33,7 @@ const concertsBaseData = {
             seat: { zh: "25-26 22排", en: "Row 22,Stands 25-26" },
             price: { zh: "¥455", en: "¥455" },
             date: "2016.09.03",
+            time: "19:30",
             poster: "concert/poster/20160903.jpg",
             tags: {
                 zh: ["五月天", "单反", "恋爱ing", "安可", "万人合唱", "温柔", "不打扰", "Just Rock It"],
@@ -95,6 +96,7 @@ const concertsBaseData = {
             location: { zh: "北京 · 北京 · 国家体育场鸟巢", en: "Beijing · Bird's Nest" },
 
             date: "2016.10.21",
+            time: "19:30",
             poster: "concert/poster/20161021.jpg",
             tags: {
                 zh: ["陈奕迅", "鸟巢", "淘汰", "十年", "你的背包", "荧光棒", "好久不见"],
@@ -152,6 +154,7 @@ const concertsBaseData = {
             seat: { zh: "场外", en: "Outside Venue" },
 
             date: "2023.10.13",
+            time: "19:30",
             poster: "concert/poster/20231013.jpg",
             tags: {
                 zh: ["伍佰", "场外", "遗憾", "奋斗", "友情", "怀旧", "音乐粉丝", "坚持", "Rock Star"],
@@ -212,6 +215,7 @@ const concertsBaseData = {
             seat: { zh: "三层 318区 7排", en: "Row 7,Section 318,Level 3" },
             price: { zh: "¥699", en: "¥699" },
             date: "2024.12.08",
+            time: "19:00",
             poster: "concert/poster/20241208.jpg",
             tags: {
                 zh: ["小齐哥", "青春记忆", "治愈", "成长", "友情", "中年", "怀旧", "任贤齐", "磁带机", "沿海小镇", "陪伴"],
@@ -282,6 +286,7 @@ const concertsBaseData = {
             seat: { zh: "329区 8排", en: "Row 8,Section 329" },
             price: { zh: "¥480", en: "¥480" },
             date: "2025.05.18",
+            time: "19:00",
             poster: "concert/poster/20250518.jpg",
             tags: {
                 zh: ["我怀念的", "孙燕姿", "天黑黑", "遇见", "绿光", "尚好的青春", "逆光", "AUT NIHILO"],
@@ -349,6 +354,7 @@ const concertsBaseData = {
             seat: { zh: "内场 D4区 7排", en: "Row 7,Section D4" },
             price: { zh: "¥780", en: "¥780" },
             date: "2025.11.15",
+            time: "19:30",
             poster: "concert/poster/20251115.jpg",
             tags: {
                 zh: ["行走CD", "小刚", "情歌", "周传雄", "黄昏", "记事本", "念念不忘", "再遇见"],
@@ -422,6 +428,7 @@ const concertsBaseData = {
             seat: { zh: "5楼 C55区 16排", en: "Row 16,Section C55,Level 5" },
             price: { zh: "¥580", en: "¥580" },
             date: "2025.11.30",
+            time: "19:30",
             poster: "concert/poster/20251130.jpg",
             tags: {
                 zh: ["邓紫棋", "泡沫", "龙卷风", "唯一", "记忆", "情感", "时光", "I AM GLORIA"],
@@ -499,6 +506,7 @@ const concertsBaseData = {
             seat: { zh: "220区 11排", en: "Row 11,Section 220" },
             price: { zh: "¥580", en: "¥580" },
             date: "2026.01.02",
+            time: "19:30",
             poster: "concert/poster/20260102.jpg",
             tags: {
                 zh: ["歌谣", "李荣浩", "海陆风", "机车", "紫荆花盛开", "香港", "旅行", "背包客", "台湾", "鹅銮鼻", "太平洋", "黑马"],
@@ -572,6 +580,7 @@ const concertsBaseData = {
             seat: { zh: "内场 VIP6区 1排", en: "Row 1,Section VIP6,Level 1" },
             price: { zh: "¥1580", en: "¥1580" },
             date: "2026.01.09",
+            time: "19:30",
             poster: "concert/poster/20260109.jpg",
             tags: {
                 zh: ["KTV", "指挥家", "歌友", "伍佰", "摇滚", "青春", "Last Dance", "Rock Star 2"],
@@ -637,6 +646,7 @@ const concertsBaseData = {
             seat: { zh: "内场 VIP4区 9排", en: "Row 9,Section VIP4" },
             price: { zh: "¥2380", en: "¥2380" },
             date: "2026.04.17",
+            time: "19:30",
             poster: "concert/poster/20260417.jpg",
             tags: {
                 zh: ["周杰伦", "甜甜的", "青春", "校园", "梦想"],
@@ -733,6 +743,7 @@ const concertsBaseData = {
             seat: { zh: "3楼 A12区 3排", en: "Row 3,Section A12,Level 3" },
             price: { zh: "¥990", en: "¥990" },
             date: "2026.05.03",
+            time: "19:30",
             poster: "concert/poster/20260503.jpg",
             tags: {
                 zh: ["蔡依林", "PLEASURE", "青春", "倒带", "舞娘"],
@@ -814,6 +825,7 @@ const concertsBaseData = {
             seat: { zh: "5楼 C45区 3排", en: "Row 3,Section C45,Level 5" },
             price: { zh: "¥480", en: "¥480" },
             date: "2026.05.24",
+            time: "19:30",
             poster: "concert/poster/20260524.jpg",
             tags: {
                 zh: ["乌梅子酱", "青皮甘蔗", "杨丞琳", "黑马", "李荣浩"],
@@ -891,6 +903,7 @@ const concertsBaseData = {
             seat: { zh: "113区 1层 31排", en: "Row 31,Section 113,Level 1" },
             price: { zh: "¥780", en: "¥780" },
             date: "2026.06.27",
+            time: "19:30",
             poster: "concert/poster/20260627.jpg",
             tags: {
                 zh: ["命硬", "男人KTV", "情歌", "OldBoy", "侧田", "再一起 COME TOGETHER"],
@@ -953,6 +966,7 @@ const concertsBaseData = {
             seat: { zh: "5层 513区 10排", en: "Row 10,Section 513,Level 5" },
             price: { zh: "¥380", en: "¥380" },
             date: "2026.07.04",
+            time: "19:30",
             poster: "concert/poster/20260704.jpg",
             tags: {
                 zh: ["动力火车", "摇滚",  "当", "忠孝东路走九遍", "回忆",  "青春"],

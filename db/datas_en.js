@@ -9,6 +9,7 @@ function generateENData() {
         seat: concert.seat ? concert.seat.en : null,
         price: concert.price ? concert.price.en : null,
         date: concert.date,
+        time: concert.time,
         poster: concert.poster,
         tags: concert.tags.en,
         description: concert.description.en,

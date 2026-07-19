@@ -11,6 +11,7 @@ function generateZHData() {
         seat: concert.seat ? concert.seat.zh : null,
         price: concert.price ? concert.price.zh : null,
         date: concert.date,
+        time: concert.time,
         poster: concert.poster,
         tags: concert.tags.zh,
         description: concert.description.zh,

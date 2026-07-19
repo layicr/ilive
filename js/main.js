@@ -149,7 +149,7 @@ function renderTimeline() {
 
             const dateDiv = document.createElement('div');
             dateDiv.className = 'concert-date';
-            dateDiv.textContent = concert.date;
+            dateDiv.textContent = concert.date + (concert.time ? ' ' + concert.time : '');
             timelineContent.appendChild(dateDiv);
 
             const artistH2 = document.createElement('h2');
@@ -544,7 +544,7 @@ function init3DAlbumShowcase() {
             const firstAlbum = albums[0];
             document.getElementById('detailTitle').textContent = firstAlbum.title;
             document.getElementById('detailSubtitle').textContent = firstAlbum.subtitle;
-            document.getElementById('detailDate').textContent = `${firstAlbum.date} `;
+            document.getElementById('detailDate').textContent = `${firstAlbum.date}${firstAlbum.time ? ' ' + firstAlbum.time : ''} `;
             document.getElementById('albumIntro').textContent = firstAlbum.intro;
         }
     }
@@ -604,7 +604,7 @@ function init3DAlbumShowcase() {
 
         document.getElementById('detailTitle').textContent = selectedAlbum.title;
         document.getElementById('detailSubtitle').textContent = selectedAlbum.subtitle;
-        document.getElementById('detailDate').textContent = `${selectedAlbum.date} `;
+        document.getElementById('detailDate').textContent = `${selectedAlbum.date}${selectedAlbum.time ? ' ' + selectedAlbum.time : ''} `;
         document.getElementById('albumIntro').textContent = selectedAlbum.intro;
 
         applyCarouselLayout(index);
@@ -879,7 +879,7 @@ function createTicketCard(concert, number) {
             <div class="ticket-info">
                 <div class="ticket-info-item">
                     <i class="fas fa-calendar"></i>
-                    <span>${escapeHtml(concert.date || '')}</span>
+                    <span>${escapeHtml(concert.date || '')}${concert.time ? ' ' + escapeHtml(concert.time) : ''}</span>
                 </div>
                 <div class="ticket-info-item">
                     <i class="fas fa-map-marker-alt"></i>

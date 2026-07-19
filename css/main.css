@@ -462,7 +462,10 @@ body {
 }
 
 .stats-grid {
+    /* 鸿蒙浏览器兼容性前缀 */
+    display: -webkit-grid;
     display: grid;
+    -webkit-grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 30px;
     max-width: 1400px;
@@ -611,7 +614,10 @@ body {
 }
 
 .wish-grid {
+    /* 鸿蒙浏览器兼容性前缀 */
+    display: -webkit-grid;
     display: grid;
+    -webkit-grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
 }
@@ -1021,7 +1027,7 @@ body {
 @media (max-width: 768px) {
     .music-player {
         bottom: 160px; /* 移动端位置调整 */
-        right: 40px;
+        right: 3px;
     }
 
     .music-btn {
@@ -3009,10 +3015,24 @@ body {
     scrollbar-color: #764ba2 rgba(255, 255, 255, 0.05);
 }
 
+/* 票根模态框头部 - 固定容器 */
+.ticket-modal-header {
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    backdrop-filter: blur(10px);
+    margin: -40px -40px 30px -40px;
+    padding: 20px 40px;
+}
+
 .ticket-close {
-    position: absolute;
-    top: 20px;
-    right: 25px;
+    position: relative;
+    top: 0;
+    right: 0;
     background: rgba(255, 255, 255, 0.1);
     border: none;
     color: #fff;
@@ -3025,7 +3045,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 10;
+    z-index: 20;
+    flex-shrink: 0;
 }
 
 .ticket-close:hover {
@@ -3038,13 +3059,17 @@ body {
     color: #fff;
     font-size: 32px;
     font-weight: 700;
-    margin-bottom: 40px;
     letter-spacing: 2px;
+    margin: 0;
+    flex: 1;
 }
 
 /* 票根容器 - 网格布局 */
 .ticket-container {
+    /* 鸿蒙浏览器兼容性前缀（支持HarmonyOS 2.0-3.0 WebKit内核） */
+    display: -webkit-grid;
     display: grid;
+    -webkit-grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 30px;
     padding: 10px;
@@ -3261,9 +3286,13 @@ body {
         padding: 25px 20px;
     }
 
+    .ticket-modal-header {
+        padding: 15px 20px;
+        margin: -25px -20px 20px -20px;
+    }
+
     .ticket-modal-title {
         font-size: 24px;
-        margin-bottom: 25px;
     }
 
     .ticket-container {
@@ -3288,8 +3317,6 @@ body {
     }
 
     .ticket-close {
-        top: 15px;
-        right: 15px;
         font-size: 28px;
         width: 35px;
         height: 35px;
